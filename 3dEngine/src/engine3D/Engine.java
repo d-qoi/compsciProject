@@ -65,7 +65,14 @@ public class Engine {
 	
 	private boolean renderCheckWorld()
 	{
-		
+		//TODO get this working, needs to check if FOVbox intersects the world box.
+		return false;
+	}
+	
+	private boolean renderCheckEntity()
+	{
+		//TODO see if the entity intersects the FOVbox.
+		return false;
 	}
 	
 }
