@@ -63,4 +63,9 @@ public class Engine {
 		}
 	}
 	
+	private boolean renderCheckWorld()
+	{
+		
+	}
+	
 }
