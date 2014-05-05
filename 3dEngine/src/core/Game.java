@@ -1,6 +1,6 @@
 package core;
 
-public class TankGame {
+public class Game {
 
 	public static GameWindow WINDOW;
 
