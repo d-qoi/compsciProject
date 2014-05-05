@@ -38,8 +38,11 @@ public class Bounds3D {
 	}
 	
 	public int [][][] getFaces() {
+		
 		int[][][] faces = new int[6][5][3];
 		int [] bounds = getBounds();
+		
+		
 		//face 0 is z1 unchanging base x, y, z
 		//vert 1
 		faces[0][0][0] = bounds[0];
@@ -165,7 +168,9 @@ public class Bounds3D {
 	public int[] getCenterOfFace(int[][] face)
 	{
 		int[] center = new int[3];
-		
+		center[0] = (face[0][0] + face[3][0])/2;
+		center[1] = (face[0][1] + face[3][1])/2;
+		center[2] = (face[0][2] + face[3][2])/2;
 		return center;
 	}
 
