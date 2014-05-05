@@ -12,7 +12,7 @@ public class RenderPanel extends JPanel {
 
 	private static final long serialVersionUID = -7206037125084756503L;
 
-	public GameWindow window = TankGame.WINDOW;
+	public GameWindow window = Game.WINDOW;
 	public BufferedImage renderImage;
 
 	public PriorityQueue<RenderObject> dynamicObjects, staticObjects;
