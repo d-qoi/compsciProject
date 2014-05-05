@@ -106,13 +106,13 @@ public class RenderPolygon {
 	public String toString() {
 		String out = "";
 		out += "X1 : " + x1 + " :: ";
-		out += "Y1 : " + y1 + " :: \n";
+		out += "Y1 : " + y1 + "\n";
 		out += "X2 : " + x2 + " :: ";
-		out += "Y2 : " + y2 + " :: \n";
+		out += "Y2 : " + y2 + "\n";
 		out += "X3 : " + x3 + " :: ";
-		out += "Y3 : " + y3 + " :: \n";
+		out += "Y3 : " + y3 + "\n";
 		out += "X4 : " + x4 + " :: ";
-		out += "Y4 : " + y4 + " :: \n";
+		out += "Y4 : " + y4 + "\n";
 		return out;
 	}
 	

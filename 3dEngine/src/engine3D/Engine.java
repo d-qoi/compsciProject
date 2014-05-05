@@ -1,7 +1,5 @@
 package engine3D;
 
-import javax.annotation.processing.RoundEnvironment;
-
 public class Engine {
 	
 	private static int FOVAngleStep = 5;
@@ -14,7 +12,7 @@ public class Engine {
 	
 
 	
-	Rectangle[][] FOVBox = new Rectangle[horizontalFOV/FOVAngleStep][viewDistance/FOVBoxDepth];
+	Rectangle[][] FOVBox; 
 	
 	
 	public Engine(int verticalFOV, int horizontalFOV,
@@ -35,6 +33,7 @@ public class Engine {
 		this.viewDistance = 1000;
 		this.characterHeight = 85;
 		calcFOVBox();
+		camera = new Camera(characterHeight);
 	}
 
 	public Engine(int characterHeight) {
@@ -43,6 +42,7 @@ public class Engine {
 		this.horizontalFOV = 90;
 		this.viewDistance = 1000;
 		calcFOVBox();
+		camera = new Camera(characterHeight);
 	}
 	public Engine()	{
 		this(22,90,1000,85);
@@ -55,15 +55,21 @@ public class Engine {
 	
 	private void calcFOVBox() {
 		
-		for(int angle = 0; angle<horizontalFOV; angle+=FOVAngleStep)
+		//System.out.println(viewDistance/FOVBoxDepth);
+		FOVBox = new Rectangle[horizontalFOV/FOVAngleStep][viewDistance/FOVBoxDepth];
+		for(int angle = 0; angle<horizontalFOV/FOVAngleStep; angle++)
 		{
 			
-			for(int depth = 0; depth<viewDistance; depth+=FOVBoxDepth)
+			for(int depth = 0; depth<viewDistance/FOVBoxDepth; depth++)
 			{
-				FOVBox[angle][depth] = new Rectangle(angle, depth, 
+				FOVBox[angle][depth] = new Rectangle(angle * FOVAngleStep, depth * FOVBoxDepth, 
 						verticalFOV, characterHeight);
+				//System.out.printf("Angle %d depth %d \n", angle, depth);
 			}
 		}
+	}
+	public void useCamera(Camera camera) {
+		this.camera = camera;
 	}
 	
 	private boolean renderCheckWorld()	{
@@ -116,5 +122,9 @@ public class Engine {
 		point[1] += convertedZ;
 		
 		return point;
+	}
+	public RenderPolygon[] debuggingRendering(core.Bounds3D that)
+	{
+		return convertToScreenWorld(that);
 	}
 }
