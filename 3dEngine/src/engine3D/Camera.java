@@ -16,6 +16,12 @@ public class Camera {
 		this.z = z;
 		this.rotation = 0;
 	}
+	public Camera(int z) {
+		this.x = 0;
+		this.y = 0;
+		this.z = z;
+		this.rotation = 0;
+	}
 
 	public int getX() {
 		return x;
@@ -54,8 +60,13 @@ public class Camera {
 		this.rotation = rotation;
 	}
 	
-	public int distanceToXY(core.Bounds3D that)
-	{
+	public int distanceToXY(core.Bounds3D that) {
 		return (int)Math.sqrt(Math.pow(that.getX() + this.x, 2) - Math.pow(that.getY() + this.y, 2) + Math.pow(that.getZ() + this.z,2));
+	}
+	public int getDeltaX(core.Bounds3D that) {
+		return this.x - that.getX();
+	}
+	public int getDeltaY(core.Bounds3D that) {
+		return this.y - that.getY();
 	}
 }

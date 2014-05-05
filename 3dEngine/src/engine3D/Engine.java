@@ -8,6 +8,7 @@ public class Engine {
 	private int characterHeight;
 	public int verticalFOV;
 	public int horizontalFOV;
+	public Camera camera;
 	
 
 	
@@ -21,6 +22,7 @@ public class Engine {
 		this.viewDistance = viewDistance;
 		this.characterHeight = characterHeight;
 		calcFOVBox();
+		camera = new Camera(characterHeight);
 		
 	}
 
@@ -74,9 +76,10 @@ public class Engine {
 		//TODO see if the entity intersects the FOVbox.
 		return false;
 	}
-	private int[] convertToScreen()
+	private RenderPolygon convertToScreen()
 	{
-		int[] point = new int[3];
+		RenderPolygon poly = new RenderPolygon();
+		
 		
 		
 		return point;
