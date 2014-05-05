@@ -26,6 +26,18 @@ public class RenderPolygon {
 		this.x4 = 0;
 		this.y4 = 0;
 	}
+	
+	public RenderPolygon(int[][] face)
+	{
+		this.x1 = face[0][0];
+		this.y1 = face[0][1];
+		this.x2 = face[1][0];
+		this.y2 = face[1][1];
+		this.x3 = face[2][0];
+		this.y3 = face[2][1];
+		this.x4 = face[3][0];
+		this.y4 = face[3][1];
+	}
 
 	public int getX1() {
 		return x1;
