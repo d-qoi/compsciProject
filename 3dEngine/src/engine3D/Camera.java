@@ -1,7 +1,21 @@
 package engine3D;
 
 public class Camera {
-	private int x,y,rotation;
+	private int x,y,rotation, z;
+	
+	public Camera(int x, int y, int z, int rotation) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.rotation = rotation;
+	}
+
+	public Camera(int x, int y, int z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.rotation = 0;
+	}
 
 	public int getX() {
 		return x;
@@ -18,6 +32,19 @@ public class Camera {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	public int getZ() {
+		return z;		
+	}
+	
+	public void setZ(int z) {
+		this.z = z;
+	}
+	
+	public void setXY(int x, int y) {
+		this.x = x;
+		this.y = y;	
+	}
 
 	public int getRotation() {
 		return rotation;
@@ -29,7 +56,6 @@ public class Camera {
 	
 	public int distanceToXY(core.Bounds3D that)
 	{
-		int[] = that.g
-		return (int)(Math.sqrt((Math.pow((, b)))
+		return (int)Math.sqrt(Math.pow(that.getX() + this.x, 2) - Math.pow(that.getY() + this.y, 2) + Math.pow(that.getZ() + this.z,2));
 	}
 }
