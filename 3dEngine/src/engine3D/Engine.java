@@ -81,4 +81,11 @@ public class Engine {
 		return null;
 	}
 	
+	private int[] convertPointtoScreen(int x, int y, int z) {
+		int[] point = new int[3];
+		point[0] = camera.getDeltaX(x) * (int)Math.sin(Math.toRadians(camera.getRotation()));
+		point[1] = camera.getDeltaY(y) * (int)Math.cos(Math.toRadians(camera.getRotation()));
+		point[2] = camera.getDeltaZ(z) * (int)(camera.getDeltaZ(z)/camera.distanceToXY(x, y));
+		return point;
+	}
 }

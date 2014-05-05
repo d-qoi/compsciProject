@@ -69,4 +69,7 @@ public class Camera {
 	public int getDeltaY(int y) {
 		return this.y - y;
 	}
+	public int getDeltaZ(int z) {
+		return this.z - z;
+	}
 }
