@@ -26,4 +26,10 @@ public class Camera {
 	public void setRotation(int rotation) {
 		this.rotation = rotation;
 	}
+	
+	public int distanceToXY(core.Bounds3D that)
+	{
+		int[] = that.g
+		return (int)(Math.sqrt((Math.pow((, b)))
+	}
 }

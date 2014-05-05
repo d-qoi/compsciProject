@@ -74,5 +74,12 @@ public class Engine {
 		//TODO see if the entity intersects the FOVbox.
 		return false;
 	}
+	private int[] convertToScreen()
+	{
+		int[] point = new int[3];
+		
+		
+		return point;
+	}
 	
 }

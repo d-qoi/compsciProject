@@ -7,6 +7,8 @@ public class Rectangle {
 	
 	public Rectangle(int angle, int distance, int verticalFOV, int playerHeight)
 	{
+		
+		//the sin and cos may need to be switched... sticking with the same throughout
 		double xoffleft = Math.sin(Math.toRadians(angle + 45));
 		double yoffleft = Math.cos(Math.toRadians(angle + 45));
 		double xoffright = Math.sin(Math.toRadians(angle - 45));
