@@ -35,6 +35,8 @@ public class GameWindow extends JFrame{
 		this.setFocusable(true);
 		this.setVisible(true);
 		
+		listener = new GameListener();
+		
 		this.addKeyListener(listener);
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);

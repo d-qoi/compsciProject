@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class RenderPanel extends JPanel {
 
 	private static final long serialVersionUID = -7206037125084756503L;
-	
+
 	public BufferedImage renderImage;
 
 	public PriorityQueue<RenderObject> objects;
@@ -20,16 +20,19 @@ public class RenderPanel extends JPanel {
 	public RenderPanel() {
 		super();
 		this.setFocusable(true);
-		
+
 		objects = new PriorityQueue<RenderObject>();
-		
-		objects.add(new Render2D(){ //Demo rendering object
-			public int motion;
-			
+
+		objects.add(new Render2D() { // Demo rendering object
+			public int x, y;
+
 			public void draw(Graphics2D r) {
-				motion ++;
+				x += (GameListener.keyDown['a'] ? -1 : 0)
+						+ (GameListener.keyDown['d'] ? 1 : 0);
+				y += (GameListener.keyDown['w'] ? -1 : 0)
+						+ (GameListener.keyDown['s'] ? 1 : 0);
 				r.setColor(Color.RED);
-				r.fillRect(motion % 500, 0, 50, 50);
+				r.fillRect(x, y, 50, 50);
 			}
 		});
 
@@ -45,7 +48,7 @@ public class RenderPanel extends JPanel {
 
 		render.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		
+
 		render.setColor(Color.BLACK);
 		render.fillRect(0, 0, width, height);
 
@@ -55,7 +58,7 @@ public class RenderPanel extends JPanel {
 	}
 
 	public void handleRendering(Graphics2D render) {
-		
+
 		for (RenderObject obj : objects) { // Rendering objects
 			obj.draw(render);
 		}
