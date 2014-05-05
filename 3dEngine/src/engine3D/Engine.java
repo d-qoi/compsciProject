@@ -73,8 +73,8 @@ public class Engine {
 		//TODO see if the entity intersects the FOVbox.
 		return false;
 	}
-	private RenderPolygon convertToScreen(core.Bounds3D that) {
-		int x1 = camera.getDeltaX(that.get
+	private RenderPolygon convertToScreenWorld(core.Bounds3D that) {
+		int[][][] faces = that.getFaces();
 		
 		
 		
