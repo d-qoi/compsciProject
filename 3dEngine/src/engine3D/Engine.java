@@ -98,7 +98,7 @@ public class Engine {
 			faceY[i] = convertPointToScreen(faceY[i][0], faceY[i][1], faceY[i][2]);
 		
 		//TODO if needed add one for Z, using the same math.
-		
+		//TODO FIX THIS
 		
 		return polys;
 	}
