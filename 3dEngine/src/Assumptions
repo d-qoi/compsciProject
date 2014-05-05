@@ -1,0 +1,10 @@
+Assumptions
+
+Everything is going to be a column according to the rendering engine.
+This can change later
+
+The character is never going to be able to look up or down.
+This can change later, but the rendering would have to be greatly extended.
+
+The other entities are going to be rendered based on their center point, and as 2d sprites.
+I don't what to think about what would happen otherwise.

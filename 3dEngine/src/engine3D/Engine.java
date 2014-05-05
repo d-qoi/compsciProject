@@ -15,7 +15,8 @@ public class Engine {
 	Rectangle[][] FOVBox = new Rectangle[horizontalFOV/FOVAngleStep][viewDistance/FOVBoxDepth];
 	
 	
-	public Engine(int verticalFOV, int horizontalFOV, int viewDistance, int characterHeight)
+	public Engine(int verticalFOV, int horizontalFOV,
+			int viewDistance, int characterHeight)
 	{
 		this.verticalFOV = verticalFOV;
 		this.horizontalFOV = horizontalFOV;
@@ -41,48 +42,43 @@ public class Engine {
 		this.viewDistance = 1000;
 		calcFOVBox();
 	}
-	public Engine()
-	{
+	public Engine()	{
 		this(22,90,1000,85);
 	}
 	
-	public void setViewDistance(int viewDistance)
-	{
+	public void setViewDistance(int viewDistance) {
 		this.viewDistance = viewDistance;
 		calcFOVBox();
 	}
 	
-	private void calcFOVBox()
-	{
+	private void calcFOVBox() {
 		
 		for(int angle = 0; angle<horizontalFOV; angle+=FOVAngleStep)
 		{
 			
 			for(int depth = 0; depth<viewDistance; depth+=FOVBoxDepth)
 			{
-				FOVBox[angle][depth] = new Rectangle(angle, depth, verticalFOV, characterHeight);
+				FOVBox[angle][depth] = new Rectangle(angle, depth, 
+						verticalFOV, characterHeight);
 			}
 		}
 	}
 	
-	private boolean renderCheckWorld()
-	{
+	private boolean renderCheckWorld()	{
 		//TODO get this working, needs to check if FOVbox intersects the world box.
 		return false;
 	}
 	
-	private boolean renderCheckEntity()
-	{
+	private boolean renderCheckEntity()	{
 		//TODO see if the entity intersects the FOVbox.
 		return false;
 	}
-	private RenderPolygon convertToScreen()
-	{
-		RenderPolygon poly = new RenderPolygon();
+	private RenderPolygon convertToScreen(core.Bounds3D that) {
+		int x1 = camera.getDeltaX(that.get
 		
 		
 		
-		return point;
+		return poly;
 	}
 	
 }
