@@ -2,18 +2,20 @@ package core;
 
 public class GameTick implements Runnable {
 
-	public static final long THREAD_DELAY = 25;
+	public static final long THREAD_DELAY = 5;
 
 	public boolean running;
+	public RenderPanel panel;
 
-	public GameTick() {
+	public GameTick(RenderPanel panel) {
 
 		running = true;
+		this.panel = panel;
 
 	}
 
 	public void tick() {
-
+		panel.repaint();
 	}
 
 	public void run() {

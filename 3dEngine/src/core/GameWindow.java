@@ -39,7 +39,7 @@ public class GameWindow extends JFrame{
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
 		
-		gameTick = new GameTick();		
+		gameTick = new GameTick(renderPanel);		
 		gameThread = new Thread(gameTick);
 		gameThread.start();
 	}

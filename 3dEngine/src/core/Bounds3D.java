@@ -30,9 +30,9 @@ public class Bounds3D {
 		bounds[0] = x - width / 2; // min x
 		bounds[1] = y - depth / 2; // min y
 		bounds[2] = z - height / 2; // min z
-		bounds[3] = x + width / 2; // min x
-		bounds[4] = y + depth / 2; // min y
-		bounds[5] = z + height / 2; // min z
+		bounds[3] = x + width / 2; // max x
+		bounds[4] = y + depth / 2; // max y
+		bounds[5] = z + height / 2; // max z
 
 		return bounds;
 	}
