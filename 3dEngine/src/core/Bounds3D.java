@@ -192,9 +192,9 @@ public class Bounds3D {
 	public boolean intersects(Bounds3D other) {
 		Rectangle[] aBounds = getDirBounds(), bBounds = other.getDirBounds();
 
-		return aBounds[0].intersects(bBounds[0]) // such inefficient, much bad
-				&& aBounds[1].intersects(bBounds[1])
-				&& aBounds[2].intersects(bBounds[2]);
+		return (aBounds[0].intersects(bBounds[0])?1:0) // such inefficient, much bad
+				+ (aBounds[1].intersects(bBounds[1])?1:0)
+				+ (aBounds[2].intersects(bBounds[2])?1:0) > 1;
 	}
 	
 	

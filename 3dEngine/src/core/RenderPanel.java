@@ -12,17 +12,16 @@ public class RenderPanel extends JPanel {
 
 	private static final long serialVersionUID = -7206037125084756503L;
 
-	public GameWindow window = TankGame.WINDOW;
+	public GameWindow window = Game.WINDOW;
 	public BufferedImage renderImage;
 
-	public PriorityQueue<RenderObject> dynamicObjects, staticObjects;
+	public PriorityQueue<RenderObject> objects;
 
 	public RenderPanel() {
 		super();
 		super.setFocusable(true);
 
-		dynamicObjects = new PriorityQueue<RenderObject>();
-		staticObjects = new PriorityQueue<RenderObject>();
+		objects = new PriorityQueue<RenderObject>();
 
 	}
 
@@ -43,12 +42,8 @@ public class RenderPanel extends JPanel {
 	}
 
 	public void handleRendering(Graphics2D render) {
-
-		for (RenderObject obj : staticObjects) { // Rendering static objects
-			obj.draw(render);
-		}
-
-		for (RenderObject obj : dynamicObjects) { // Rendering dynamic objects
+		
+		for (RenderObject obj : objects) { // Rendering objects
 			obj.draw(render);
 		}
 

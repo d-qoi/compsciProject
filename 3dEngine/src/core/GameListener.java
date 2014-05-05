@@ -8,6 +8,10 @@ import java.awt.event.MouseMotionListener;
 
 public class GameListener implements KeyListener, MouseListener,
 		MouseMotionListener {
+	
+	public static boolean[] keyDown = new boolean[65536];
+	public static boolean mouseDown = false;
+	public static boolean mouseFocus = false;
 
 	public GameListener() {
 	}
@@ -25,26 +29,27 @@ public class GameListener implements KeyListener, MouseListener,
 	}
 
 	public void mouseEntered(MouseEvent arg0) {
-
+		mouseFocus = true;
 	}
 
 	public void mouseExited(MouseEvent arg0) {
-
+		mouseFocus = false;
 	}
 
 	public void mousePressed(MouseEvent arg0) {
-
+		mouseDown = true;
 	}
 
 	public void mouseReleased(MouseEvent arg0) {
-
+		mouseDown = false;
 	}
 
 	public void keyPressed(KeyEvent arg0) {
-
+		keyDown[arg0.getKeyChar()] = true;
 	}
 
 	public void keyReleased(KeyEvent arg0) {
+		keyDown[arg0.getKeyChar()] = false;
 
 	}
 
