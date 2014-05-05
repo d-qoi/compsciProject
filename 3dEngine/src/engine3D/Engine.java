@@ -97,17 +97,24 @@ public class Engine {
 		for(int i= 0; i<faceY.length; i++)
 			faceY[i] = convertPointToScreen(faceY[i][0], faceY[i][1], faceY[i][2]);
 		
-		//TODO if needed add one for Z, using the same math.
+		
 		//TODO FIX THIS
+		
+		polys[0] = new RenderPolygon(faceX);
+		polys[1] = new RenderPolygon(faceY);
 		
 		return polys;
 	}
 	
 	private int[] convertPointToScreen(int x, int y, int z) {
-		int[] point = new int[3];
+		int[] point = new int[2];
 		point[0] = camera.getDeltaX(x) * (int)Math.sin(Math.toRadians(camera.getRotation()));
 		point[1] = camera.getDeltaY(y) * (int)Math.cos(Math.toRadians(camera.getRotation()));
-		point[2] = camera.getDeltaZ(z) * (int)(camera.getDeltaZ(z)/camera.distanceToXY(x, y));
+		int convertedZ = camera.getDeltaZ(z) * (int)(camera.getDeltaZ(z)/camera.distanceToXY(x, y));
+		
+		//TODO check this code, just adding z to y becaust I think it may work.
+		point[1] += convertedZ;
+		
 		return point;
 	}
 }
