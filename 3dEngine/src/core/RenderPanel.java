@@ -17,19 +17,21 @@ public class RenderPanel extends JPanel {
 
 	public BufferedImage renderImage;
 
-	public ArrayList<RenderObject> objects;
+	public ArrayList<GameObject> objects;
 
 	public RenderPanel() {
 		super();
 		this.setFocusable(true);
 
-		objects = new ArrayList<RenderObject>();
+		objects = new ArrayList<GameObject>();
 
 		objects.add(new Render2D() { // Demo rendering object
 			public int x, y;
 
 			public void draw(Graphics2D r) {
-				x += (GameListener.keyDown['a'] ? -1 : 0) //Key presses that move object around
+				x += (GameListener.keyDown['a'] ? -1 : 0) // Key presses that
+															// move object
+															// around
 						+ (GameListener.keyDown['d'] ? 1 : 0);
 				y += (GameListener.keyDown['w'] ? -1 : 0)
 						+ (GameListener.keyDown['s'] ? 1 : 0);
@@ -38,6 +40,12 @@ public class RenderPanel extends JPanel {
 			}
 		});
 
+	}
+
+	public void tick() {
+		for (GameObject obj : objects) {
+			obj.tick();
+		}
 	}
 
 	public void paint(Graphics canvas) {
@@ -62,7 +70,7 @@ public class RenderPanel extends JPanel {
 	public void handleRendering(Graphics2D render) {
 
 		Collections.sort(objects);
-		for (RenderObject obj : objects) { // Rendering objects
+		for (GameObject obj : objects) { // Rendering objects
 			obj.draw(render);
 		}
 

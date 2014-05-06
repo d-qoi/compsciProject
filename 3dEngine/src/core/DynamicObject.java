@@ -2,7 +2,7 @@ package core;
 
 import java.awt.Graphics2D;
 
-public class DynamicObject implements RenderObject {
+public class DynamicObject implements GameObject {
 
 	//TODO Write more constructors
 	//TODO Create rendering methods
@@ -17,7 +17,11 @@ public class DynamicObject implements RenderObject {
 		return null;
 	}
 
-	public int compareTo(RenderObject object) {
+	public int compareTo(GameObject object) {
 		return 0;
+	}
+
+	public void tick() {
+		
 	}
 }

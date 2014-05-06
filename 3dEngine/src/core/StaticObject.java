@@ -2,11 +2,20 @@ package core;
 
 import java.awt.Graphics2D;
 
-public class StaticObject implements RenderObject {
+import engine3D.RenderPolygon;
+
+public class StaticObject implements GameObject {
 
 	//TODO Write more constructors
 	//TODO Create rendering methods
+	public RenderPolygon poly;
+	
 	public StaticObject() {
+		this.poly = new RenderPolygon();
+	}
+	
+	public StaticObject(RenderPolygon poly) {
+		this.poly = poly;
 	}
 
 	public void draw(Graphics2D render) {
@@ -17,8 +26,12 @@ public class StaticObject implements RenderObject {
 		return null;
 	}
 
-	public int compareTo(RenderObject object) {
+	public int compareTo(GameObject object) {
 		return 0;
+	}
+
+	public void tick() {
+		
 	}
 
 }
