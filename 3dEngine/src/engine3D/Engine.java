@@ -83,7 +83,7 @@ public class Engine {
 		//TODO see if the entity intersects the FOVbox.
 		return false;
 	}
-	private RenderPolygon[] convertToScreenWorld(core.Bounds3D that) {
+	private RenderPolygon[] convertWorldToScreen1(core.Bounds3D that) { //old
 		int[][][] faces = that.getFaces();
 		int[][] faceX;
 		int[][] faceY;
@@ -100,10 +100,10 @@ public class Engine {
 			faceY = faces[2];
 		
 		for(int i = 0; i<faceX.length; i++)
-			faceX[i] = convertPointToScreen(faceX[i][0], faceX[i][1], faceX[i][2]);
+			faceX[i] = convertPointToScreen1(faceX[i][0], faceX[i][1], faceX[i][2]);
 		
 		for(int i= 0; i<faceY.length; i++)
-			faceY[i] = convertPointToScreen(faceY[i][0], faceY[i][1], faceY[i][2]);
+			faceY[i] = convertPointToScreen1(faceY[i][0], faceY[i][1], faceY[i][2]);
 		
 		
 		//TODO FIX THIS
@@ -114,7 +114,7 @@ public class Engine {
 		return polys;
 	}
 	
-	private int[] convertPointToScreen(int x, int y, int z) {
+	private int[] convertPointToScreen1(int x, int y, int z) {
 		int[] point = new int[2];
 		point[0] = camera.getDeltaX(x) * (int)Math.cos(Math.toRadians(camera.getRotation()));
 		point[1] = camera.getDeltaY(y) * (int)Math.sin(Math.toRadians(camera.getRotation()));
@@ -163,6 +163,31 @@ public class Engine {
 			
 		}
 		
+		for(int i = 0; i<faceY.length; i++)
+		{
+			//System.out.printf("FaceX point %d ");
+			int[] tempPoint = pointToScreenNew(faceY[i], width, height);
+			faceY[i] = tempPoint;
+			
+		}
+		
+		int[] tempX = new int[4];
+		int[] tempY = new int[4];
+		for(int i = 0; i<faceX.length; i++)
+		{
+			tempX[i] = faceX[i][0];
+			tempY[i] = faceX[i][1];
+		}
+		poly[0] = new Polygon(tempX,tempY,4);
+		
+		tempX = new int[4];
+		tempY = new int[4];
+		for(int i = 0; i<faceY.length; i++)
+		{
+			tempX[i] = faceY[i][0];
+			tempY[i] = faceY[i][1];
+		}
+		poly[1] = new Polygon(tempX,tempY,4);
 		return poly;
 	}
 	
@@ -185,8 +210,8 @@ public class Engine {
 		return point;
 	}
 	
-	public Polygon[] debuggingRendering(core.Bounds3D that)
+	public Polygon[] debuggingRendering(core.Bounds3D that, int width, int height)
 	{
-		return convertWorldToScreenNew(that);
+		return convertWorldToScreenNew(that, width, height);
 	}
 }
