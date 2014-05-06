@@ -135,7 +135,8 @@ public class Engine {
 		int[][][] faces = that.getFaces();
 		int[][] faceX;
 		int[][] faceY;
-		Polygon[] poly = new Polygon[2];
+		int[][] faceZ;
+		Polygon[] poly = new Polygon[3];
 		
 		System.out.println("Chosing faces :: ");
 		if(camera.distanceToXY(faces[3][4][0], faces[3][4][1]) < camera.distanceToXY(faces[4][4][0], faces[4][4][1]))
@@ -156,6 +157,14 @@ public class Engine {
 			System.out.println("Face 2");
 			faceY = faces[2];
 		}
+		if(camera.distanceToXY(faces[0][4][0], faces[0][4][1]) < camera.distanceToXY(faces[5][4][0], faces[5][4][1])) {
+			System.out.println("Face 0");
+			faceZ = faces[0];
+		}
+		else {
+			System.out.println("Face 5");
+			faceZ = faces[5];
+		}
 		
 		for(int i = 0; i<faceX.length; i++)
 		{
@@ -172,7 +181,14 @@ public class Engine {
 			faceY[i] = tempPoint;
 			
 		}
-		
+		for(int i = 0; i<faceZ.length; i++)
+		{
+			//System.out.printf("FaceX point %d ");
+			int[] tempPoint = pointToScreenNew(faceZ[i], width, height);
+			faceZ[i] = tempPoint;
+			
+		}
+		//Xface polygon creation
 		int[] tempX = new int[4];
 		int[] tempY = new int[4];
 		for(int i = 0; i<faceX.length; i++)
@@ -182,6 +198,7 @@ public class Engine {
 		}
 		poly[0] = new Polygon(tempX,tempY,4);
 		
+		//Yface polygon creation
 		tempX = new int[4];
 		tempY = new int[4];
 		for(int i = 0; i<faceY.length; i++)
@@ -190,6 +207,18 @@ public class Engine {
 			tempY[i] = faceY[i][1];
 		}
 		poly[1] = new Polygon(tempX,tempY,4);
+		
+		//Zface polygon creation
+		tempX = new int[4];
+		tempY = new int[4];
+		for(int i = 0; i<faceZ.length; i++)
+		{
+			tempX[i] = faceZ[i][0];
+			tempY[i] = faceZ[i][1];
+		}
+		poly[2] = new Polygon(tempX,tempY,4);
+		
+		
 		return poly;
 	}
 	
@@ -207,8 +236,8 @@ public class Engine {
 		point[1] = CenterY;
 		
 		//TODO finish this
-		int slope = camera.getDeltaZ(coord[2])/camera.distanceToXY(coord[0], coord[1]);
-		point[1] += -slope*viewDistance;
+		double slopeZ = (double)camera.getDeltaZ(coord[2])/camera.distanceToXY(coord[0], coord[1]);
+		point[1] += (int)(-slopeZ*viewDistance);
 		
 		return point;
 	}
