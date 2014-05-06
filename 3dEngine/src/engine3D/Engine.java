@@ -116,7 +116,7 @@ public class Engine {
 		return polys;
 	}
 	
-	private int[] convertPointToScreen1(int x, int y, int z) {
+	private int[] convertPointToScreen1(int x, int y, int z) { //old
 		int[] point = new int[2];
 		point[0] = camera.getDeltaX(x) * (int)Math.cos(Math.toRadians(camera.getRotation()));
 		point[1] = camera.getDeltaY(y) * (int)Math.sin(Math.toRadians(camera.getRotation()));
@@ -207,7 +207,8 @@ public class Engine {
 		point[1] = CenterY;
 		
 		//TODO finish this
-		point[1] += camera.getDeltaZ(coord[2]) * (int)(1/(camera.distanceToXY(coord[0], coord[1])/viewDistance));
+		int slope = camera.getDeltaZ(coord[2])/camera.distanceToXY(coord[0], coord[1]);
+		point[1] += -slope*viewDistance;
 		
 		return point;
 	}
