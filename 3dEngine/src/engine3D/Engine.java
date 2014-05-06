@@ -11,6 +11,7 @@ public class Engine {
 	public int verticalFOV;
 	public int horizontalFOV;
 	public Camera camera;
+	public Rays ray;
 	
 
 	
@@ -69,6 +70,7 @@ public class Engine {
 				//System.out.printf("Angle %d depth %d \n", angle, depth);
 			}
 		}
+		ray = new Rays(viewDistance, FOVBoxDepth, 360, FOVAngleStep);
 	}
 	public void useCamera(Camera camera) {
 		this.camera = camera;
