@@ -15,7 +15,7 @@ public class Render2D implements RenderObject {
 	}
 
 	public int compareTo(RenderObject object) {
-		return object instanceof Render2D ? 0 : -1;
+		return object instanceof Render2D ? 0 : 1; //Always render on top
 	}
 
 }
