@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.PriorityQueue;
 
 import javax.swing.JPanel;
@@ -15,19 +17,19 @@ public class RenderPanel extends JPanel {
 
 	public BufferedImage renderImage;
 
-	public PriorityQueue<RenderObject> objects;
+	public ArrayList<RenderObject> objects;
 
 	public RenderPanel() {
 		super();
 		this.setFocusable(true);
 
-		objects = new PriorityQueue<RenderObject>();
+		objects = new ArrayList<RenderObject>();
 
 		objects.add(new Render2D() { // Demo rendering object
 			public int x, y;
 
 			public void draw(Graphics2D r) {
-				x += (GameListener.keyDown['a'] ? -1 : 0)
+				x += (GameListener.keyDown['a'] ? -1 : 0) //Key presses that move object around
 						+ (GameListener.keyDown['d'] ? 1 : 0);
 				y += (GameListener.keyDown['w'] ? -1 : 0)
 						+ (GameListener.keyDown['s'] ? 1 : 0);
@@ -59,6 +61,7 @@ public class RenderPanel extends JPanel {
 
 	public void handleRendering(Graphics2D render) {
 
+		Collections.sort(objects);
 		for (RenderObject obj : objects) { // Rendering objects
 			obj.draw(render);
 		}
