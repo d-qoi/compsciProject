@@ -157,7 +157,7 @@ public class Engine {
 		
 		for(int i = 0; i<faceX.length; i++)
 		{
-			System.out.printf("FaceX point %d ")
+			//System.out.printf("FaceX point %d ");
 			int[] tempPoint = pointToScreenNew(faceX[i], width, height);
 			faceX[i] = tempPoint;
 			
@@ -172,6 +172,7 @@ public class Engine {
 		int CenterY = height/2;
 		
 		//TODO mess with positive and negatives here because they are weird.
+		//TODO make sure scaling is correct
 		point[0] = CenterX;
 		point[0] += camera.getDeltaX(coord[0]) * (int)(Math.cos(Math.toRadians(camera.getRotation())));
 		point[0] += camera.getDeltaY(coord[1]) * (int)(Math.sin(Math.toRadians(camera.getRotation())));
@@ -179,7 +180,7 @@ public class Engine {
 		point[1] = CenterY;
 		
 		//TODO finish this
-		point[1] += camera.getDeltaZ(coord[2]) * (int)Math.tan(Math.toRadians(0));
+		point[1] += camera.getDeltaZ(coord[2]) * (int)(1/(camera.distanceToXY(coord[0], coord[1])/viewDistance));
 		
 		return point;
 	}
