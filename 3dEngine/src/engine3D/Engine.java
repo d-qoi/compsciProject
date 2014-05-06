@@ -25,7 +25,7 @@ public class Engine {
 		this.horizontalFOV = horizontalFOV;
 		this.viewDistance = viewDistance;
 		this.characterHeight = characterHeight;
-		calcFOVBox();
+		calculateRacasting();
 		camera = new Camera(characterHeight);
 		
 	}
@@ -35,7 +35,7 @@ public class Engine {
 		this.horizontalFOV = horizontalFOV;
 		this.viewDistance = 1000;
 		this.characterHeight = 85;
-		calcFOVBox();
+		calculateRacasting();
 		camera = new Camera(characterHeight);
 	}
 
@@ -44,7 +44,7 @@ public class Engine {
 		this.verticalFOV = 22;
 		this.horizontalFOV = 90;
 		this.viewDistance = 1000;
-		calcFOVBox();
+		calculateRacasting();
 		camera = new Camera(characterHeight);
 	}
 	public Engine()	{
@@ -53,10 +53,10 @@ public class Engine {
 	
 	public void setViewDistance(int viewDistance) {
 		this.viewDistance = viewDistance;
-		calcFOVBox();
+		ray.setViewDistance(viewDistance);
 	}
 	
-	private void calcFOVBox() {
+	private void calcFOVBox() { //old
 		
 		//System.out.println(viewDistance/FOVBoxDepth);
 		FOVBox = new Rectangle[horizontalFOV/FOVAngleStep][viewDistance/FOVBoxDepth];
@@ -70,6 +70,11 @@ public class Engine {
 				//System.out.printf("Angle %d depth %d \n", angle, depth);
 			}
 		}
+		
+	}
+	
+	private void calculateRacasting()
+	{
 		ray = new Rays(viewDistance, FOVBoxDepth, 360, FOVAngleStep);
 	}
 	public void useCamera(Camera camera) {
