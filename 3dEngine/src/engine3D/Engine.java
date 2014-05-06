@@ -1,5 +1,7 @@
 package engine3D;
 
+import java.awt.Polygon;
+
 public class Engine {
 	
 	private static int FOVAngleStep = 5;
@@ -114,17 +116,76 @@ public class Engine {
 	
 	private int[] convertPointToScreen(int x, int y, int z) {
 		int[] point = new int[2];
-		point[0] = camera.getDeltaX(x) * (int)Math.sin(Math.toRadians(camera.getRotation()));
-		point[1] = camera.getDeltaY(y) * (int)Math.cos(Math.toRadians(camera.getRotation()));
-		int convertedZ = camera.getDeltaZ(z) * (int)(camera.getDeltaZ(z)/camera.distanceToXY(x, y));
+		point[0] = camera.getDeltaX(x) * (int)Math.cos(Math.toRadians(camera.getRotation()));
+		point[1] = camera.getDeltaY(y) * (int)Math.sin(Math.toRadians(camera.getRotation()));
+		
+		//int convertedZ = camera.getDeltaZ(z) * (int)(camera.getDeltaZ(z)/camera.distanceToXY(x, y));
 		
 		//TODO check this code, just adding z to y becaust I think it may work.
-		point[1] += convertedZ;
+		//point[1] += convertedZ;
 		
 		return point;
 	}
-	public RenderPolygon[] debuggingRendering(core.Bounds3D that)
+	
+	
+	private Polygon[] convertWorldToScreenNew(core.Bounds3D that, int width, int height)
 	{
-		return convertToScreenWorld(that);
+		int[][][] faces = that.getFaces();
+		int[][] faceX;
+		int[][] faceY;
+		Polygon[] poly = new Polygon[2];
+		
+		System.out.println("Chosing faces :: ");
+		if(camera.distanceToXY(faces[3][4][0], faces[3][4][1]) < camera.distanceToXY(faces[4][4][0], faces[4][4][1]))
+		{
+			System.out.println("Face 3");
+			faceX = faces[3];
+		}
+		else {
+			System.out.println("Face 4");
+			faceX = faces[4];
+		}
+		
+		if(camera.distanceToXY(faces[1][4][0], faces[1][4][1]) < camera.distanceToXY(faces[2][4][0], faces[2][4][1])) {
+			System.out.println("Face 1");
+			faceY = faces[1];
+		}
+		else {
+			System.out.println("Face 2");
+			faceY = faces[2];
+		}
+		
+		for(int i = 0; i<faceX.length; i++)
+		{
+			System.out.printf("FaceX point %d ")
+			int[] tempPoint = pointToScreenNew(faceX[i], width, height);
+			faceX[i] = tempPoint;
+			
+		}
+		
+		return poly;
+	}
+	
+	private int[] pointToScreenNew(int[] coord, int width, int height) {
+		int[] point = new int[2];
+		int CenterX = width/2;
+		int CenterY = height/2;
+		
+		//TODO mess with positive and negatives here because they are weird.
+		point[0] = CenterX;
+		point[0] += camera.getDeltaX(coord[0]) * (int)(Math.cos(Math.toRadians(camera.getRotation())));
+		point[0] += camera.getDeltaY(coord[1]) * (int)(Math.sin(Math.toRadians(camera.getRotation())));
+		
+		point[1] = CenterY;
+		
+		//TODO finish this
+		point[1] += camera.getDeltaZ(coord[2]) * (int)Math.tan(Math.toRadians(0));
+		
+		return point;
+	}
+	
+	public Polygon[] debuggingRendering(core.Bounds3D that)
+	{
+		return convertWorldToScreenNew(that);
 	}
 }

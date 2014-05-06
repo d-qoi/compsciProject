@@ -9,10 +9,10 @@ public class Rectangle {
 	{
 		
 		//the sin and cos may need to be switched... sticking with the same throughout
-		double xoffleft = Math.sin(Math.toRadians(angle + 45));
-		double yoffleft = Math.cos(Math.toRadians(angle + 45));
-		double xoffright = Math.sin(Math.toRadians(angle - 45));
-		double yoffright = Math.cos(Math.toRadians(angle - 45));
+		double xoffleft = Math.cos(Math.toRadians(angle + 45));
+		double yoffleft = Math.sin(Math.toRadians(angle + 45));
+		double xoffright = Math.cos(Math.toRadians(angle - 45));
+		double yoffright = Math.sin(Math.toRadians(angle - 45));
 		x1 = (int)(distance * xoffleft);
 		x2 = (int)(distance * xoffright);
 		y1 = (int)(distance * yoffleft);
