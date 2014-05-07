@@ -8,10 +8,13 @@ public class Engine {
 	private static int FOVBoxDepth = 5;
 	private int viewDistance;
 	private int characterHeight;
+	private double scalingX;
+	private double scalingY;
 	public int verticalFOV;
 	public int horizontalFOV;
 	public Camera camera;
 	public Rays ray;
+	
 	
 
 	
@@ -56,6 +59,20 @@ public class Engine {
 		ray.setViewDistance(viewDistance);
 	}
 	
+	public void setHorizontalFOV(int FOV) {
+		this.horizontalFOV = FOV;
+	}
+	
+	public void setVerticalFOV(int FOV) {
+		this.verticalFOV = FOV;
+	}
+	
+	public void calculateScaling(int ScreenWidth, int ScreenHeight) {//not being used curently
+		scalingX = (ScreenWidth / (Math.tan(Math.toRadians(horizontalFOV/2)) * viewDistance * 2));
+		scalingY = (ScreenHeight / (Math.tan(Math.toRadians(verticalFOV/2)) * viewDistance * 2));
+		System.out.println(scalingX + " " + scalingY + " ingored for now");
+	}
+	
 	private void calcFOVBox() { //old
 		
 		//System.out.println(viewDistance/FOVBoxDepth);
@@ -90,6 +107,8 @@ public class Engine {
 		//TODO see if the entity intersects the FOVbox.
 		return false;
 	}
+
+
 	private RenderPolygon[] convertWorldToScreen1(core.Bounds3D that) { //old
 		int[][][] faces = that.getFaces();
 		int[][] faceX;
@@ -137,6 +156,7 @@ public class Engine {
 	
 	private Polygon[] convertWorldToScreenNew(core.Bounds3D that, int width, int height)
 	{
+		
 		int[][][] faces = that.getFaces();
 		int[][] faceX;
 		int[][] faceY;
@@ -196,8 +216,12 @@ public class Engine {
 		//Xface polygon creation
 		int[] tempX = new int[4];
 		int[] tempY = new int[4];
-		for(int i = 0; i<faceX.length; i++)
+		
+		//System.out.println(faceX.length);
+		// -1 is to get rid of the midpoint...
+		for(int i = 0; i<faceX.length-1; i++)
 		{
+			//System.out.println(i);
 			tempX[i] = faceX[i][0];
 			tempY[i] = faceX[i][1];
 		}
@@ -206,7 +230,7 @@ public class Engine {
 		//Yface polygon creation
 		tempX = new int[4];
 		tempY = new int[4];
-		for(int i = 0; i<faceY.length; i++)
+		for(int i = 0; i<faceY.length-1; i++)
 		{
 			tempX[i] = faceY[i][0];
 			tempY[i] = faceY[i][1];
@@ -216,7 +240,7 @@ public class Engine {
 		//Zface polygon creation
 		tempX = new int[4];
 		tempY = new int[4];
-		for(int i = 0; i<faceZ.length; i++)
+		for(int i = 0; i<faceZ.length-1; i++)
 		{
 			tempX[i] = faceZ[i][0];
 			tempY[i] = faceZ[i][1];
@@ -234,25 +258,29 @@ public class Engine {
 		
 		//TODO mess with positive and negatives here because they are weird.
 		//TODO make sure scaling is correct
-		point[0] = CenterX;
-		int tempX = camera.getDeltaX(coord[0]) * (int)(Math.cos(Math.toRadians(camera.getRotation())));
-		int tempY = camera.getDeltaY(coord[1]) * (int)(Math.sin(Math.toRadians(camera.getRotation())));
-		double slopeX = (double)tempX/tempY;
+		int distance = camera.distanceToXY(coord[0], coord[1]);
 		
-		point[0] += (int)slopeX*viewDistance;
+		point[0] = CenterX;
+		
+		double slopeX = (double)camera.getDeltaX(coord[0])/distance;
+		point[0] += (int)(slopeX*viewDistance) * scalingX;
+		
+		slopeX = (double)camera.getDeltaY(coord[1])/distance;
+		point[0] += (int)(slopeX*viewDistance) * scalingX;
 		
 				
 		point[1] = CenterY;
 		
 		//TODO finish this
-		double slopeZ = (double)camera.getDeltaZ(coord[2])/camera.distanceToXY(coord[0], coord[1]);
-		point[1] += (int)(-slopeZ*viewDistance);
+		double slopeZ = (double)camera.getDeltaZ(coord[2])/distance;
+		point[1] += (int)(-slopeZ*viewDistance) * scalingY;
 		
 		return point;
 	}
 	
 	public Polygon[] debuggingRendering(core.Bounds3D that, int width, int height)
 	{
+		calculateScaling(width, height);
 		return convertWorldToScreenNew(that, width, height);
 	}
 }
