@@ -19,9 +19,9 @@ public class RenderTest extends JFrame{
 		// TODO Auto-generated method stub
 		Engine rendering = new Engine();
 		Bounds3D box = new Bounds3D(100,95,50,10,40,100);
-		Camera cam = new Camera(150, 40, 85, 0);
+		Camera cam = new Camera(200, 0, 85, 5);
 		rendering.useCamera(cam);
-		Polygon[] polys = rendering.debuggingRendering(box, 500,500);
+		Polygon[] polys = rendering.debuggingRendering(box, 1000,1000);
 		for(Polygon temp:polys)
 		{
 			for(int i = 0; i<temp.xpoints.length; i++)

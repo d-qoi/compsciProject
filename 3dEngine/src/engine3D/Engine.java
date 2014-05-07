@@ -70,7 +70,7 @@ public class Engine {
 	public void calculateScaling(int ScreenWidth, int ScreenHeight) {//not being used curently
 		scalingX = (ScreenWidth / (Math.tan(Math.toRadians(horizontalFOV/2)) * viewDistance * 2));
 		scalingY = (ScreenHeight / (Math.tan(Math.toRadians(verticalFOV/2)) * viewDistance * 2));
-		System.out.println(scalingX + " " + scalingY + " ingored for now");
+		//System.out.println(scalingX + " " + scalingY + " ingored for now");
 	}
 	
 	private void calcFOVBox() { //old
@@ -163,31 +163,32 @@ public class Engine {
 		int[][] faceZ;
 		Polygon[] poly = new Polygon[3];
 		
-		System.out.println("Chosing faces :: ");
+		//System.out.println("Chosing faces :: ");
+		
 		if(camera.distanceToXY(faces[3][4][0], faces[3][4][1]) < camera.distanceToXY(faces[4][4][0], faces[4][4][1]))
 		{
-			System.out.println("Face 3");
+			//System.out.println("Face 3");
 			faceX = faces[3];
 		}
 		else {
-			System.out.println("Face 4");
+			//System.out.println("Face 4");
 			faceX = faces[4];
 		}
 		
 		if(camera.distanceToXY(faces[1][4][0], faces[1][4][1]) < camera.distanceToXY(faces[2][4][0], faces[2][4][1])) {
-			System.out.println("Face 1");
+			//System.out.println("Face 1");
 			faceY = faces[1];
 		}
 		else {
-			System.out.println("Face 2");
+			//System.out.println("Face 2");
 			faceY = faces[2];
 		}
 		if(camera.distanceToXY(faces[0][4][0], faces[0][4][1]) < camera.distanceToXY(faces[5][4][0], faces[5][4][1])) {
-			System.out.println("Face 0");
+			//System.out.println("Face 0");
 			faceZ = faces[0];
 		}
 		else {
-			System.out.println("Face 5");
+			//System.out.println("Face 5");
 			faceZ = faces[5];
 		}
 		
