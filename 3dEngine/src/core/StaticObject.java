@@ -8,14 +8,14 @@ public class StaticObject implements GameObject {
 
 	//TODO Write more constructors
 	//TODO Create rendering methods
-	public RenderPolygon poly;
+	public Bounds3D body;
 	
 	public StaticObject() {
-		this.poly = new RenderPolygon();
+		this(new Bounds3D(0,0,0,0,0,0));
 	}
 	
-	public StaticObject(RenderPolygon poly) {
-		this.poly = poly;
+	public StaticObject(Bounds3D poly) {
+		this.body = poly;
 	}
 
 	public void draw(Graphics2D render) {
@@ -23,7 +23,7 @@ public class StaticObject implements GameObject {
 	}
 
 	public Bounds3D getBounds() {
-		return null;
+		return body;
 	}
 
 	public int compareTo(GameObject object) {
