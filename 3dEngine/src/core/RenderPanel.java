@@ -42,10 +42,41 @@ public class RenderPanel extends JPanel {
 
 	}
 
+	public void add(GameObject obj) {
+		this.objects.add(obj);
+	}
+
+	public void remove(GameObject obj) {
+		int pos = this.objects.indexOf(obj);
+		if (pos != -1)
+			this.objects.remove(pos);
+	}
+
+	public void empty() {
+		this.objects.clear();
+	}
+
 	public void tick() {
 		for (GameObject obj : objects) {
 			obj.tick();
 		}
+		onTick();
+	}
+
+	public void onTick() {
+
+	}
+
+	public void onPrePaint(Graphics2D render) {
+
+	}
+
+	public void onPostPaint(Graphics2D render) {
+
+	}
+
+	public void onPaint(Graphics2D render) {
+
 	}
 
 	public void paint(Graphics canvas) {
@@ -62,7 +93,13 @@ public class RenderPanel extends JPanel {
 		render.setColor(Color.BLACK);
 		render.fillRect(0, 0, width, height);
 
+		onPrePaint(render);
+
 		handleRendering(render);
+
+		onPaint(render);
+		
+		onPostPaint(render);
 
 		canvas.drawImage(renderImage, 0, 0, null);
 	}

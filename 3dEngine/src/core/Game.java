@@ -2,12 +2,13 @@ package core;
 
 public class Game {
 
-	public static GameWindow WINDOW;
-
 	public static void main(String[] args) {
 
-		WINDOW = new GameWindow();
-
+		GameWindow game = new GameWindow();
+		game.setRenderPanel(new RenderPanel());
+		game.setGameListener(new GameListener());
+		game.setGameTick(new GameTick(game.renderPanel));
+		
 	}
 
 }

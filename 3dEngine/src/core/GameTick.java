@@ -11,6 +11,10 @@ public class GameTick implements Runnable {
 	public boolean running;
 	public RenderPanel panel;
 
+	public GameTick() {
+		this(null);
+	}
+	
 	public GameTick(RenderPanel panel) {
 
 		running = true;
@@ -19,8 +23,14 @@ public class GameTick implements Runnable {
 		this.panel = panel;
 
 	}
+	
+	public void setPanel(RenderPanel panel) {
+		this.panel = panel;
+	}
 
 	public void tick() {
+		if(panel == null)
+			return;
 		panel.tick();
 		long time = new Date().getTime();
 		if (lastRender + RENDER_DELAY < time) {

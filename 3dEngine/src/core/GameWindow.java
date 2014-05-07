@@ -21,29 +21,46 @@ public class GameWindow extends JFrame{
 	public Thread gameThread;
 
 	public GameWindow() {
-
-		super.setTitle("Tank Game");
-		super.setSize(DEFAULT_WIDTH + 6, DEFAULT_HEIGHT + 28);
-
+		this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	}
+	
+	public GameWindow(int width, int height) {
+		super.setTitle("Game");
+		super.setSize(width + 6, height + 28);
+		
 		mainPanel = new JPanel(new BorderLayout());
 		mainPanel.setVisible(true);
-
-		renderPanel = new RenderPanel();
-		mainPanel.add(renderPanel);
 
 		this.setContentPane(mainPanel);
 		this.setFocusable(true);
 		this.setVisible(true);
-		
-		listener = new GameListener();
+	}
+	
+	public void setGameTick(GameTick tick) {
+		gameTick = tick;
+		gameThread = new Thread(gameTick);
+	}
+	
+	public void setGameListener(GameListener listener) {
+		this.listener = listener;
 		
 		this.addKeyListener(listener);
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
-		
-		gameTick = new GameTick(renderPanel);		
-		gameThread = new Thread(gameTick);
+	}
+	
+	public void setRenderPanel(RenderPanel panel) {
+		renderPanel = panel;
+		mainPanel.add(renderPanel);
+	}
+	
+	public void start() {
 		gameThread.start();
+		onStart();
+	}
+	
+	public void onStart() {
+		
 	}
 
 }
