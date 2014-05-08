@@ -46,6 +46,7 @@ public class RenderTest2 {
 				g.drawString("Ticks: " + tickCount, 10, 45);
 				g.drawString("FPS: " + currRender, 10, 65);
 				g.drawString("TPS: " + currTick, 10, 85);
+				g.drawString("ROT: "+engine.camera.getRotation(), 10, 105);
 				tickCount = 0;
 				lastRender = time;
 			}
@@ -76,7 +77,7 @@ public class RenderTest2 {
 
 			public void tick() {
 
-				int rot = (int) (Math.sin(new Date().getTime() * 0.00125) % 360);
+				int rot = (int) (new Date().getTime() * 0.02 % 360);
 				engine.camera.setRotation(rot);
 				polygons = RenderTest2.engine.debuggingRendering(box,
 						RenderTest2.panel.getWidth(),
