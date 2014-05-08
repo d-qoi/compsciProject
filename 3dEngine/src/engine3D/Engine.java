@@ -215,15 +215,17 @@ public class Engine {
 		
 		//TODO mess with positive and negatives here because they are weird.
 		//TODO make sure scaling is correct
+		coord[0] = (int)(coord[0] * Math.cos(Math.toRadians(camera.getRotation())));
+		coord[1] = (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
 		int distance = camera.distanceToXY(coord[0], coord[1]);
 		
 		point[0] = CenterX;
 		
 		//TODO mess with haphazzard rotation.
-		double slopeX = (double)camera.getDeltaX(coord[0])/distance * Math.cos(Math.toRadians(camera.getRotation()));
+		double slopeX = (double)camera.getDeltaX(coord[0])/distance;
 		point[0] += (int)(slopeX*viewDistance) * scalingX;
 		
-		slopeX = (double)camera.getDeltaY(coord[1])/distance * Math.sin(Math.toRadians(camera.getRotation()));
+		slopeX = (double)camera.getDeltaY(coord[1])/distance;
 		point[0] += (int)(slopeX*viewDistance) * scalingX;
 		
 				
