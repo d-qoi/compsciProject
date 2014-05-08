@@ -223,7 +223,7 @@ public class Engine {
 		
 		//TODO mess with haphazzard rotation.
 		double slopeX = (double)camera.getDeltaX(coord[0])/distance;
-		point[0] += (int)(slopeX*viewDistance) * scalingX;
+		point[0] += (int)(slopeX*viewDistance) * scalingX; 
 		
 		slopeX = (double)camera.getDeltaY(coord[1])/distance;
 		point[0] += (int)(slopeX*viewDistance) * scalingX;
