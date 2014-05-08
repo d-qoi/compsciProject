@@ -139,7 +139,9 @@ public class Engine {
 			//System.out.println("Face 2");
 			faceY = faces[2];
 		}
-		if(camera.distanceToXY(faces[0][4][0], faces[0][4][1]) < camera.distanceToXY(faces[5][4][0], faces[5][4][1])) {
+		 //System.out.println(camera.getDeltaZ(faces[0][4][2]) + " " + camera.getDeltaZ(faces[5][4][2]) );
+		
+		if(camera.getDeltaZ(faces[0][4][2]) < 0) {
 			//System.out.println("Face 0");
 			faceZ = faces[0];
 		}
@@ -182,7 +184,7 @@ public class Engine {
 			tempX[i] = faceX[i][0];
 			tempY[i] = faceX[i][1];
 		}
-		poly[0] = new Polygon(tempX,tempY,4);
+		poly[2] = new Polygon(tempX,tempY,4);
 		
 		//Yface polygon creation
 		tempX = new int[4];
@@ -199,10 +201,12 @@ public class Engine {
 		tempY = new int[4];
 		for(int i = 0; i<faceZ.length-1; i++)
 		{
+			
 			tempX[i] = faceZ[i][0];
 			tempY[i] = faceZ[i][1];
+			
 		}
-		poly[2] = new Polygon(tempX,tempY,4);
+		poly[0] = new Polygon(tempX,tempY,4);
 		
 		
 		return poly;
@@ -215,8 +219,9 @@ public class Engine {
 		
 		//TODO mess with positive and negatives here because they are weird.
 		//TODO make sure scaling is correct
-		coord[0] = (int)(coord[0] * Math.cos(Math.toRadians(camera.getRotation())));
-		coord[1] = (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
+		//coord[0] += (int)(coord[0] * Math.cos(Math.toRadians(camera.getRotation())));
+		//coord[1] += (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
+		
 		int distance = camera.distanceToXY(coord[0], coord[1]);
 		
 		point[0] = CenterX;

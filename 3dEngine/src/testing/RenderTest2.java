@@ -64,7 +64,7 @@ public class RenderTest2 {
 		window.start();
 
 		engine = new Engine();
-		Camera cam = new Camera(200, 0, 100, 10);
+		Camera cam = new Camera(200, 0,50, 0);
 		engine.useCamera(cam);
 		Render2D render = new Render2D() {
 			public Polygon[] polygons;

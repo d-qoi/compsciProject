@@ -44,129 +44,123 @@ public class Bounds3D {
 		
 		
 		//face 0 is z1 unchanging base x, y, z
-		//vert 1
-		faces[0][0][0] = bounds[0];
-		faces[0][0][1] = bounds[1];
-		faces[0][0][2] = bounds[2];
-		//vert2
-		faces[0][1][0] = bounds[3];
+		faces[0][2][0] = bounds[3];
+		faces[0][2][1] = bounds[1];
+		faces[0][2][2] = bounds[2];
+		
+		faces[0][1][0] = bounds[0];
 		faces[0][1][1] = bounds[1];
 		faces[0][1][2] = bounds[2];
-		//vert3
+
+		faces[0][0][0] = bounds[0];
+		faces[0][0][1] = bounds[4];
+		faces[0][0][2] = bounds[2];
+		
 		faces[0][3][0] = bounds[3];
 		faces[0][3][1] = bounds[4];
 		faces[0][3][2] = bounds[2];
-		//vert4
-		faces[0][2][0] = bounds[0];
-		faces[0][2][1] = bounds[4];
-		faces[0][2][2] = bounds[2];
+		
 		
 		faces[0][4] = getCenterOfFace(faces[0]);
 		
 		//face 1 is y1 unchanging
-		//vert 1
 		faces[1][0][0] = bounds[0];
 		faces[1][0][1] = bounds[1];
-		faces[1][0][2] = bounds[2];
-		//vert2
+		faces[1][0][2] = bounds[5];
+		                        
 		faces[1][1][0] = bounds[0];
 		faces[1][1][1] = bounds[1];
-		faces[1][1][2] = bounds[5];
-		//vert3
-		faces[1][3][0] = bounds[3];
-		faces[1][3][1] = bounds[1];
-		faces[1][3][2] = bounds[5];
-		//vert4
+		faces[1][1][2] = bounds[2];
+		
 		faces[1][2][0] = bounds[3];
 		faces[1][2][1] = bounds[1];
 		faces[1][2][2] = bounds[2];
 		
+		faces[1][3][0] = bounds[3];
+		faces[1][3][1] = bounds[1];
+		faces[1][3][2] = bounds[5];
+
 		
 		faces[1][4] = getCenterOfFace(faces[1]);
 		
 		//face 2 is y2  unchanging
-		//vert 1
+		
 		faces[2][0][0] = bounds[0];
 		faces[2][0][1] = bounds[4];
-		faces[2][0][2] = bounds[2];
-		//vert2
+		faces[2][0][2] = bounds[5];
+		
 		faces[2][1][0] = bounds[0];
 		faces[2][1][1] = bounds[4];
-		faces[2][1][2] = bounds[5];
-		//vert3
-		faces[2][3][0] = bounds[3];
-		faces[2][3][1] = bounds[4];
-		faces[2][3][2] = bounds[5];
-		//vert4 /
+		faces[2][1][2] = bounds[2];
+		
 		faces[2][2][0] = bounds[3];
 		faces[2][2][1] = bounds[4];
 		faces[2][2][2] = bounds[2];
 		
+		faces[2][3][0] = bounds[3];
+		faces[2][3][1] = bounds[4];
+		faces[2][3][2] = bounds[5];
 		
 		
 		faces[2][4] = getCenterOfFace(faces[2]);
 		
 		//face 3 is x1 unchanging
-		//vert 1
 		faces[3][0][0] = bounds[0];
 		faces[3][0][1] = bounds[1];
-		faces[3][0][2] = bounds[2];
-		//vert2
+		faces[3][0][2] = bounds[5];
+		
 		faces[3][1][0] = bounds[0];
 		faces[3][1][1] = bounds[1];
-		faces[3][1][2] = bounds[5];
-		//vert3
-		faces[3][3][0] = bounds[0];
-		faces[3][3][1] = bounds[4];
-		faces[3][3][2] = bounds[5];
-		//vert4 /
+		faces[3][1][2] = bounds[2];
+		
 		faces[3][2][0] = bounds[0];
 		faces[3][2][1] = bounds[4];
 		faces[3][2][2] = bounds[2];
-		
-		
+				
+		faces[3][3][0] = bounds[0];
+		faces[3][3][1] = bounds[4];
+		faces[3][3][2] = bounds[5];
+
 		
 		faces[3][4] = getCenterOfFace(faces[3]);
 		
 		//face 4 is x2 unchanging
-		//vert 1
 		faces[4][0][0] = bounds[3];
 		faces[4][0][1] = bounds[1];
-		faces[4][0][2] = bounds[2];
-		//vert2
+		faces[4][0][2] = bounds[5];
+		
 		faces[4][1][0] = bounds[3];
 		faces[4][1][1] = bounds[1];
-		faces[4][1][2] = bounds[5];
-		//vert3
-		faces[4][3][0] = bounds[3];
-		faces[4][3][1] = bounds[4];
-		faces[4][3][2] = bounds[5];
-		//vert4 /
+		faces[4][1][2] = bounds[2];
+		
 		faces[4][2][0] = bounds[3];
 		faces[4][2][1] = bounds[4];
 		faces[4][2][2] = bounds[2];
 		
-		
+		faces[4][3][0] = bounds[3];
+		faces[4][3][1] = bounds[4];
+		faces[4][3][2] = bounds[5];
+
 		
 		faces[4][4] = getCenterOfFace(faces[4]);
 		
 		//face 5 is z2 unchanging
 		//vert 1
-		faces[5][0][0] = bounds[0];
-		faces[5][0][1] = bounds[1];
-		faces[5][0][2] = bounds[5];
-		//vert2
-		faces[5][1][0] = bounds[3];
+		faces[5][2][0] = bounds[3];
+		faces[5][2][1] = bounds[1];
+		faces[5][2][2] = bounds[5];
+		
+		faces[5][1][0] = bounds[0];
 		faces[5][1][1] = bounds[1];
 		faces[5][1][2] = bounds[5];
-		//vert3
+
+		faces[5][0][0] = bounds[0];
+		faces[5][0][1] = bounds[4];
+		faces[5][0][2] = bounds[5];
+		
 		faces[5][3][0] = bounds[3];
 		faces[5][3][1] = bounds[4];
 		faces[5][3][2] = bounds[5];
-		//vert4 //
-		faces[5][2][0] = bounds[0];
-		faces[5][2][1] = bounds[4];
-		faces[5][2][2] = bounds[5];
 		
 		
 		
