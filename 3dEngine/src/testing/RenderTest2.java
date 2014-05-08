@@ -64,14 +64,14 @@ public class RenderTest2 {
 		window.start();
 
 		engine = new Engine();
-		Camera cam = new Camera(200, 0,50, 0);
+		Camera cam = new Camera(0, 0,0, 0);
 		engine.useCamera(cam);
 		Render2D render = new Render2D() {
 			public Polygon[] polygons;
 			public Bounds3D box;
 
 			public void onInit() {
-				box = new Bounds3D(100, 95, 50, 10, 40, 30);
+				box = new Bounds3D(100,-100,0, 10, 40, 30);
 
 			}
 
