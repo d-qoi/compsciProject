@@ -4,8 +4,7 @@ import java.util.Date;
 
 public class GameTick implements Runnable {
 
-	public static final long THREAD_DELAY = 5;
-	public static final long RENDER_DELAY = 20;
+	public long threadDelay = 5, renderDelay = 20;
 
 	public long lastRender;
 	public boolean running;
@@ -28,12 +27,28 @@ public class GameTick implements Runnable {
 		this.panel = panel;
 	}
 
+	public long getThreadDelay() {
+		return threadDelay;
+	}
+
+	public void setThreadDelay(long threadDelay) {
+		this.threadDelay = threadDelay;
+	}
+
+	public long getRenderDelay() {
+		return renderDelay;
+	}
+
+	public void setRenderDelay(long renderDelay) {
+		this.renderDelay = renderDelay;
+	}
+	
 	public void tick() {
 		if(panel == null)
 			return;
 		panel.tick();
 		long time = new Date().getTime();
-		if (lastRender + RENDER_DELAY < time) {
+		if (lastRender + renderDelay < time) {
 			
 			lastRender = time;
 			panel.repaint();
@@ -46,7 +61,7 @@ public class GameTick implements Runnable {
 			try {
 				tick();
 				Thread.currentThread();
-				Thread.sleep(THREAD_DELAY);
+				Thread.sleep(threadDelay);
 			} catch (Exception e) {
 				System.out.println("Game Thread Exception");
 				e.printStackTrace();

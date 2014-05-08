@@ -90,10 +90,10 @@ public class Engine {
 		
 	}
 	
-	private void calculateRacasting()
-	{
+	private void calculateRacasting() {
 		ray = new Rays(viewDistance, FOVBoxDepth, 360, FOVAngleStep);
 	}
+	
 	public void useCamera(Camera camera) {
 		this.camera = camera;
 	}
@@ -109,50 +109,6 @@ public class Engine {
 	}
 
 
-	private RenderPolygon[] convertWorldToScreen1(core.Bounds3D that) { //old
-		int[][][] faces = that.getFaces();
-		int[][] faceX;
-		int[][] faceY;
-		RenderPolygon[] polys = new RenderPolygon[2];
-		
-		if(camera.distanceToXY(faces[3][4][0], faces[3][4][1]) < camera.distanceToXY(faces[4][4][0], faces[4][4][1]))
-			faceX = faces[3];
-		else
-			faceX = faces[4];
-		
-		if(camera.distanceToXY(faces[1][4][0], faces[1][4][1]) < camera.distanceToXY(faces[2][4][0], faces[2][4][1]))
-			faceY = faces[1];
-		else
-			faceY = faces[2];
-		
-		for(int i = 0; i<faceX.length; i++)
-			faceX[i] = convertPointToScreen1(faceX[i][0], faceX[i][1], faceX[i][2]);
-		
-		for(int i= 0; i<faceY.length; i++)
-			faceY[i] = convertPointToScreen1(faceY[i][0], faceY[i][1], faceY[i][2]);
-		
-		
-		//TODO FIX THIS
-		
-		polys[0] = new RenderPolygon(faceX);
-		polys[1] = new RenderPolygon(faceY);
-		
-		return polys;
-	}
-	
-	private int[] convertPointToScreen1(int x, int y, int z) { //old
-		int[] point = new int[2];
-		point[0] = camera.getDeltaX(x) * (int)Math.cos(Math.toRadians(camera.getRotation()));
-		point[1] = camera.getDeltaY(y) * (int)Math.sin(Math.toRadians(camera.getRotation()));
-		
-		//int convertedZ = camera.getDeltaZ(z) * (int)(camera.getDeltaZ(z)/camera.distanceToXY(x, y));
-		
-		//TODO check this code, just adding z to y becaust I think it may work.
-		//point[1] += convertedZ;
-		
-		return point;
-	}
-	
 	
 	private Polygon[] convertWorldToScreenNew(core.Bounds3D that, int width, int height)
 	{
@@ -183,7 +139,9 @@ public class Engine {
 			//System.out.println("Face 2");
 			faceY = faces[2];
 		}
-		if(camera.distanceToXY(faces[0][4][0], faces[0][4][1]) < camera.distanceToXY(faces[5][4][0], faces[5][4][1])) {
+		 //System.out.println(camera.getDeltaZ(faces[0][4][2]) + " " + camera.getDeltaZ(faces[5][4][2]) );
+		
+		if(camera.getDeltaZ(faces[0][4][2]) < 0) {
 			//System.out.println("Face 0");
 			faceZ = faces[0];
 		}
@@ -226,7 +184,7 @@ public class Engine {
 			tempX[i] = faceX[i][0];
 			tempY[i] = faceX[i][1];
 		}
-		poly[0] = new Polygon(tempX,tempY,4);
+		poly[2] = new Polygon(tempX,tempY,4);
 		
 		//Yface polygon creation
 		tempX = new int[4];
@@ -243,10 +201,12 @@ public class Engine {
 		tempY = new int[4];
 		for(int i = 0; i<faceZ.length-1; i++)
 		{
+			
 			tempX[i] = faceZ[i][0];
 			tempY[i] = faceZ[i][1];
+			
 		}
-		poly[2] = new Polygon(tempX,tempY,4);
+		poly[0] = new Polygon(tempX,tempY,4);
 		
 		
 		return poly;
@@ -259,12 +219,16 @@ public class Engine {
 		
 		//TODO mess with positive and negatives here because they are weird.
 		//TODO make sure scaling is correct
+		//coord[0] += (int)(coord[0] * Math.cos(Math.toRadians(camera.getRotation())));
+		//coord[1] += (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
+		
 		int distance = camera.distanceToXY(coord[0], coord[1]);
 		
 		point[0] = CenterX;
 		
+		//TODO mess with haphazzard rotation.
 		double slopeX = (double)camera.getDeltaX(coord[0])/distance;
-		point[0] += (int)(slopeX*viewDistance) * scalingX;
+		point[0] += (int)(slopeX*viewDistance) * scalingX; 
 		
 		slopeX = (double)camera.getDeltaY(coord[1])/distance;
 		point[0] += (int)(slopeX*viewDistance) * scalingX;
@@ -274,7 +238,7 @@ public class Engine {
 		
 		//TODO finish this
 		double slopeZ = (double)camera.getDeltaZ(coord[2])/distance;
-		point[1] += (int)(-slopeZ*viewDistance) * scalingY;
+		point[1] += (int)(slopeZ*viewDistance) * scalingY;
 		
 		return point;
 	}

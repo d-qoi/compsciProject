@@ -25,21 +25,6 @@ public class RenderPanel extends JPanel {
 
 		objects = new ArrayList<GameObject>();
 
-		objects.add(new Render2D() { // Demo rendering object
-			public int x, y;
-
-			public void draw(Graphics2D r) {
-				x += (GameListener.keyDown['a'] ? -1 : 0) // Key presses that
-															// move object
-															// around
-						+ (GameListener.keyDown['d'] ? 1 : 0);
-				y += (GameListener.keyDown['w'] ? -1 : 0)
-						+ (GameListener.keyDown['s'] ? 1 : 0);
-				r.setColor(Color.RED);
-				r.fillRect(x, y, 50, 50);
-			}
-		});
-
 	}
 
 	public void add(GameObject obj) {

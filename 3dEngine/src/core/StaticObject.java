@@ -2,7 +2,8 @@ package core;
 
 import java.awt.Graphics2D;
 
-import engine3D.RenderPolygon;
+import engine3D.Engine;
+
 
 public class StaticObject implements GameObject {
 
@@ -18,6 +19,10 @@ public class StaticObject implements GameObject {
 		this.body = poly;
 	}
 
+	public void calculate(Engine engine) {
+		
+	}
+	
 	public void draw(Graphics2D render) {
 
 	}
