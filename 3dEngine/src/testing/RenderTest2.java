@@ -1,6 +1,7 @@
 package testing;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.Date;
@@ -15,11 +16,43 @@ public class RenderTest2 {
 	public static RenderPanel panel;
 
 	public static void main(String[] args) {
+		
+		//TODO Make tests have less ugly code
+		
 		GameWindow window = new GameWindow();
 		panel = new RenderPanel() {
+			long lastRender = 0, lastSec = 0;
+			int tickCount = 0, tickSec = 0, renderSec = 0, currTick = 0,
+					currRender = 0;
 
+			public void onTick() {
+				tickCount++;
+				tickSec++;
+			}
+
+			public void onPostPaint(Graphics2D g) {
+				renderSec++;
+				long time = new Date().getTime();
+				if (lastSec + 1000 < time) {
+					lastSec = time;
+					currTick = tickSec;
+					currRender = renderSec;
+					renderSec = 0;
+					tickSec = 0;
+				}
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Courier New", Font.BOLD, 20));
+				g.drawString("MS: " + (time - lastRender), 10, 25);
+				g.drawString("Ticks: " + tickCount, 10, 45);
+				g.drawString("FPS: " + currRender, 10, 65);
+				g.drawString("TPS: " + currTick, 10, 85);
+				tickCount = 0;
+				lastRender = time;
+			}
 		};
 		GameTick tick = new GameTick(panel);
+		tick.setRenderDelay(25);
+		tick.setThreadDelay(5);
 		GameListener listener = new GameListener() {
 
 		};
@@ -43,8 +76,8 @@ public class RenderTest2 {
 
 			public void tick() {
 
-				int rot = (int) (Math.sin(new Date().getTime() * 0.00125) * 30 + 20);
-				engine.camera.setZ(rot);
+				int rot = (int) (Math.sin(new Date().getTime() * 0.00125) % 360);
+				engine.camera.setRotation(rot);
 				polygons = RenderTest2.engine.debuggingRendering(box,
 						RenderTest2.panel.getWidth(),
 						RenderTest2.panel.getHeight());
