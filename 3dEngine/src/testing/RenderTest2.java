@@ -78,6 +78,7 @@ public class RenderTest2 {
 
 				int rot = (int) (Math.sin(new Date().getTime() * 0.00125) % 360);
 				engine.camera.setRotation(rot);
+				System.out.println(engine.camera.getRotation());
 				polygons = RenderTest2.engine.debuggingRendering(box,
 						RenderTest2.panel.getWidth(),
 						RenderTest2.panel.getHeight());
