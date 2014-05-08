@@ -51,7 +51,7 @@ public class RenderTest2 {
 			}
 		};
 		GameTick tick = new GameTick(panel);
-		tick.setRenderDelay(25);
+		tick.setRenderDelay(10);
 		tick.setThreadDelay(5);
 		GameListener listener = new GameListener() {
 
