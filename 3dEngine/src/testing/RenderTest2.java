@@ -46,6 +46,7 @@ public class RenderTest2 {
 				g.drawString("Ticks: " + tickCount, 10, 45);
 				g.drawString("FPS: " + currRender, 10, 65);
 				g.drawString("TPS: " + currTick, 10, 85);
+				g.drawString("ROT: "+engine.camera.getRotation(), 10, 105);
 				tickCount = 0;
 				lastRender = time;
 			}
@@ -76,7 +77,7 @@ public class RenderTest2 {
 
 			public void tick() {
 
-				int rot = (int) (Math.sin(new Date().getTime() * 0.00125) % 360);
+				int rot = (int) (new Date().getTime() * 0.1 % 360);
 				engine.camera.setRotation(rot);
 				System.out.println(engine.camera.getRotation());
 				polygons = RenderTest2.engine.debuggingRendering(box,
@@ -88,9 +89,12 @@ public class RenderTest2 {
 				if (polygons == null)
 					return;
 				r.setColor(Color.RED);
-				for (int i = 0; i < polygons.length; i++) {
-					r.fillPolygon(polygons[i]);
-				}
+				r.fillPolygon(polygons[0]);
+				r.setColor(Color.GREEN);
+				r.fillPolygon(polygons[1]);
+				r.setColor(Color.BLUE);
+				r.fillPolygon(polygons[2]);
+				
 			}
 
 		};
