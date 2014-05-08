@@ -39,12 +39,11 @@ public class RenderTest2 {
 			public void onInit() {
 				box = new Bounds3D(100, 95, 50, 10, 40, 30);
 
-				
 			}
-			
+
 			public void tick() {
 
-				int rot = (int)(Math.sin(new Date().getTime()*0.00125)*30 + 20);
+				int rot = (int) (Math.sin(new Date().getTime() * 0.00125) * 30 + 20);
 				engine.camera.setZ(rot);
 				polygons = RenderTest2.engine.debuggingRendering(box,
 						RenderTest2.panel.getWidth(),
@@ -52,7 +51,7 @@ public class RenderTest2 {
 			}
 
 			public void draw(Graphics2D r) {
-				if(polygons == null)
+				if (polygons == null)
 					return;
 				r.setColor(Color.RED);
 				for (int i = 0; i < polygons.length; i++) {
@@ -61,7 +60,7 @@ public class RenderTest2 {
 			}
 
 		};
-		
+
 		panel.add(render);
 
 	}
