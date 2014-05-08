@@ -109,50 +109,6 @@ public class Engine {
 	}
 
 
-	private RenderPolygon[] convertWorldToScreen1(core.Bounds3D that) { //old
-		int[][][] faces = that.getFaces();
-		int[][] faceX;
-		int[][] faceY;
-		RenderPolygon[] polys = new RenderPolygon[2];
-		
-		if(camera.distanceToXY(faces[3][4][0], faces[3][4][1]) < camera.distanceToXY(faces[4][4][0], faces[4][4][1]))
-			faceX = faces[3];
-		else
-			faceX = faces[4];
-		
-		if(camera.distanceToXY(faces[1][4][0], faces[1][4][1]) < camera.distanceToXY(faces[2][4][0], faces[2][4][1]))
-			faceY = faces[1];
-		else
-			faceY = faces[2];
-		
-		for(int i = 0; i<faceX.length; i++)
-			faceX[i] = convertPointToScreen1(faceX[i][0], faceX[i][1], faceX[i][2]);
-		
-		for(int i= 0; i<faceY.length; i++)
-			faceY[i] = convertPointToScreen1(faceY[i][0], faceY[i][1], faceY[i][2]);
-		
-		
-		//TODO FIX THIS
-		
-		polys[0] = new RenderPolygon(faceX);
-		polys[1] = new RenderPolygon(faceY);
-		
-		return polys;
-	}
-	
-	private int[] convertPointToScreen1(int x, int y, int z) { //old
-		int[] point = new int[2];
-		point[0] = camera.getDeltaX(x) * (int)Math.cos(Math.toRadians(camera.getRotation()));
-		point[1] = camera.getDeltaY(y) * (int)Math.sin(Math.toRadians(camera.getRotation()));
-		
-		//int convertedZ = camera.getDeltaZ(z) * (int)(camera.getDeltaZ(z)/camera.distanceToXY(x, y));
-		
-		//TODO check this code, just adding z to y becaust I think it may work.
-		//point[1] += convertedZ;
-		
-		return point;
-	}
-	
 	
 	private Polygon[] convertWorldToScreenNew(core.Bounds3D that, int width, int height)
 	{
