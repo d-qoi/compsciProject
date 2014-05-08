@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import core.Bounds3D;
 import engine3D.Camera;
 import engine3D.Engine;
-import engine3D.RenderPolygon;
 
 
 
