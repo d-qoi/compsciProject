@@ -2,7 +2,6 @@ package core;
 
 import java.awt.Graphics2D;
 
-import engine3D.RenderPolygon;
 
 public class StaticObject implements GameObject {
 
