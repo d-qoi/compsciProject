@@ -1,10 +1,18 @@
 package core;
 
-import java.awt.Color;
+import java.awt.Color;	
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class Render2D implements GameObject {
+	
+	public Render2D() {
+		onInit();
+	}
+	
+	public void onInit() {
+		
+	}
 	
 	public void draw(Graphics2D render) {
 		

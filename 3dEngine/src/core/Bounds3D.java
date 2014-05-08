@@ -197,6 +197,10 @@ public class Bounds3D {
 				+ (aBounds[2].intersects(bBounds[2])?1:0) > 1;
 	}
 	
+	public void rotateAroundZ(int degrees) {
+		
+	}
+	
 	
 
 	public int getX() {

@@ -90,10 +90,10 @@ public class Engine {
 		
 	}
 	
-	private void calculateRacasting()
-	{
+	private void calculateRacasting() {
 		ray = new Rays(viewDistance, FOVBoxDepth, 360, FOVAngleStep);
 	}
+	
 	public void useCamera(Camera camera) {
 		this.camera = camera;
 	}
@@ -230,7 +230,7 @@ public class Engine {
 		
 		//TODO finish this
 		double slopeZ = (double)camera.getDeltaZ(coord[2])/distance;
-		point[1] += (int)(-slopeZ*viewDistance) * scalingY;
+		point[1] += (int)(slopeZ*viewDistance) * scalingY;
 		
 		return point;
 	}

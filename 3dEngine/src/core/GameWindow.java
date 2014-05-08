@@ -27,6 +27,7 @@ public class GameWindow extends JFrame{
 	public GameWindow(int width, int height) {
 		super.setTitle("Game");
 		super.setSize(width + 6, height + 28);
+		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		mainPanel = new JPanel(new BorderLayout());
 		mainPanel.setVisible(true);
