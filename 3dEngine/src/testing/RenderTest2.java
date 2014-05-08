@@ -77,7 +77,7 @@ public class RenderTest2 {
 
 			public void tick() {
 
-				int rot = (int) (new Date().getTime() * 0.02 % 360);
+				int rot = (int) (new Date().getTime() * 0.1 % 360);
 				engine.camera.setRotation(rot);
 				System.out.println(engine.camera.getRotation());
 				polygons = RenderTest2.engine.debuggingRendering(box,
@@ -89,9 +89,12 @@ public class RenderTest2 {
 				if (polygons == null)
 					return;
 				r.setColor(Color.RED);
-				for (int i = 0; i < polygons.length; i++) {
-					r.fillPolygon(polygons[i]);
-				}
+				r.fillPolygon(polygons[0]);
+				r.setColor(Color.GREEN);
+				r.fillPolygon(polygons[1]);
+				r.setColor(Color.BLUE);
+				r.fillPolygon(polygons[2]);
+				
 			}
 
 		};
