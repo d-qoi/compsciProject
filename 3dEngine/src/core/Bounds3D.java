@@ -2,6 +2,7 @@ package core;
 
 import java.awt.Rectangle;
 
+import org.ejml.alg.dense.mult.MatrixMatrixMult;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.data.FixedMatrix3x3_64F;
 
@@ -101,7 +102,6 @@ public class Bounds3D {
 	public double[][][] getFaces() {
 		
 		double[][][] faces = new double[6][5][3];
-		cornor.get();
 		//face 0 is z1 unchanging base x, y, z		
 		faces[0][0][0] = cornor.get(0,0);
 		faces[0][0][1] = cornor.get(0,1);
@@ -256,9 +256,11 @@ public class Bounds3D {
 	
 	public void rotateZ(double deg) {
 		deg = Math.toRadians(deg);
-		FixedMatrix3x3_64F rotZ = new FixedMatrix3x3_64F(Math.cos(deg) ,-Math.sin(deg), 0,
+		DenseMatrix64F rotZ = new den(Math.cos(deg) ,-Math.sin(deg), 0,
 														Math.sin(deg), Math.cos(deg), 0,
 														0,0,1);
+		DenseMatrix64F output = new DenseMatrix64F(8,3);
+		MatrixMatrixMult.mult_small(, cornor, output);
 		
 	}
 	
