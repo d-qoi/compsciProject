@@ -270,8 +270,9 @@ public class Bounds3D {
 			
 			for(int x = 0; x<3; x++) {
 				for(int y = 0; y<3; y++) {
-					output.add(i,x, rotZ.get(y, x) * (cornor.get(i,y)));
+					output.add(i,x, rotZ.get(y, x) * (cornor.get(i,y) - center[y]));
 				}
+				output.add(i,x,center[x]);
 			}
 			
 		}
@@ -286,20 +287,21 @@ public class Bounds3D {
 		DenseMatrix64F rotX = new DenseMatrix64F(3, 3, true, 1, 0, 0, 0,
 				Math.cos(deg), -Math.sin(deg), 0, Math.sin(deg), Math.cos(deg));
 
+
 		DenseMatrix64F output = new DenseMatrix64F(8, 3);
-		DenseMatrix64F tempMat = new DenseMatrix64F(1,3);
-		DenseMatrix64F tempMat2 = new DenseMatrix64F(1,3);
 		
-		for(int i = 0; i<cornor.getNumCols(); i++)
+		for(int i = 0; i<cornor.getNumRows(); i++)
 		{
-			tempMat.set(0,0,cornor.get(i,0));
-			tempMat.set(0,1,cornor.get(i,1));
-			tempMat.set(0,2,cornor.get(i,2));
-			MatrixMatrixMult.mult_aux(rotX, tempMat, tempMat2, null);
-			output.set(i,0,tempMat2.get(0,0));
-			output.set(i,1,tempMat2.get(0,1));
-			output.set(i,2,tempMat2.get(0,2));
+			
+			for(int x = 0; x<3; x++) {
+				for(int y = 0; y<3; y++) {
+					output.add(i,x, rotX.get(y, x) * (cornor.get(i,y) - center[y]));
+				}
+				output.add(i,x,center[x]);
+			}
+			
 		}
+		//output.print();
 		cornor = output;
 	}
 
@@ -309,21 +311,20 @@ public class Bounds3D {
 				Math.sin(deg), 0, 1, 0, -Math.sin(deg), 0, Math.cos(deg));
 		
 		DenseMatrix64F output = new DenseMatrix64F(8, 3);
-		DenseMatrix64F tempMat = new DenseMatrix64F(1,3);
-		DenseMatrix64F tempMat2 = new DenseMatrix64F(1,3);
 		
-		for(int i = 0; i<cornor.getNumCols(); i++)
+		for(int i = 0; i<cornor.getNumRows(); i++)
 		{
-			tempMat.set(0,0,cornor.get(i,0));
-			tempMat.set(0,1,cornor.get(i,1));
-			tempMat.set(0,2,cornor.get(i,2));
-			MatrixMatrixMult.mult_aux(rotY, tempMat, tempMat2, null);
-			output.set(i,0,tempMat2.get(0,0));
-			output.set(i,1,tempMat2.get(0,1));
-			output.set(i,2,tempMat2.get(0,2));
+			
+			for(int x = 0; x<3; x++) {
+				for(int y = 0; y<3; y++) {
+					output.add(i,x, rotY.get(y, x) * (cornor.get(i,y) - center[y]));
+				}
+				output.add(i,x,center[x]);
+			}
+			
 		}
+		//output.print();
 		cornor = output;
-	}
 
 	public int getX() {
 		return x;
