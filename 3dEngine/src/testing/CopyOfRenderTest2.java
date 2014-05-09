@@ -76,7 +76,7 @@ public class CopyOfRenderTest2 {
 			public int x = 0, y = 0, z = 0, rotate = 0;
 
 			public void onInit() {
-				box = new Bounds3D(100, 95, 50, 10, 40, 30);
+				box = new Bounds3D(100, 95, 50, 10, 10, 10);
 
 			}
 
@@ -108,6 +108,8 @@ public class CopyOfRenderTest2 {
 				//engine.camera.setZ(pos - 50);
 				//engine.camera.setX(pos + 50);
 				box.setZ(z);
+				box.rotateX(rotate);
+				box.rotateY(rotate);
 				box.rotateZ(rotate);
 				//engine.camera.setRotation(rotate);
 				
