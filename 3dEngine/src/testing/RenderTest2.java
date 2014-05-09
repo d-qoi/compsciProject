@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.Date;
 
+import javax.swing.Box;
+
 import core.*;
 import engine3D.Camera;
 import engine3D.Engine;
@@ -71,7 +73,7 @@ public class RenderTest2 {
 			public Bounds3D box;
 
 			public void onInit() {
-				box = new Bounds3D(100,-100,0, 10, 40, 30);
+				box = new Bounds3D(160, 300, 0, 50, 50, 50);
 
 			}
 
@@ -79,8 +81,8 @@ public class RenderTest2 {
 
 				int rot = (int) (new Date().getTime() * 0.1 % 360);
 				engine.camera.setRotation(rot);
-				int pos = (int) (new Date().getTime() * 0.05 % 200);
-				engine.camera.setZ(pos - 50);
+				//int pos = (int) (new Date().getTime() * 0.05 % 200);
+				//engine.camera.setZ(pos - 50);
 				//engine.camera.setX(pos + 50);
 				//engine.camera.setY(pos);
 				//System.out.println(engine.camera.getRotation());
@@ -102,7 +104,7 @@ public class RenderTest2 {
 			}
 
 		};
-
+		
 		panel.add(render);
 
 	}
