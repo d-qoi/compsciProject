@@ -2,13 +2,14 @@ package core;
 
 import java.awt.Rectangle;
 
+import org.ejml.data.DenseMatrix64F;
 import org.ejml.data.FixedMatrix3x3_64F;
 
 public class Bounds3D {
 
 	public int x, y, z, width, height, depth, rotX, rotY, rotZ;
 	public int[] bounds;
-	public int[][] cornors;
+	public DenseMatrix64F cornor;
 	
 	public Bounds3D(int x, int y, int z, int width, int depth, int height) {
 		this.x = x;
@@ -50,39 +51,39 @@ public class Bounds3D {
 	}
 	
 	private void calcCornors() {
-		cornors = new int[8][3];
+		cornor = new DenseMatrix64F(8,3);
+		
+		cornor.set(0,0,bounds[0]);
+		cornor.set(0,1,bounds[1]);
+		cornor.set(0,2,bounds[2]);
+		
+		cornor.set(1,0,bounds[3]);
+		cornor.set(1,1,bounds[1]);
+		cornor.set(1,2,bounds[2]);
+		
+		cornor.set(2,0,bounds[3]);
+		cornor.set(2,1,bounds[4]);
+		cornor.set(2,2,bounds[2]);
 
-		cornors[0][0] = bounds[0];
-		cornors[0][1] = bounds[1];
-		cornors[0][2] = bounds[2];
-		
-		cornors[1][0] = bounds[3];
-		cornors[1][1] = bounds[1];
-		cornors[1][2] = bounds[2];
-		
-		cornors[2][0] = bounds[3];
-		cornors[2][1] = bounds[4];
-		cornors[2][2] = bounds[2];
+		cornor.set(3,0,bounds[0]);
+		cornor.set(3,1,bounds[4]);
+		cornor.set(3,2,bounds[2]);
 
-		cornors[3][0] = bounds[0];
-		cornors[3][1] = bounds[4];
-		cornors[3][2] = bounds[2];
-		
-		cornors[4][0] = bounds[0];
-		cornors[4][1] = bounds[1];
-		cornors[4][2] = bounds[5];
-		
-		cornors[5][0] = bounds[3];
-		cornors[5][1] = bounds[1];
-		cornors[5][2] = bounds[5];
-		
-		cornors[6][0] = bounds[3];
-		cornors[6][1] = bounds[4];
-		cornors[6][2] = bounds[5];
+		cornor.set(4,0,bounds[0]);
+		cornor.set(4,1,bounds[1]);
+		cornor.set(4,2,bounds[5]);
 
-		cornors[7][0] = bounds[0];
-		cornors[7][1] = bounds[4];
-		cornors[7][2] = bounds[5];
+		cornor.set(5,0,bounds[3]);
+		cornor.set(5,1,bounds[1]);
+		cornor.set(5,2,bounds[5]);
+
+		cornor.set(6,0,bounds[3]);
+		cornor.set(6,1,bounds[4]);
+		cornor.set(6,2,bounds[5]);
+
+		cornor.set(7,0,bounds[0]);
+		cornor.set(7,1,bounds[4]);
+		cornor.set(7,2,bounds[5]);
 		
 				
 	}
@@ -93,72 +94,137 @@ public class Bounds3D {
 		return this.bounds;
 	}
 	
-	public int[][] getCornors() {
-		return this.cornors;
+	public DenseMatrix64F getCornors() {
+		return this.cornor;
 	}
 	
-	public int [][][] getFaces() {
+	public double[][][] getFaces() {
 		
-		int[][][] faces = new int[6][5][3];
-		
+		double[][][] faces = new double[6][5][3];
+		cornor.get();
 		//face 0 is z1 unchanging base x, y, z		
-		faces[0][0] = cornors[0];
-		faces[0][1] = cornors[1];
-		faces[0][2] = cornors[2];
-		faces[0][3] = cornors[3];
+		faces[0][0][0] = cornor.get(0,0);
+		faces[0][0][1] = cornor.get(0,1);
+		faces[0][0][2] = cornor.get(0,3);
+		
+		faces[0][1][0] = cornor.get(1,0);
+		faces[0][1][1] = cornor.get(1,1);
+		faces[0][1][2] = cornor.get(1,2);
+		
+		faces[0][2][0] = cornor.get(2,0);
+		faces[0][2][1] = cornor.get(2,1);
+		faces[0][2][2] = cornor.get(2,2);
+
+		faces[0][3][0] = cornor.get(3,0);
+		faces[0][3][1] = cornor.get(3,1);
+		faces[0][3][2] = cornor.get(3,2);
 		
 		
 		faces[0][4] = getCenterOfFace(faces[0]);
 		
 		//face 1 is y1 unchanging		
-		faces[1][1] = cornors[0];
-		faces[1][0] = cornors[1];
-		faces[1][2] = cornors[4];
-		faces[1][3] = cornors[5];
+		faces[1][1][0] = cornor.get(0,0);
+		faces[1][1][1] = cornor.get(0,1);
+		faces[1][1][2] = cornor.get(0,3);
+		
+		faces[1][0][0] = cornor.get(1,0);
+		faces[1][0][1] = cornor.get(1,1);
+		faces[1][0][2] = cornor.get(1,2);
+		
+		faces[1][2][0] = cornor.get(4,0);
+		faces[1][2][1] = cornor.get(4,1);
+		faces[1][2][2] = cornor.get(4,2);
+
+		faces[1][3][0] = cornor.get(5,0);
+		faces[1][3][1] = cornor.get(5,1);
+		faces[1][3][2] = cornor.get(5,2);
 
 		
 		faces[1][4] = getCenterOfFace(faces[1]);
 		
 		//face 2 is y2  unchanging
+		faces[2][1][0] = cornor.get(2,0);
+		faces[2][1][1] = cornor.get(2,1);
+		faces[2][1][2] = cornor.get(2,3);
 		
-		faces[2][1] = cornors[2];
-		faces[2][0] = cornors[3];
-		faces[2][2] = cornors[6];
-		faces[2][3] = cornors[7];
+		faces[2][0][0] = cornor.get(3,0);
+		faces[2][0][1] = cornor.get(3,1);
+		faces[2][0][2] = cornor.get(3,2);
+		
+		faces[2][2][0] = cornor.get(6,0);
+		faces[2][2][1] = cornor.get(6,1);
+		faces[2][2][2] = cornor.get(6,2);
+
+		faces[2][3][0] = cornor.get(7,0);
+		faces[2][3][1] = cornor.get(7,1);
+		faces[2][3][2] = cornor.get(7,2);
 		
 		
 		faces[2][4] = getCenterOfFace(faces[2]);
 		
 		
 		//face 3 x1 is unchanging
-		faces[3][0] = cornors[0];
-		faces[3][1] = cornors[3];
-		faces[3][2] = cornors[7];
-		faces[3][3] = cornors[4];
+		faces[3][0][0] = cornor.get(0,0);
+		faces[3][0][1] = cornor.get(0,1);
+		faces[3][0][2] = cornor.get(0,3);
+		
+		faces[3][1][0] = cornor.get(3,0);
+		faces[3][1][1] = cornor.get(3,1);
+		faces[3][1][2] = cornor.get(3,2);
+		
+		faces[3][2][0] = cornor.get(7,0);
+		faces[3][2][1] = cornor.get(7,1);
+		faces[3][2][2] = cornor.get(7,2);
+
+		faces[3][3][0] = cornor.get(4,0);
+		faces[3][3][1] = cornor.get(4,1);
+		faces[3][3][2] = cornor.get(4,2);
 		
 		faces[3][4] = getCenterOfFace(faces[3]);
 		
 		//face 4 is x2 unchanging
-		faces[4][0] = cornors[1];
-		faces[4][1] = cornors[2];
-		faces[4][2] = cornors[6];
-		faces[4][3] = cornors[5];
+		faces[4][0][0] = cornor.get(1,0);
+		faces[4][0][1] = cornor.get(1,1);
+		faces[4][0][2] = cornor.get(1,3);
+		
+		faces[4][1][0] = cornor.get(2,0);
+		faces[4][1][1] = cornor.get(2,1);
+		faces[4][1][2] = cornor.get(2,2);
+		
+		faces[4][2][0] = cornor.get(6,0);
+		faces[4][2][1] = cornor.get(6,1);
+		faces[4][2][2] = cornor.get(6,2);
+
+		faces[4][3][0] = cornor.get(5,0);
+		faces[4][3][1] = cornor.get(5,1);
+		faces[4][3][2] = cornor.get(5,2);
 		
 		faces[4][4] = getCenterOfFace(faces[4]);
 		
 		//face 5 is z2 unchanging		
-		faces[5][0] = cornors[4];
-		faces[5][1] = cornors[5];
-		faces[5][2] = cornors[6];
-		faces[5][3] = cornors[7];
+		faces[5][0][0] = cornor.get(4,0);
+		faces[5][0][1] = cornor.get(4,1);
+		faces[5][0][2] = cornor.get(4,3);
+		
+		faces[5][1][0] = cornor.get(5,0);
+		faces[5][1][1] = cornor.get(5,1);
+		faces[5][1][2] = cornor.get(5,2);
+		
+		faces[5][2][0] = cornor.get(6,0);
+		faces[5][2][1] = cornor.get(6,1);
+		faces[5][2][2] = cornor.get(6,2);
+
+		faces[5][3][0] = cornor.get(7,0);
+		faces[5][3][1] = cornor.get(7,1);
+		faces[5][3][2] = cornor.get(7,2);
 		
 		faces[5][4] = getCenterOfFace(faces[5]);
 		return faces;
 	}
 	
-	public int[] getCenterOfFace(int[][] face)
+	public double[] getCenterOfFace(double[][] face)
 	{
-		int[] center = new int[3];
+		double[] center = new double[3];
 		center[0] = (face[0][0] + face[3][0])/2;
 		center[1] = (face[0][1] + face[3][1])/2;
 		center[2] = (face[0][2] + face[3][2])/2;
@@ -186,6 +252,28 @@ public class Bounds3D {
 		return (aBounds[0].intersects(bBounds[0])?1:0) // such inefficient, much bad
 				+ (aBounds[1].intersects(bBounds[1])?1:0)
 				+ (aBounds[2].intersects(bBounds[2])?1:0) > 1;
+	}
+	
+	public void rotateZ(double deg) {
+		deg = Math.toRadians(deg);
+		FixedMatrix3x3_64F rotZ = new FixedMatrix3x3_64F(Math.cos(deg) ,-Math.sin(deg), 0,
+														Math.sin(deg), Math.cos(deg), 0,
+														0,0,1);
+		
+	}
+	
+	public void rotateX(double deg) {
+		deg = Math.toRadians(deg);
+		FixedMatrix3x3_64F rotX = new FixedMatrix3x3_64F(1, 0, 0,
+														0, Math.cos(deg), -Math.sin(deg),
+														0, Math.sin(deg), Math.cos(deg));
+	}
+	
+	public void rotateY(double deg) {
+		deg = Math.toRadians(deg);
+		FixedMatrix3x3_64F rotY = new FixedMatrix3x3_64F(Math.cos(deg), 0, Math.sin(deg), 
+														0, 1, 0,
+														-Math.sin(deg), 0, Math.cos(deg));	
 	}
 	
 
@@ -238,32 +326,6 @@ public class Bounds3D {
 	public void setDepth(int depth) {
 		this.depth = depth;
 		calcBounds();
-	}
-	
-	
-	public static class Rotation3D {
-		
-		
-		public void rotateZ(double deg) {
-			deg = Math.toRadians(deg);
-			FixedMatrix3x3_64F rotZ = new FixedMatrix3x3_64F(Math.cos(deg) ,-Math.sin(deg), 0,
-															Math.sin(deg), Math.cos(deg), 0,
-															0,0,1);
-		}
-		
-		public void rotateX(double deg) {
-			deg = Math.toRadians(deg);
-			FixedMatrix3x3_64F rotX = new FixedMatrix3x3_64F(1, 0, 0,
-															0, Math.cos(deg), -Math.sin(deg),
-															0, Math.sin(deg), Math.cos(deg));
-		}
-		
-		public void rotateY(double deg) {
-			deg = Math.toRadians(deg);
-			FixedMatrix3x3_64F rotY = new FixedMatrix3x3_64F(Math.cos(deg), 0, Math.sin(deg), 
-															0, 1, 0,
-															-Math.sin(deg), 0, Math.cos(deg));	
-		}
 	}
 
 }
