@@ -66,6 +66,7 @@ public class CopyOfRenderTest2 {
 		window.start();
 
 		engine = new Engine();
+		engine.setVerticalFOV(30);
 		Camera cam = new Camera(200, 0,50, 0);
 		engine.useCamera(cam);
 		engine.camera.setRotation(0);
