@@ -2,7 +2,6 @@ package core;
 
 import java.awt.Rectangle;
 
-import org.ejml.alg.dense.mult.MatrixMatrixMult;
 import org.ejml.data.DenseMatrix64F;
 
 public class Bounds3D {
