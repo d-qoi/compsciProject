@@ -113,10 +113,10 @@ public class Engine {
 	private Polygon[] convertWorldToScreenNew(core.Bounds3D that, int width, int height)
 	{
 		
-		int[][][] faces = that.getFaces();
-		int[][] faceX;
-		int[][] faceY;
-		int[][] faceZ;
+		double[][][] faces = that.getFaces();
+		double[][] faceX;
+		double[][] faceY;
+		double[][] faceZ;
 		Polygon[] poly = new Polygon[3];
 		
 		//System.out.println("Chosing faces :: ");
@@ -153,7 +153,7 @@ public class Engine {
 		for(int i = 0; i<faceX.length; i++)
 		{
 			//System.out.printf("FaceX point %d ");
-			int[] tempPoint = pointToScreenNew(faceX[i], width, height);
+			double[] tempPoint = pointToScreenNew(faceX[i], width, height);
 			faceX[i] = tempPoint;
 			
 		}
@@ -161,14 +161,14 @@ public class Engine {
 		for(int i = 0; i<faceY.length; i++)
 		{
 			//System.out.printf("FaceX point %d ");
-			int[] tempPoint = pointToScreenNew(faceY[i], width, height);
+			double[] tempPoint = pointToScreenNew(faceY[i], width, height);
 			faceY[i] = tempPoint;
 			
 		}
 		for(int i = 0; i<faceZ.length; i++)
 		{
 			//System.out.printf("FaceX point %d ");
-			int[] tempPoint = pointToScreenNew(faceZ[i], width, height);
+			double[] tempPoint = pointToScreenNew(faceZ[i], width, height);
 			faceZ[i] = tempPoint;
 			
 		}
@@ -181,8 +181,8 @@ public class Engine {
 		for(int i = 0; i<faceX.length-1; i++)
 		{
 			//System.out.println(i);
-			tempX[i] = faceX[i][0];
-			tempY[i] = faceX[i][1];
+			tempX[i] = (int)faceX[i][0];
+			tempY[i] = (int)faceX[i][1];
 		}
 		poly[2] = new Polygon(tempX,tempY,4);
 		
@@ -191,8 +191,8 @@ public class Engine {
 		tempY = new int[4];
 		for(int i = 0; i<faceY.length-1; i++)
 		{
-			tempX[i] = faceY[i][0];
-			tempY[i] = faceY[i][1];
+			tempX[i] = (int)faceY[i][0];
+			tempY[i] = (int)faceY[i][1];
 		}
 		poly[1] = new Polygon(tempX,tempY,4);
 		
@@ -202,9 +202,8 @@ public class Engine {
 		for(int i = 0; i<faceZ.length-1; i++)
 		{
 			
-			tempX[i] = faceZ[i][0];
-			tempY[i] = faceZ[i][1];
-			
+			tempX[i] = (int) faceZ[i][0];
+			tempY[i] = (int) faceZ[i][1];
 		}
 		poly[0] = new Polygon(tempX,tempY,4);
 		
@@ -212,8 +211,8 @@ public class Engine {
 		return poly;
 	}
 	
-	private int[] pointToScreenNew(int[] coord, int width, int height) {
-		int[] point = new int[2];
+	private double[] pointToScreenNew(double[] coord, int width, int height) {
+		double[] point = new double[2];
 		int CenterX = width/2;
 		int CenterY = height/2;
 		
@@ -228,17 +227,17 @@ public class Engine {
 		
 		//TODO mess with haphazzard rotation.
 		double slopeX = (double)camera.getDeltaX(coord[0])/distance;
-		point[0] += (int)(slopeX*viewDistance) * scalingX; 
+		point[0] += (slopeX*viewDistance) * scalingX; 
 		
 		slopeX = (double)camera.getDeltaY(coord[1])/distance;
-		point[0] += (int)(slopeX*viewDistance) * scalingX;
+		point[0] += (slopeX*viewDistance) * scalingX;
 		
 				
 		point[1] = CenterY;
 		
 		//TODO finish this
 		double slopeZ = (double)camera.getDeltaZ(coord[2])/distance;
-		point[1] += (int)(slopeZ*viewDistance) * scalingY;
+		point[1] += (slopeZ*viewDistance) * scalingY;
 		
 		return point;
 	}

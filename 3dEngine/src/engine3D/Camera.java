@@ -60,16 +60,16 @@ public class Camera {
 		this.rotation = rotation;
 	}
 	
-	public int distanceToXY(int x, int y) {
+	public int distanceToXY(double x, double y) {
 		return (int)(Math.sqrt(Math.pow(x + this.x, 2) - Math.pow(y + this.y, 2)));
 	}
-	public int getDeltaX(int x) {
+	public double getDeltaX(double x) {
 		return this.x - x;
 	}
-	public int getDeltaY(int y) {
+	public double getDeltaY(double y) {
 		return this.y - y;
 	}
-	public int getDeltaZ(int z) {
+	public double getDeltaZ(double z) {
 		return this.z - z;
 	}
 }

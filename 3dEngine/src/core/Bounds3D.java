@@ -105,7 +105,7 @@ public class Bounds3D {
 		//face 0 is z1 unchanging base x, y, z		
 		faces[0][0][0] = cornor.get(0,0);
 		faces[0][0][1] = cornor.get(0,1);
-		faces[0][0][2] = cornor.get(0,3);
+		faces[0][0][2] = cornor.get(0,2);
 		
 		faces[0][1][0] = cornor.get(1,0);
 		faces[0][1][1] = cornor.get(1,1);
@@ -125,7 +125,7 @@ public class Bounds3D {
 		//face 1 is y1 unchanging		
 		faces[1][1][0] = cornor.get(0,0);
 		faces[1][1][1] = cornor.get(0,1);
-		faces[1][1][2] = cornor.get(0,3);
+		faces[1][1][2] = cornor.get(0,2);
 		
 		faces[1][0][0] = cornor.get(1,0);
 		faces[1][0][1] = cornor.get(1,1);
@@ -145,7 +145,7 @@ public class Bounds3D {
 		//face 2 is y2  unchanging
 		faces[2][1][0] = cornor.get(2,0);
 		faces[2][1][1] = cornor.get(2,1);
-		faces[2][1][2] = cornor.get(2,3);
+		faces[2][1][2] = cornor.get(2,2);
 		
 		faces[2][0][0] = cornor.get(3,0);
 		faces[2][0][1] = cornor.get(3,1);
@@ -166,7 +166,7 @@ public class Bounds3D {
 		//face 3 x1 is unchanging
 		faces[3][0][0] = cornor.get(0,0);
 		faces[3][0][1] = cornor.get(0,1);
-		faces[3][0][2] = cornor.get(0,3);
+		faces[3][0][2] = cornor.get(0,2);
 		
 		faces[3][1][0] = cornor.get(3,0);
 		faces[3][1][1] = cornor.get(3,1);
@@ -185,7 +185,7 @@ public class Bounds3D {
 		//face 4 is x2 unchanging
 		faces[4][0][0] = cornor.get(1,0);
 		faces[4][0][1] = cornor.get(1,1);
-		faces[4][0][2] = cornor.get(1,3);
+		faces[4][0][2] = cornor.get(1,2);
 		
 		faces[4][1][0] = cornor.get(2,0);
 		faces[4][1][1] = cornor.get(2,1);
@@ -204,7 +204,7 @@ public class Bounds3D {
 		//face 5 is z2 unchanging		
 		faces[5][0][0] = cornor.get(4,0);
 		faces[5][0][1] = cornor.get(4,1);
-		faces[5][0][2] = cornor.get(4,3);
+		faces[5][0][2] = cornor.get(4,2);
 		
 		faces[5][1][0] = cornor.get(5,0);
 		faces[5][1][1] = cornor.get(5,1);
@@ -264,6 +264,7 @@ public class Bounds3D {
 		cornor = output;
 		
 	}
+	
 	public void rotateX(double deg) {
 		deg = Math.toRadians(deg);
 		DenseMatrix64F rotX = new DenseMatrix64F(3,3,true,1, 0, 0,
