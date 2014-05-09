@@ -4,12 +4,13 @@ import java.awt.Rectangle;
 
 import org.ejml.alg.dense.mult.MatrixMatrixMult;
 import org.ejml.data.DenseMatrix64F;
-import org.ejml.data.FixedMatrix3x3_64F;
 
 public class Bounds3D {
 
 	public int x, y, z, width, height, depth, rotX, rotY, rotZ;
+	
 	public int[] bounds;
+	public double[] center;
 	public DenseMatrix64F cornor;
 
 	public Bounds3D(int x, int y, int z, int width, int depth, int height) {
@@ -22,6 +23,9 @@ public class Bounds3D {
 		this.rotX = 0;
 		this.rotY = 0;
 		this.rotZ = 0;
+		this.cornor = new DenseMatrix64F(8, 3);
+		this.bounds = new int[6];
+		this.center = new double[3];
 		calcBounds();
 	}
 
@@ -35,11 +39,13 @@ public class Bounds3D {
 		this.rotX = 0;
 		this.rotY = 0;
 		this.rotZ = 0;
+		this.cornor = new DenseMatrix64F(8, 3);
+		this.bounds = new int[6];
+		this.center = new double[3];
 		calcBounds();
 	}
 
-	private void calcBounds() {
-		bounds = new int[6];
+	private void calcBounds() {		
 
 		bounds[0] = x - width / 2; // min x
 		bounds[1] = y - depth / 2; // min y
@@ -47,12 +53,14 @@ public class Bounds3D {
 		bounds[3] = x + width / 2; // max x
 		bounds[4] = y + depth / 2; // max y
 		bounds[5] = z + height / 2; // max z
+		center[0] = (bounds[0]+bounds[3])/2;
+		center[1] = (bounds[1]+bounds[4])/2;
+		center[2] = (bounds[2]+bounds[5])/2;
 		calcCornors();
 
 	}
 
-	private void calcCornors() {
-		cornor = new DenseMatrix64F(8, 3);
+	private void calcCornors() {			
 
 		cornor.set(0, 0, bounds[0]);
 		cornor.set(0, 1, bounds[1]);
@@ -97,7 +105,6 @@ public class Bounds3D {
 	}
 
 	public double[][][] getFaces() {
-
 		double[][][] faces = new double[6][5][3];
 		//face 0 is z1 unchanging base x, y, z		
 		faces[0][0][0] = cornor.get(0,0);
@@ -255,9 +262,22 @@ public class Bounds3D {
 		deg = Math.toRadians(deg);
 		DenseMatrix64F rotZ = new DenseMatrix64F(3, 3, true, Math.cos(deg),
 				-Math.sin(deg), 0, Math.sin(deg), Math.cos(deg), 0, 0, 0, 1);
+		
 		DenseMatrix64F output = new DenseMatrix64F(8, 3);
-		MatrixMatrixMult.mult_aux(rotZ, cornor, output, null);
+		
+		for(int i = 0; i<cornor.getNumRows(); i++)
+		{
+			
+			for(int x = 0; x<3; x++) {
+				for(int y = 0; y<3; y++) {
+					output.add(i,x, rotZ.get(y, x) * (cornor.get(i,y)));
+				}
+			}
+			
+		}
+		//output.print();
 		cornor = output;
+		//calcBounds();
 
 	}
 	
@@ -265,8 +285,21 @@ public class Bounds3D {
 		deg = Math.toRadians(deg);
 		DenseMatrix64F rotX = new DenseMatrix64F(3, 3, true, 1, 0, 0, 0,
 				Math.cos(deg), -Math.sin(deg), 0, Math.sin(deg), Math.cos(deg));
+
 		DenseMatrix64F output = new DenseMatrix64F(8, 3);
-		MatrixMatrixMult.mult_aux(rotX, cornor, output, null);
+		DenseMatrix64F tempMat = new DenseMatrix64F(1,3);
+		DenseMatrix64F tempMat2 = new DenseMatrix64F(1,3);
+		
+		for(int i = 0; i<cornor.getNumCols(); i++)
+		{
+			tempMat.set(0,0,cornor.get(i,0));
+			tempMat.set(0,1,cornor.get(i,1));
+			tempMat.set(0,2,cornor.get(i,2));
+			MatrixMatrixMult.mult_aux(rotX, tempMat, tempMat2, null);
+			output.set(i,0,tempMat2.get(0,0));
+			output.set(i,1,tempMat2.get(0,1));
+			output.set(i,2,tempMat2.get(0,2));
+		}
 		cornor = output;
 	}
 
@@ -274,8 +307,21 @@ public class Bounds3D {
 		deg = Math.toRadians(deg);
 		DenseMatrix64F rotY = new DenseMatrix64F(3, 3, true, Math.cos(deg), 0,
 				Math.sin(deg), 0, 1, 0, -Math.sin(deg), 0, Math.cos(deg));
+		
 		DenseMatrix64F output = new DenseMatrix64F(8, 3);
-		MatrixMatrixMult.mult_aux(rotY, cornor, output, null);
+		DenseMatrix64F tempMat = new DenseMatrix64F(1,3);
+		DenseMatrix64F tempMat2 = new DenseMatrix64F(1,3);
+		
+		for(int i = 0; i<cornor.getNumCols(); i++)
+		{
+			tempMat.set(0,0,cornor.get(i,0));
+			tempMat.set(0,1,cornor.get(i,1));
+			tempMat.set(0,2,cornor.get(i,2));
+			MatrixMatrixMult.mult_aux(rotY, tempMat, tempMat2, null);
+			output.set(i,0,tempMat2.get(0,0));
+			output.set(i,1,tempMat2.get(0,1));
+			output.set(i,2,tempMat2.get(0,2));
+		}
 		cornor = output;
 	}
 
@@ -285,6 +331,7 @@ public class Bounds3D {
 
 	public void setX(int x) {
 		this.x = x;
+		calcBounds();
 	}
 
 	public int getY() {
@@ -293,6 +340,7 @@ public class Bounds3D {
 
 	public void setY(int y) {
 		this.y = y;
+		calcBounds();
 	}
 
 	public int getZ() {
@@ -301,6 +349,7 @@ public class Bounds3D {
 
 	public void setZ(int z) {
 		this.z = z;
+		calcBounds();
 	}
 
 	public int getWidth() {

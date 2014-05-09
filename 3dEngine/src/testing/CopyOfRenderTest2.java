@@ -90,10 +90,14 @@ public class CopyOfRenderTest2 {
 					z -= 1;
 				if(listener.keyDown['s'])
 					z += 1;
-				if(listener.keyDown['t'])
+				if(listener.keyDown['t']) {
 					x += 1;
-				if(listener.keyDown['g'])
+					box.setX(100 + x);
+				}
+				if(listener.keyDown['g']) {
 					x -= 1;
+					box.setX(100 + x);
+				}
 				
 				
 				
@@ -103,9 +107,10 @@ public class CopyOfRenderTest2 {
 				//int pos = (int) (new Date().getTime() * 0.05 % 200);
 				//engine.camera.setZ(pos - 50);
 				//engine.camera.setX(pos + 50);
-				engine.camera.setZ(z);
-				engine.camera.setRotation(rotate);
-				box.setX(100 + x);
+				box.setZ(z);
+				box.rotateZ(rotate);
+				//engine.camera.setRotation(rotate);
+				
 				//System.out.println(engine.camera.getRotation());
 				polygons = CopyOfRenderTest2.engine.debuggingRendering(box,
 						CopyOfRenderTest2.panel.getWidth(),
