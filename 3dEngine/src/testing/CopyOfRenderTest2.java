@@ -76,7 +76,7 @@ public class CopyOfRenderTest2 {
 			public int x = 0, y = 0, z = 0, rotate = 0;
 
 			public void onInit() {
-				box = new Bounds3D(100, 95, 50, 10, 10, 30);
+				box = new Bounds3D(100, 95, 50, 10, 40, 30);
 
 			}
 
@@ -90,6 +90,11 @@ public class CopyOfRenderTest2 {
 					z -= 1;
 				if(listener.keyDown['s'])
 					z += 1;
+				if(listener.keyDown['t'])
+					x += 1;
+				if(listener.keyDown['g'])
+					x -= 1;
+				
 				
 				
 				//box.rotateZ(rotate);
@@ -99,6 +104,8 @@ public class CopyOfRenderTest2 {
 				//engine.camera.setZ(pos - 50);
 				//engine.camera.setX(pos + 50);
 				engine.camera.setZ(z);
+				engine.camera.setRotation(rotate);
+				box.setX(100 + x);
 				//System.out.println(engine.camera.getRotation());
 				polygons = CopyOfRenderTest2.engine.debuggingRendering(box,
 						CopyOfRenderTest2.panel.getWidth(),

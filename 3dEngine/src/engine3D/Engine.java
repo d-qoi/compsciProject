@@ -143,7 +143,8 @@ public class Engine {
 		 //System.out.println(camera.getDeltaZ(faces[0][4][2]) + " " + camera.getDeltaZ(faces[5][4][2]) );
 		
 		//if(camera.getDeltaZ(faces[0][4][2]) < 0) {
-		System.out.println(camera.distanceToXYZ(faces[0][4]));
+		//System.out.println(camera.distanceToXYZ(faces[0][4]));
+		
 		if(camera.distanceToXYZ(faces[0][4]) < camera.distanceToXYZ(faces[5][4])) {
 			//System.out.println("Face 0");
 			faceZ = faces[0];
@@ -156,7 +157,8 @@ public class Engine {
 		for(int i = 0; i<faceX.length; i++)
 		{
 			//System.out.printf("FaceX point %d ");
-			double[] tempPoint = pointToScreenNew(faceX[i], width, height);
+			//double[] tempPoint = pointToScreenNew(faceX[i], width, height);
+			double[] tempPoint = pointToScreen2(faceX[i], width, height);
 			faceX[i] = tempPoint;
 			
 		}
@@ -164,14 +166,16 @@ public class Engine {
 		for(int i = 0; i<faceY.length; i++)
 		{
 			//System.out.printf("FaceX point %d ");
-			double[] tempPoint = pointToScreenNew(faceY[i], width, height);
+			//double[] tempPoint = pointToScreenNew(faceY[i], width, height);
+			double[] tempPoint = pointToScreen2(faceY[i], width, height);
 			faceY[i] = tempPoint;
 			
 		}
 		for(int i = 0; i<faceZ.length; i++)
 		{
 			//System.out.printf("FaceX point %d ");
-			double[] tempPoint = pointToScreenNew(faceZ[i], width, height);
+			//double[] tempPoint = pointToScreenNew(faceZ[i], width, height);
+			double[] tempPoint = pointToScreen2(faceZ[i], width, height);
 			faceZ[i] = tempPoint;
 			
 		}
@@ -221,8 +225,6 @@ public class Engine {
 		
 		//TODO mess with positive and negatives here because they are weird.
 		//TODO make sure scaling is correct
-		//coord[0] += (int)(coord[0] * Math.cos(Math.toRadians(camera.getRotation())));
-		//coord[1] += (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
 		
 		int distance = camera.distanceToXY(coord[0], coord[1]);
 		
@@ -252,21 +254,24 @@ public class Engine {
 		
 		//TODO mess with positive and negatives here because they are weird.
 		//TODO make sure scaling is correct
+		
 		//coord[0] += (int)(coord[0] * Math.cos(Math.toRadians(camera.getRotation())));
 		//coord[1] += (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
 		
 		int distance = camera.distanceToXY(coord[0], coord[1]);
+		double rot = Math.toRadians(camera.getRotation());
 		
 		point[0] = CenterX;
 		
 		//TODO mess with haphazzard rotation.
+		
 		double slopeX = (double)camera.getDeltaX(coord[0])/distance;
-		point[0] += (slopeX*viewDistance) * scalingX; 
+		point[0] += ((slopeX + slopeX*Math.cos(rot))*viewDistance) * scalingX; 
 		
 		slopeX = (double)camera.getDeltaY(coord[1])/distance;
-		point[0] += (slopeX*viewDistance) * scalingX;
+		point[0] += ((slopeX + slopeX*Math.cos(rot))*viewDistance) * scalingX;
 		
-				
+		
 		point[1] = CenterY;
 		
 		//TODO finish this
