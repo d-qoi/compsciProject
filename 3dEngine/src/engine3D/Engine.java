@@ -260,16 +260,18 @@ public class Engine {
 		
 		int distance = camera.distanceToXY(coord[0], coord[1]);
 		double rot = Math.toRadians(camera.getRotation());
+		double deltaX = camera.getDeltaX(coord[0]);
+		double deltaY = camera.getDeltaY(coord[1]);
 		
 		point[0] = CenterX;
 		
-		//TODO mess with haphazzard rotation.
+		//TODO mess with haphazard rotation.
 		
-		double slopeX = (double)camera.getDeltaX(coord[0])/distance;
-		point[0] += ((slopeX + slopeX*Math.cos(rot))*viewDistance) * scalingX; 
+		double slopeX = (double)(Math.cos(rot)*deltaX - Math.sin(rot)*deltaY)/distance;
+		point[0] += ((slopeX)*viewDistance) * scalingX; 
 		
-		slopeX = (double)camera.getDeltaY(coord[1])/distance;
-		point[0] += ((slopeX + slopeX*Math.cos(rot))*viewDistance) * scalingX;
+		slopeX = (double)(Math.sin(rot)*deltaX + Math.cos(rot)*deltaY)/distance;
+		point[0] += ((slopeX)*viewDistance) * scalingX;
 		
 		
 		point[1] = CenterY;
