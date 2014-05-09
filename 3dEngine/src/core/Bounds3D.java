@@ -325,6 +325,7 @@ public class Bounds3D {
 		}
 		//output.print();
 		cornor = output;
+	}
 
 	public int getX() {
 		return x;
