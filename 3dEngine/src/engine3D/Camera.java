@@ -61,7 +61,10 @@ public class Camera {
 	}
 	
 	public int distanceToXY(double x, double y) {
-		return (int)(Math.sqrt(Math.pow(x + this.x, 2) - Math.pow(y + this.y, 2)));
+		return (int)(Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2)));
+	}
+	public double distanceToXYZ(double[] points) {
+		return (Math.sqrt(Math.pow(points[0] - this.x, 2) + Math.pow(points[1] - this.y, 2) + Math.pow(points[2] - this.z,2)));
 	}
 	public double getDeltaX(double x) {
 		return this.x - x;

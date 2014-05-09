@@ -121,8 +121,8 @@ public class Engine {
 		
 		//System.out.println("Chosing faces :: ");
 		
-		if(camera.distanceToXY(faces[3][4][0], faces[3][4][1]) < camera.distanceToXY(faces[4][4][0], faces[4][4][1]))
-		{
+		//if(camera.distanceToXY(faces[3][4][0], faces[3][4][1]) < camera.distanceToXY(faces[4][4][0], faces[4][4][1]))
+		if(camera.distanceToXYZ(faces[3][4]) < camera.distanceToXYZ(faces[4][4])) {
 			//System.out.println("Face 3");
 			faceX = faces[3];
 		}
@@ -131,7 +131,8 @@ public class Engine {
 			faceX = faces[4];
 		}
 		
-		if(camera.distanceToXY(faces[1][4][0], faces[1][4][1]) < camera.distanceToXY(faces[2][4][0], faces[2][4][1])) {
+		//if(camera.distanceToXY(faces[1][4][0], faces[1][4][1]) < camera.distanceToXY(faces[2][4][0], faces[2][4][1])) {
+		if(camera.distanceToXYZ(faces[1][4]) < camera.distanceToXYZ(faces[2][4])) {	
 			//System.out.println("Face 1");
 			faceY = faces[1];
 		}
@@ -141,7 +142,9 @@ public class Engine {
 		}
 		 //System.out.println(camera.getDeltaZ(faces[0][4][2]) + " " + camera.getDeltaZ(faces[5][4][2]) );
 		
-		if(camera.getDeltaZ(faces[0][4][2]) < 0) {
+		//if(camera.getDeltaZ(faces[0][4][2]) < 0) {
+		System.out.println(camera.distanceToXYZ(faces[0][4]));
+		if(camera.distanceToXYZ(faces[0][4]) < camera.distanceToXYZ(faces[5][4])) {
 			//System.out.println("Face 0");
 			faceZ = faces[0];
 		}
@@ -241,6 +244,39 @@ public class Engine {
 		
 		return point;
 	}
+	
+	private double[] pointToScreen2(double[] coord, int width, int height) {
+		double[] point = new double[2];
+		int CenterX = width/2;
+		int CenterY = height/2;
+		
+		//TODO mess with positive and negatives here because they are weird.
+		//TODO make sure scaling is correct
+		//coord[0] += (int)(coord[0] * Math.cos(Math.toRadians(camera.getRotation())));
+		//coord[1] += (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
+		
+		int distance = camera.distanceToXY(coord[0], coord[1]);
+		
+		point[0] = CenterX;
+		
+		//TODO mess with haphazzard rotation.
+		double slopeX = (double)camera.getDeltaX(coord[0])/distance;
+		point[0] += (slopeX*viewDistance) * scalingX; 
+		
+		slopeX = (double)camera.getDeltaY(coord[1])/distance;
+		point[0] += (slopeX*viewDistance) * scalingX;
+		
+				
+		point[1] = CenterY;
+		
+		//TODO finish this
+		double slopeZ = (double)camera.getDeltaZ(coord[2])/distance;
+		point[1] += (slopeZ*viewDistance) * scalingY;
+		
+		return point;
+	}
+	
+	
 	
 	public Polygon[] debuggingRendering(core.Bounds3D that, int width, int height)
 	{
