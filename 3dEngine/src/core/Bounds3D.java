@@ -256,26 +256,32 @@ public class Bounds3D {
 	
 	public void rotateZ(double deg) {
 		deg = Math.toRadians(deg);
-		DenseMatrix64F rotZ = new den(Math.cos(deg) ,-Math.sin(deg), 0,
+		DenseMatrix64F rotZ = new DenseMatrix64F(3,3,true,Math.cos(deg) ,-Math.sin(deg), 0,
 														Math.sin(deg), Math.cos(deg), 0,
 														0,0,1);
 		DenseMatrix64F output = new DenseMatrix64F(8,3);
-		MatrixMatrixMult.mult_small(, cornor, output);
+		MatrixMatrixMult.mult_aux(rotZ, cornor, output, null);
+		cornor = output;
 		
 	}
-	
 	public void rotateX(double deg) {
 		deg = Math.toRadians(deg);
-		FixedMatrix3x3_64F rotX = new FixedMatrix3x3_64F(1, 0, 0,
+		DenseMatrix64F rotX = new DenseMatrix64F(3,3,true,1, 0, 0,
 														0, Math.cos(deg), -Math.sin(deg),
 														0, Math.sin(deg), Math.cos(deg));
+		DenseMatrix64F output = new DenseMatrix64F(8,3);
+		MatrixMatrixMult.mult_aux(rotX, cornor, output, null);
+		cornor = output;
 	}
 	
 	public void rotateY(double deg) {
 		deg = Math.toRadians(deg);
-		FixedMatrix3x3_64F rotY = new FixedMatrix3x3_64F(Math.cos(deg), 0, Math.sin(deg), 
+		DenseMatrix64F rotY = new DenseMatrix64F(3,3,true,Math.cos(deg), 0, Math.sin(deg), 
 														0, 1, 0,
 														-Math.sin(deg), 0, Math.cos(deg));	
+		DenseMatrix64F output = new DenseMatrix64F(8,3);
+		MatrixMatrixMult.mult_aux(rotY, cornor, output, null);
+		cornor = output;
 	}
 	
 
