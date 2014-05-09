@@ -1,5 +1,6 @@
 package testing;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -14,6 +15,7 @@ public class CopyOfRenderTest2 {
 
 	public static Engine engine;
 	public static RenderPanel panel;
+	public static GameListener listener;
 
 	public static void main(String[] args) {
 		
@@ -52,9 +54,9 @@ public class CopyOfRenderTest2 {
 			}
 		};
 		GameTick tick = new GameTick(panel);
-		tick.setRenderDelay(10);
-		tick.setThreadDelay(5);
-		GameListener listener = new GameListener() {
+		tick.setRenderDelay(0);
+		tick.setThreadDelay(10);
+		listener = new GameListener() {
 
 		};
 		window.setRenderPanel(panel);
@@ -66,9 +68,12 @@ public class CopyOfRenderTest2 {
 		engine = new Engine();
 		Camera cam = new Camera(200, 0,50, 0);
 		engine.useCamera(cam);
+		engine.camera.setRotation(0);
 		Render2D render = new Render2D() {
 			public Polygon[] polygons;
 			public Bounds3D box;
+			
+			public int x = 0, y = 0, z = 0, rotate = 0;
 
 			public void onInit() {
 				box = new Bounds3D(100, 95, 50, 10, 40, 30);
@@ -77,12 +82,23 @@ public class CopyOfRenderTest2 {
 
 			public void tick() {
 
-				int rot = (int) (new Date().getTime() * 0.1 % 360);
-				engine.camera.setRotation(rot);
-				int pos = (int) (new Date().getTime() * 0.05 % 200);
-				engine.camera.setZ(pos - 50);
+				if(listener.keyDown['a'])
+					rotate -= 1;
+				if(listener.keyDown['d'])
+					rotate += 1;
+				if(listener.keyDown['w'])
+					z -= 1;
+				if(listener.keyDown['s'])
+					z += 1;
+				
+				
+				//box.rotateZ(rotate);
+				//int rot = (int) (new Date().getTime() * 0.1 % 360);
+				//engine.camera.setRotation(rot);
+				//int pos = (int) (new Date().getTime() * 0.05 % 200);
+				//engine.camera.setZ(pos - 50);
 				//engine.camera.setX(pos + 50);
-				//engine.camera.setY(pos);
+				engine.camera.setZ(z);
 				//System.out.println(engine.camera.getRotation());
 				polygons = CopyOfRenderTest2.engine.debuggingRendering(box,
 						CopyOfRenderTest2.panel.getWidth(),
@@ -92,12 +108,19 @@ public class CopyOfRenderTest2 {
 			public void draw(Graphics2D r) {
 				if (polygons == null)
 					return;
+				r.setStroke(new BasicStroke(5));
 				r.setColor(Color.RED);
 				r.fillPolygon(polygons[0]);
+				r.setColor(Color.WHITE);
+				r.drawPolygon(polygons[0]);
 				r.setColor(Color.GREEN);
 				r.fillPolygon(polygons[1]);
+				r.setColor(Color.WHITE);
+				r.drawPolygon(polygons[1]);
 				r.setColor(Color.BLUE);
 				r.fillPolygon(polygons[2]);
+				r.setColor(Color.WHITE);
+				r.drawPolygon(polygons[2]);
 				
 			}
 
