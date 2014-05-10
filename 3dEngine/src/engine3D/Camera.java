@@ -57,7 +57,7 @@ public class Camera {
 	}
 
 	public void setRotation(int rotation) {
-		this.rotation = rotation;
+		this.rotation = rotation%360;
 	}
 	
 	public int distanceToXY(double x, double y) {

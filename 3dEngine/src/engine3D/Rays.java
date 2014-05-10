@@ -23,10 +23,11 @@ public class Rays {
 			{
 				int tempAng = ang*angleSteps;
 				int tempDist = dist*distanceSteps;
-				int x = tempDist*(int)(Math.cos(Math.toRadians(tempAng)));
-				int y = tempDist*(int)(Math.sin(Math.toRadians(tempAng)));
+				int x = (int)(tempDist*(Math.cos(Math.toRadians(tempAng))));
+				int y = (int)(tempDist*(Math.sin(Math.toRadians(tempAng))));
 				rays[ang][dist][0] = x;
 				rays[ang][dist][1] = y;
+				System.out.println(x + " " + y);
 			}
 		}
 	}

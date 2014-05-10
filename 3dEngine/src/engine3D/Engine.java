@@ -81,17 +81,27 @@ public class Engine {
 		
 	private void calculateRacasting() {
 		ray = new Rays(viewDistance, FOVBoxDepth, 360, FOVAngleStep);
+		for(int i = 0; i<ray.rays.length;i++)
+		{
+			for(int j = 0; j<ray.rays[i].length; j++)
+			{
+				System.out.print(ray.rays[i][j][0] + " " + ray.rays[i][j][1] + ", ");
+			}
+			System.out.println();
+		}
 	}
 	
 	private boolean renderCheckWorld(Bounds3D obj)	{
 		//TODO get this working, needs to check if FOVbox intersects the world box.
-		int modifiedAngle = (camera.getRotation() - horizontalFOV/2) - (camera.getRotation() - horizontalFOV/2)%5;
+		int modifiedAngle = (camera.getRotation() - horizontalFOV/2) - (camera.getRotation() - horizontalFOV/2)%FOVAngleStep;
 
-		for(int deg = modifiedAngle; deg < modifiedAngle + horizontalFOV + 5; deg += 5)
+		for(int deg = modifiedAngle; deg < modifiedAngle + horizontalFOV + FOVAngleStep; deg += FOVAngleStep)
 		{
+			int degMod = ((deg < 0)?360+deg : deg)/FOVAngleStep;
 			for(int depth = 0; depth < ray.rays.length; depth++)
 			{
-				if(obj.pointIsInsideXY(ray.rays[deg][depth][0], ray.rays[deg][depth][1])) {
+				//System.out.printf("%d %d %d %d %d\n",deg,degMod, depth, ray.rays[degMod][depth][0], ray.rays[degMod][depth][1]);
+				if(obj.pointIsInsideXY(ray.rays[degMod][depth][0], ray.rays[degMod][depth][1])) {
 					return true;
 				}
 			}
@@ -257,7 +267,17 @@ public class Engine {
 	
 	public Polygon[] debuggingRendering(core.Bounds3D that, int width, int height)
 	{
+		int[] x = {1,2,3};
+		Polygon fals = new Polygon(x, x, 3);
+		Polygon[] fal2 = new Polygon[4];
+		fal2[0] = fals;
+		fal2[1] = fals;
+		fal2[2] = fals;
+		fal2[3] = fals;
 		calculateScaling(width, height);
+		System.out.println(renderCheckWorld(that));
+		//if(renderCheckWorld(that))
 		return convertWorldToScreenNew(that, width, height);
+		//return fal2;
 	}
 }
