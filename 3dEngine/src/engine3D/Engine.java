@@ -81,6 +81,7 @@ public class Engine {
 		
 	private void calculateRacasting() {
 		ray = new Rays(viewDistance, FOVBoxDepth, 360, FOVAngleStep);
+		/*
 		for(int i = 0; i<ray.rays.length;i++)
 		{
 			for(int j = 0; j<ray.rays[i].length; j++)
@@ -89,9 +90,10 @@ public class Engine {
 			}
 			System.out.println();
 		}
+		*/
 	}
 	
-	private boolean renderCheckWorld(Bounds3D obj)	{
+	public boolean renderCheckWorld(Bounds3D obj)	{
 		//TODO get this working, needs to check if FOVbox intersects the world box.
 		int modifiedAngle = (camera.getRotation() - horizontalFOV/2) - (camera.getRotation() - horizontalFOV/2)%FOVAngleStep;
 
@@ -275,7 +277,7 @@ public class Engine {
 		fal2[2] = fals;
 		fal2[3] = fals;
 		calculateScaling(width, height);
-		System.out.println(renderCheckWorld(that));
+		//System.out.println(renderCheckWorld(that)); // THis breaks the code for some reason...
 		//if(renderCheckWorld(that))
 		return convertWorldToScreenNew(that, width, height);
 		//return fal2;

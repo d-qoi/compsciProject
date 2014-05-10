@@ -16,10 +16,10 @@ public class Rays {
 		
 	private void generateRays(int viewDistance, int distanceSteps, int angle, int angleSteps)
 	{
-		rays = new int[angle/angleSteps][viewDistance/distanceSteps][2];
-		for(int ang = 0; ang<angle/angleSteps; ang++)
+		rays = new int[angle/angleSteps + 1][viewDistance/distanceSteps + 1][2];
+		for(int ang = 0; ang<angle/angleSteps + 1; ang++)
 		{
-			for(int dist = 0; dist<viewDistance/distanceSteps; dist++)
+			for(int dist = 0; dist<viewDistance/distanceSteps + 1; dist++)
 			{
 				int tempAng = ang*angleSteps;
 				int tempDist = dist*distanceSteps;
@@ -27,7 +27,7 @@ public class Rays {
 				int y = (int)(tempDist*(Math.sin(Math.toRadians(tempAng))));
 				rays[ang][dist][0] = x;
 				rays[ang][dist][1] = y;
-				System.out.println(x + " " + y);
+				//System.out.println(x + " " + y + " " + tempAng + " " + tempDist);
 			}
 		}
 	}

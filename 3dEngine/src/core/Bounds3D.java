@@ -6,7 +6,8 @@ import org.ejml.data.DenseMatrix64F;
 
 public class Bounds3D {
 
-	public int x, y, z, width, height, depth, rotX, rotY, rotZ;
+	public int x, y, z, width, height, depth, flag;
+	double rotX, rotY, rotZ;
 	
 	public int[] bounds;
 	public double[] center;
@@ -25,6 +26,7 @@ public class Bounds3D {
 		this.cornor = new DenseMatrix64F(8, 3);
 		this.bounds = new int[6];
 		this.center = new double[3];
+		this.flag = 0;
 		calcBounds();
 	}
 
@@ -41,6 +43,41 @@ public class Bounds3D {
 		this.cornor = new DenseMatrix64F(8, 3);
 		this.bounds = new int[6];
 		this.center = new double[3];
+		this.flag = 0;
+		calcBounds();
+	}
+	
+	public Bounds3D(int x, int y, int z, int width, int depth, int height, int flag) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.width = width;
+		this.depth = depth;
+		this.height = height;
+		this.rotX = 0;
+		this.rotY = 0;
+		this.rotZ = 0;
+		this.cornor = new DenseMatrix64F(8, 3);
+		this.bounds = new int[6];
+		this.center = new double[3];
+		this.flag = flag;
+		calcBounds();
+	}
+
+	public Bounds3D(Rectangle base, int z, int height, int flag) {
+		this.x = base.x + base.width / 2;
+		this.y = base.y + base.height / 2;
+		this.z = z;
+		this.width = base.width;
+		this.depth = base.height;
+		this.height = height;
+		this.rotX = 0;
+		this.rotY = 0;
+		this.rotZ = 0;
+		this.cornor = new DenseMatrix64F(8, 3);
+		this.bounds = new int[6];
+		this.center = new double[3];
+		this.flag = flag;
 		calcBounds();
 	}
 
@@ -267,6 +304,7 @@ public class Bounds3D {
 	}
 
 	public void rotateZ(double deg) {
+		this.rotZ = deg;
 		deg = Math.toRadians(deg);
 		DenseMatrix64F rotZ = new DenseMatrix64F(3, 3, true, Math.cos(deg),
 				-Math.sin(deg), 0, Math.sin(deg), Math.cos(deg), 0, 0, 0, 1);
@@ -291,6 +329,7 @@ public class Bounds3D {
 	}
 	
 	public void rotateX(double deg) {
+		this.rotX = deg;
 		deg = Math.toRadians(deg);
 		DenseMatrix64F rotX = new DenseMatrix64F(3, 3, true, 1, 0, 0, 0,
 				Math.cos(deg), -Math.sin(deg), 0, Math.sin(deg), Math.cos(deg));
@@ -314,6 +353,7 @@ public class Bounds3D {
 	}
 
 	public void rotateY(double deg) {
+		this.rotY = deg;
 		deg = Math.toRadians(deg);
 		DenseMatrix64F rotY = new DenseMatrix64F(3, 3, true, Math.cos(deg), 0,
 				Math.sin(deg), 0, 1, 0, -Math.sin(deg), 0, Math.cos(deg));
