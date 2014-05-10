@@ -2,6 +2,8 @@ package engine3D;
 
 import java.awt.Polygon;
 
+import core.Bounds3D;
+
 public class Engine {
 	
 	private static int FOVAngleStep = 5;
@@ -81,8 +83,20 @@ public class Engine {
 		ray = new Rays(viewDistance, FOVBoxDepth, 360, FOVAngleStep);
 	}
 	
-	private boolean renderCheckWorld()	{
+	private boolean renderCheckWorld(Bounds3D obj)	{
 		//TODO get this working, needs to check if FOVbox intersects the world box.
+		int modifiedAngle = (camera.getRotation() - horizontalFOV/2) - (camera.getRotation() - horizontalFOV/2)%5;
+
+		for(int deg = modifiedAngle; deg < modifiedAngle + horizontalFOV + 5; deg += 5)
+		{
+			for(int depth = 0; depth < ray.rays.length; depth++)
+			{
+				if(obj.pointIsInsideXY(ray.rays[deg][depth][0], ray.rays[deg][depth][1])) {
+					return true;
+				}
+			}
+		}
+		
 		return false;
 	}
 	

@@ -102,6 +102,15 @@ public class Bounds3D {
 	public DenseMatrix64F getCornors() {
 		return this.cornor;
 	}
+	
+	public boolean pointIsInsideXY(int x, int y) {
+		if(Math.abs(x-center[0]) < width/2) {
+			if(Math.abs(y-center[1]) < depth/2) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public double[][][] getFaces() {
 		double[][][] faces = new double[6][5][3];
