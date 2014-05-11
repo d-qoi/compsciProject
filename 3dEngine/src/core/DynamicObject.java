@@ -2,7 +2,7 @@ package core;
 
 import java.awt.Graphics2D;
 
-public class DynamicObject implements GameObject {
+public class DynamicObject extends GameObject {
 
 	//TODO Write more constructors
 	//TODO Create rendering methods
@@ -11,10 +11,6 @@ public class DynamicObject implements GameObject {
 
 	public void draw(Graphics2D render) {
 
-	}
-
-	public Bounds3D getBounds() {
-		return null;
 	}
 
 	public int compareTo(GameObject object) {

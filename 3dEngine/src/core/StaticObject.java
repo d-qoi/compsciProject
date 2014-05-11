@@ -5,11 +5,11 @@ import java.awt.Graphics2D;
 import engine3D.Engine;
 
 
-public class StaticObject implements GameObject {
+public class StaticObject extends GameObject {
 
 	//TODO Write more constructors
 	//TODO Create rendering methods
-	public Bounds3D body;
+	public CubeTexture texture;
 	
 	public StaticObject() {
 		this(new Bounds3D(0,0,0,0,0,0));
@@ -27,10 +27,6 @@ public class StaticObject implements GameObject {
 
 	}
 
-	public Bounds3D getBounds() {
-		return body;
-	}
-
 	public int compareTo(GameObject object) {
 		return 0;
 	}
@@ -38,5 +34,14 @@ public class StaticObject implements GameObject {
 	public void tick() {
 		
 	}
+	
+	public CubeTexture getTexture() {
+		return texture;
+	}
+
+	public void setTexture(CubeTexture texture) {
+		this.texture = texture;
+	}
+
 
 }

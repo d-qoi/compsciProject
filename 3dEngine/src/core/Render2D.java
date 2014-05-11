@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public class Render2D implements GameObject {
+public class Render2D extends GameObject {
 	
 	public Render2D() {
 		onInit();

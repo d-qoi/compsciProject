@@ -29,12 +29,16 @@ public class RenderPanel extends JPanel {
 
 	public void add(GameObject obj) {
 		this.objects.add(obj);
+		obj.setGame(this);
 	}
 
 	public void remove(GameObject obj) {
 		int pos = this.objects.indexOf(obj);
 		if (pos != -1)
+		{
+
 			this.objects.remove(pos);
+		}
 	}
 
 	public void empty() {
