@@ -122,12 +122,11 @@ public class Engine {
 	
 	private Polygon[] convertWorldToScreenNew(core.Bounds3D that, int width, int height)
 	{
-		
+		Polygon[] poly = new Polygon[3];		
 		double[][][] faces = that.getFaces();
 		double[][] faceX;
 		double[][] faceY;
 		double[][] faceZ;
-		Polygon[] poly = new Polygon[3];
 		
 		//System.out.println("Chosing faces :: ");
 		
