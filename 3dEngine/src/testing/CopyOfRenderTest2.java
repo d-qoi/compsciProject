@@ -113,7 +113,7 @@ public class CopyOfRenderTest2 {
 				//box.rotateX(rotate);
 				//box.rotateY(rotate);
 				//box.rotateZ(rotate);
-				engine.camera.setRotation(rotate);
+				engine.camera.setRotation(rotate + 90);
 				
 				//System.out.println(engine.camera.getRotation());
 				polygons = CopyOfRenderTest2.engine.debuggingRendering(box,
