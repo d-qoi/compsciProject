@@ -7,6 +7,7 @@ public class GameObject implements Comparable<GameObject>{
 	public Bounds3D body;
 	public RenderPanel game;
 	public int distanceToCamera;
+	public int flag;
 
 	public void draw(Graphics2D render) {
 

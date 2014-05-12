@@ -13,10 +13,12 @@ public class StaticObject extends GameObject {
 	
 	public StaticObject() {
 		this(new Bounds3D(0,0,0,0,0,0));
+		this.flag = 0;
 	}
 	
 	public StaticObject(Bounds3D poly) {
 		this.body = poly;
+		this.flag = 0;
 	}
 
 	public void calculate(Engine engine) {
