@@ -17,10 +17,7 @@ public class Engine {
 	public Camera camera;
 	public Rays ray;
 	
-	
-
-	
-	Rectangle[][] FOVBox; 
+	//Rectangle[][] FOVBox; 
 	
 	
 	public Engine(int verticalFOV, int horizontalFOV,
@@ -72,7 +69,7 @@ public class Engine {
 	public void calculateScaling(int ScreenWidth, int ScreenHeight) {//not being used curently
 		scalingX = (ScreenWidth / (Math.tan(Math.toRadians(horizontalFOV/2)) * viewDistance * 2));
 		scalingY = (ScreenHeight / (Math.tan(Math.toRadians(verticalFOV/2)) * viewDistance * 2));
-		//System.out.println(scalingX + " " + scalingY + " ingored for now");
+		//System.out.println(scalingX + " " + scalingY + " ingored for now"); //debugging code
 	}
 
 	public void useCamera(Camera camera) {
@@ -81,7 +78,7 @@ public class Engine {
 		
 	private void calculateRacasting() {
 		ray = new Rays(viewDistance, FOVBoxDepth, 360, FOVAngleStep);
-		/*
+		/*  // debugging code
 		for(int i = 0; i<ray.rays.length;i++)
 		{
 			for(int j = 0; j<ray.rays[i].length; j++)
@@ -102,6 +99,7 @@ public class Engine {
 			int degMod = ((deg < 0)?360+deg : deg)/FOVAngleStep;
 			for(int depth = 0; depth < ray.rays.length; depth++)
 			{
+				//debugging code
 				//System.out.printf("%d %d %d %d %d\n",deg,degMod, depth, ray.rays[degMod][depth][0], ray.rays[degMod][depth][1]);
 				if(obj.pointIsInsideXY(ray.rays[degMod][depth][0], ray.rays[degMod][depth][1])) {
 					return true;

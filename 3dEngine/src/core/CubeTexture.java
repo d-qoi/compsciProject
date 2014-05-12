@@ -31,17 +31,17 @@ public class CubeTexture {
 	public Color get(int i) {
 		switch (i) {
 		case 0:
-			return top;
-		case 1:
 			return bottom;
-		case 2:
-			return left;
-		case 3:
-			return right;
-		case 4:
+		case 1:
 			return forward;
-		case 5:
+		case 2:
 			return backward;
+		case 3:
+			return left;
+		case 4:
+			return right;
+		case 5:
+			return top;
 		default:
 			return null;
 		}
