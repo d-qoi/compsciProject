@@ -7,7 +7,6 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.PriorityQueue;
 
 import javax.swing.JPanel;
 
