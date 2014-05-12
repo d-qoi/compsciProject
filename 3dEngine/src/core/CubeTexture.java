@@ -23,7 +23,7 @@ public class CubeTexture {
 	public CubeTexture(Color color) {
 		this(color, color, color, color, color, color);
 	}
-	
+
 	public CubeTexture() {
 		this(Color.MAGENTA);
 	}

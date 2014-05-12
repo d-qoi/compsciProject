@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import engine3D.Engine;
 
 
-public class StaticObject extends GameObject {
+public class StaticObject<CubeTexture> extends GameObject {
 
 	//TODO Write more constructors
 	//TODO Create rendering methods
