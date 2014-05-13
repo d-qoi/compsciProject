@@ -1,5 +1,6 @@
 package engine3D;
 
+import java.awt.Color;
 import java.awt.Polygon;
 
 import core.Bounds3D;
@@ -119,13 +120,16 @@ public class Engine {
 
 
 	
-	private Polygon[] convertWorldToScreenNew(core.Bounds3D that, int width, int height)
+	private ExtendedPolygon[] convertWorldToScreenNew(GameObject that, int width, int height)
 	{
-		Polygon[] poly = new Polygon[3];		
-		double[][][] faces = that.getFaces();
+		ExtendedPolygon[] poly = new ExtendedPolygon[3];		
+		double[][][] faces = that.getBounds().getFaces();
 		double[][] faceX;
 		double[][] faceY;
 		double[][] faceZ;
+		Color xFaceColor;
+		Color yFaceColor;
+		Color zFaceColor;
 		
 		//System.out.println("Chosing faces :: ");
 		
@@ -133,20 +137,24 @@ public class Engine {
 		if(camera.distanceToXYZ(faces[3][4]) < camera.distanceToXYZ(faces[4][4])) {
 			//System.out.println("Face 3");
 			faceX = faces[3];
+			xFaceColor = that.texture.get(3);
 		}
 		else {
 			//System.out.println("Face 4");
 			faceX = faces[4];
+			xFaceColor = that.texture.get(4);
 		}
 		
 		//if(camera.distanceToXY(faces[1][4][0], faces[1][4][1]) < camera.distanceToXY(faces[2][4][0], faces[2][4][1])) {
 		if(camera.distanceToXYZ(faces[1][4]) < camera.distanceToXYZ(faces[2][4])) {	
 			//System.out.println("Face 1");
 			faceY = faces[1];
+			yFaceColor = that.texture.get(1);
 		}
 		else {
 			//System.out.println("Face 2");
 			faceY = faces[2];
+			yFaceColor = that.texture.get(2);
 		}
 		 //System.out.println(camera.getDeltaZ(faces[0][4][2]) + " " + camera.getDeltaZ(faces[5][4][2]) );
 		
@@ -156,10 +164,12 @@ public class Engine {
 		if(camera.distanceToXYZ(faces[0][4]) < camera.distanceToXYZ(faces[5][4])) {
 			//System.out.println("Face 0");
 			faceZ = faces[0];
+			zFaceColor = that.texture.get(0);
 		}
 		else {
 			//System.out.println("Face 5");
 			faceZ = faces[5];
+			zFaceColor = that.texture.get(5);
 		}
 		
 		for(int i = 0; i<faceX.length; i++)
@@ -198,7 +208,7 @@ public class Engine {
 			tempX[i] = (int)faceX[i][0];
 			tempY[i] = (int)faceX[i][1];
 		}
-		poly[2] = new Polygon(tempX,tempY,4);
+		poly[2] = new ExtendedPolygon(tempX,tempY,4,xFaceColor);
 		
 		//Yface polygon creation
 		tempX = new int[4];
@@ -208,7 +218,7 @@ public class Engine {
 			tempX[i] = (int)faceY[i][0];
 			tempY[i] = (int)faceY[i][1];
 		}
-		poly[1] = new Polygon(tempX,tempY,4);
+		poly[1] = new ExtendedPolygon(tempX,tempY,4,yFaceColor);
 		
 		//Zface polygon creation
 		tempX = new int[4];
@@ -219,7 +229,7 @@ public class Engine {
 			tempX[i] = (int) faceZ[i][0];
 			tempY[i] = (int) faceZ[i][1];
 		}
-		poly[0] = new Polygon(tempX,tempY,4);
+		poly[0] = new ExtendedPolygon(tempX,tempY,4,zFaceColor);
 		
 		
 		return poly;
@@ -271,7 +281,7 @@ public class Engine {
 	}
 	
 	
-	public Polygon[] debuggingRendering(core.Bounds3D that, int width, int height)
+	public ExtendedPolygon[] debuggingRendering(core.Bounds3D that, int width, int height)
 	{
 		int[] x = {1,2,3};
 		Polygon fals = new Polygon(x, x, 3);
