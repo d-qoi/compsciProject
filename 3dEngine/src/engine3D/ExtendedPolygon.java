@@ -13,5 +13,7 @@ public class ExtendedPolygon extends Polygon {
 		super(xPoints, yPoints, number);
 		this.color = color;
 	}
+	
+	
 
 }
