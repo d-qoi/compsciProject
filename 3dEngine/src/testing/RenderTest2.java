@@ -18,9 +18,9 @@ public class RenderTest2 {
 	public static RenderPanel panel;
 
 	public static void main(String[] args) {
-		
-		//TODO Make tests have less ugly code
-		
+
+		// TODO Make tests have less ugly code
+
 		GameWindow window = new GameWindow();
 		panel = new RenderPanel() {
 			long lastRender = 0, lastSec = 0;
@@ -48,7 +48,7 @@ public class RenderTest2 {
 				g.drawString("Ticks: " + tickCount, 10, 45);
 				g.drawString("FPS: " + currRender, 10, 65);
 				g.drawString("TPS: " + currTick, 10, 85);
-				g.drawString("ROT: "+engine.camera.getRotation(), 10, 105);
+				g.drawString("ROT: " + engine.camera.getRotation(), 10, 105);
 				tickCount = 0;
 				lastRender = time;
 			}
@@ -66,7 +66,7 @@ public class RenderTest2 {
 		window.start();
 
 		engine = new Engine();
-		Camera cam = new Camera(0, 0,0, 0);
+		Camera cam = new Camera(0, 0, 0, 0);
 		engine.useCamera(cam);
 		Render2D render = new Render2D() {
 			public Polygon[] polygons;
@@ -81,11 +81,11 @@ public class RenderTest2 {
 
 				int rot = (int) (new Date().getTime() * 0.1 % 360);
 				engine.camera.setRotation(rot);
-				//int pos = (int) (new Date().getTime() * 0.05 % 200);
-				//engine.camera.setZ(pos - 50);
-				//engine.camera.setX(pos + 50);
-				//engine.camera.setY(pos);
-				//System.out.println(engine.camera.getRotation());
+				// int pos = (int) (new Date().getTime() * 0.05 % 200);
+				// engine.camera.setZ(pos - 50);
+				// engine.camera.setX(pos + 50);
+				// engine.camera.setY(pos);
+				// System.out.println(engine.camera.getRotation());
 				polygons = RenderTest2.engine.debuggingRendering(box,
 						RenderTest2.panel.getWidth(),
 						RenderTest2.panel.getHeight());
@@ -100,11 +100,11 @@ public class RenderTest2 {
 				r.fillPolygon(polygons[1]);
 				r.setColor(Color.BLUE);
 				r.fillPolygon(polygons[2]);
-				
+
 			}
 
 		};
-		
+
 		panel.add(render);
 
 	}
