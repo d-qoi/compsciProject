@@ -30,6 +30,8 @@ public class DString extends Drawable{
 			g.setColor(color);
 		if(font != null)
 			g.setFont(font);
+		position.setHoriz(g.getFontMetrics().stringWidth(text));
+		position.setVert(g.getFontMetrics().getHeight());
 		g.drawString(text, position.getX(), position.getY());
 	}
 	

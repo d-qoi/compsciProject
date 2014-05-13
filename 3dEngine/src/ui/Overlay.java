@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -35,6 +36,12 @@ public class Overlay {
 			objects.get(i).draw(g);
 		}
 
+	}
+	
+	public DString addString(String text, int horiz, int vert) {
+		DString string = new DString(text,new Position(panel,horiz,vert,new Point()));
+		add(string);
+		return string;
 	}
 
 	public void add(Drawable object) {
