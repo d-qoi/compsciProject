@@ -5,8 +5,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Collections;
+
 import engine3D.Engine;
 
 import javax.swing.JPanel;
@@ -99,8 +101,13 @@ public class RenderPanel extends JPanel {
 	public void handleRendering(Graphics2D render) {
 
 		Collections.sort(objects);
+		
+		BufferedImage world = engine.drawThese(getWidth(),getHeight(), objects);
+		render.drawImage(world, 0, 0, null);
+		
 		for (GameObject obj : objects) { // Rendering objects
 			obj.draw(render);
+			
 		}
 
 	}

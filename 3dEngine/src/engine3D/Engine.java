@@ -1,7 +1,14 @@
 package engine3D;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Polygon;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
 
 import core.Bounds3D;
 import core.GameObject;
@@ -273,6 +280,16 @@ public class Engine {
 		return point;
 	}
 	
+	public BufferedImage drawThese(int width, int height, ArrayList<GameObject> these) {
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D graphics = image.createGraphics();
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		
+		
+		return image;
+		
+	}
 	
 	
 	
