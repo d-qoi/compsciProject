@@ -3,6 +3,7 @@ package engine3D;
 import java.awt.Polygon;
 
 import core.Bounds3D;
+import core.GameObject;
 
 public class Engine {
 	
@@ -262,6 +263,12 @@ public class Engine {
 		return point;
 	}
 	
+	
+	
+	
+	public void renderThis(GameObject... args) {
+		
+	}
 	
 	
 	public Polygon[] debuggingRendering(core.Bounds3D that, int width, int height)
