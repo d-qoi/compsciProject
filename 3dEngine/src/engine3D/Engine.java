@@ -2,13 +2,10 @@ package engine3D;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
-import javax.swing.JPanel;
 
 import core.Bounds3D;
 import core.GameObject;
@@ -124,8 +121,6 @@ public class Engine {
 		
 		return false;
 	}
-
-
 	
 	private ExtendedPolygon[] convertWorldToScreenNew(GameObject that, int width, int height)
 	{
@@ -242,8 +237,6 @@ public class Engine {
 		return poly;
 	}
 	
-
-	
 	private double[] pointToScreen2(double[] coord, int width, int height) {
 		double[] point = new double[2];
 		int CenterX = width/2;
@@ -281,9 +274,25 @@ public class Engine {
 	}
 	
 	public BufferedImage drawThese(int width, int height, ArrayList<GameObject> these) {
+		
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		
 		Graphics2D graphics = image.createGraphics();
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		ExtendedPolygon[] polys = null;
+		
+		calculateScaling(width, height);
+		
+		for(int i = 0; i<these.size(); i++) {
+			if(these.get(i).flag == 0) {
+				if(renderCheckWorld(these.get(i).getBounds())) {
+					polys = convertWorldToScreenNew(these.get(i), width, height);
+				}
+			}
+			for(ExtendedPolygon temp:polys)
+				temp.draw(graphics);
+		}
 		
 		
 		
