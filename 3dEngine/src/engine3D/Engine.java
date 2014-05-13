@@ -276,11 +276,6 @@ public class Engine {
 	
 	
 	
-	public void renderThis(GameObject... args) {
-		
-	}
-	
-	
 	public ExtendedPolygon[] debuggingRendering(GameObject that, int width, int height)
 	{
 		int[] x = {1,2,3};
