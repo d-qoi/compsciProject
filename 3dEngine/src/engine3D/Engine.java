@@ -1,10 +1,6 @@
 package engine3D;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import core.Bounds3D;
 import core.GameObject;
@@ -123,16 +119,13 @@ public class Engine {
 
 
 	
-	private ExtendedPolygon[] convertWorldToScreenNew(GameObject that, int width, int height)
+	private Polygon[] convertWorldToScreenNew(core.Bounds3D that, int width, int height)
 	{
-		ExtendedPolygon[] poly = new ExtendedPolygon[3];		
-		double[][][] faces = that.getBounds().getFaces();
+		Polygon[] poly = new Polygon[3];		
+		double[][][] faces = that.getFaces();
 		double[][] faceX;
 		double[][] faceY;
 		double[][] faceZ;
-		Color xFaceColor;
-		Color yFaceColor;
-		Color zFaceColor;
 		
 		//System.out.println("Chosing faces :: ");
 		
@@ -205,7 +198,7 @@ public class Engine {
 			tempX[i] = (int)faceX[i][0];
 			tempY[i] = (int)faceX[i][1];
 		}
-		poly[2] = new ExtendedPolygon(tempX,tempY,4,xFaceColor);
+		poly[2] = new Polygon(tempX,tempY,4);
 		
 		//Yface polygon creation
 		tempX = new int[4];
@@ -215,7 +208,7 @@ public class Engine {
 			tempX[i] = (int)faceY[i][0];
 			tempY[i] = (int)faceY[i][1];
 		}
-		poly[1] = new ExtendedPolygon(tempX,tempY,4,yFaceColor);
+		poly[1] = new Polygon(tempX,tempY,4);
 		
 		//Zface polygon creation
 		tempX = new int[4];
@@ -226,7 +219,7 @@ public class Engine {
 			tempX[i] = (int) faceZ[i][0];
 			tempY[i] = (int) faceZ[i][1];
 		}
-		poly[0] = new ExtendedPolygon(tempX,tempY,4,zFaceColor);
+		poly[0] = new Polygon(tempX,tempY,4);
 		
 		
 		return poly;
@@ -273,28 +266,7 @@ public class Engine {
 	
 	
 	
-	public BufferedImage renderThis(int width, int height, GameObject... args) {
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-		ArrayList<Polygon> listOfPolys = new ArrayList<Polygon>();
-		ArrayList<Color> listOfColors = new ArrayList<Color>();
-		Polygon[] temp;
-		for(int i= 0; i<args.length; i++) {
-			if(args[i].flag == 0) {
-				temp = convertWorldToScreenNew(args[i].getBounds(), width, height);
-				for(Polygon foo:temp)
-					listOfPolys.add(foo);
-				listOfColors.add)
-			}
-		}
-		Graphics2D sceen;
-		sceen = image.createGraphics();
-		for(Polygon poly:listOfPolys){
-			sceen.setColor(args);
-			
-			sceen.drawPolygon(poly);
-		}
-		
-		return image;
+	public void renderThis(GameObject... args) {
 		
 	}
 	

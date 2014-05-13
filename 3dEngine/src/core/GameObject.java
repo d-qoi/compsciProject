@@ -1,6 +1,8 @@
 package core;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+
 import engine3D.Engine;
 
 public class GameObject implements Comparable<GameObject>{
@@ -8,6 +10,7 @@ public class GameObject implements Comparable<GameObject>{
 	public Bounds3D body;
 	public RenderPanel game;
 	public Engine engine;
+	public CubeTexture texture = new CubeTexture(Color.blue, Color.blue, Color.red, Color.red, Color.green, Color.green);
 	
 	public int flag;
 
@@ -56,5 +59,9 @@ public class GameObject implements Comparable<GameObject>{
 		if(o.distCam() < this.distCam())
 			return 1;
 		return 0;
+	}
+	
+	public void setTexture(){
+		
 	}
 }
