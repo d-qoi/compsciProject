@@ -54,7 +54,7 @@ public class CopyOfRenderTest2 {
 			}
 		};
 		
-		GameTick tick = new GameTick(panel);
+		GameTick tick = new GameTick();
 		tick.setRenderDelay(0);
 		tick.setThreadDelay(10);
 		listener = new GameListener() {

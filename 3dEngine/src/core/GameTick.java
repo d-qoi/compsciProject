@@ -9,20 +9,15 @@ public class GameTick implements Runnable {
 	public long lastRender;
 	public boolean running;
 	public RenderPanel panel;
-
-	public GameTick() {
-		this(null);
-	}
+	public GameWindow window;
 	
-	public GameTick(RenderPanel panel) {
+	public GameTick() {
 
 		running = true;
 		lastRender = 0;
 
-		this.panel = panel;
-
 	}
-	
+
 	public void setPanel(RenderPanel panel) {
 		this.panel = panel;
 	}

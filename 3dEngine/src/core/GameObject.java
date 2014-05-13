@@ -8,6 +8,7 @@ public class GameObject implements Comparable<GameObject>{
 	public Bounds3D body;
 	public RenderPanel game;
 	public Engine engine;
+	
 	public int flag;
 
 	public void draw(Graphics2D render) {
@@ -29,6 +30,7 @@ public class GameObject implements Comparable<GameObject>{
 	public RenderPanel getGame() {
 		if (!this.game.objects.contains(this)) {
 			this.game = null;
+			this.engine = null;
 			return null;
 		}
 		return this.game;
@@ -37,6 +39,15 @@ public class GameObject implements Comparable<GameObject>{
 	public double distCam() {
 		return body.getCenter().distance(engine.camera.getLocation());
 	}
+	
+	public Engine getEngine() {
+		return engine;
+	}
+
+	public void setEngine(Engine engine) {
+		this.engine = engine;
+	}
+
 
 	public int compareTo(GameObject o) {
 		// TODO Auto-generated method stub

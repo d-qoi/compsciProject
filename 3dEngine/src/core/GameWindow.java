@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import engine3D.Engine;
+
 public class GameWindow extends JFrame{
 
 	private static final long serialVersionUID = 1L;
@@ -16,6 +18,8 @@ public class GameWindow extends JFrame{
 	public RenderPanel renderPanel;
 	
 	public GameListener listener;
+	
+	public Engine engine;
 	
 	public GameTick gameTick;
 	public Thread gameThread;
@@ -39,6 +43,8 @@ public class GameWindow extends JFrame{
 	
 	public void setGameTick(GameTick tick) {
 		gameTick = tick;
+		tick.panel = renderPanel;
+		tick.window = this;
 		gameThread = new Thread(gameTick);
 	}
 	
@@ -59,6 +65,16 @@ public class GameWindow extends JFrame{
 		gameThread.start();
 		onStart();
 	}
+	
+	public Engine getEngine() {
+		return engine;
+	}
+
+	public void setEngine(Engine engine) {
+		this.engine = engine;
+		this.renderPanel.engine = engine;
+	}
+
 	
 	public void onStart() {
 		

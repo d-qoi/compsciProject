@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
+import engine3D.Engine;
 
 import javax.swing.JPanel;
 
@@ -17,6 +18,8 @@ public class RenderPanel extends JPanel {
 	public BufferedImage renderImage;
 
 	public ArrayList<GameObject> objects;
+	
+	public Engine engine;
 
 	public RenderPanel() {
 		super();
@@ -28,6 +31,7 @@ public class RenderPanel extends JPanel {
 
 	public void add(GameObject obj) {
 		this.objects.add(obj);
+		obj.setEngine(this.engine);
 		obj.setGame(this);
 	}
 
