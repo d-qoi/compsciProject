@@ -273,6 +273,8 @@ public class Engine {
 		return point;
 	}
 	
+	
+	
 	public BufferedImage drawThese(int width, int height, ArrayList<GameObject> these) {
 		
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
