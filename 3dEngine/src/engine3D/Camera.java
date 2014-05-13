@@ -1,5 +1,7 @@
 package engine3D;
 
+import core.Location3D;
+
 public class Camera {
 	private int x,y,rotation, z;
 	
@@ -74,5 +76,9 @@ public class Camera {
 	}
 	public double getDeltaZ(double z) {
 		return this.z - z;
+	}
+	
+	public Location3D getLocation() {
+		return new Location3D(x,y,z);
 	}
 }

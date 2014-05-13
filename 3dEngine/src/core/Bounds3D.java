@@ -60,6 +60,10 @@ public class Bounds3D {
 		calcCornors();
 
 	}
+	
+	public Location3D getCenter() {
+		return new Location3D(x + width / 2, y + depth / 2, z + height / 2);
+	}
 
 	private void calcCornors() {			
 
