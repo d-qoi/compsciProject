@@ -1,6 +1,10 @@
 package engine3D;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import core.Bounds3D;
 import core.GameObject;
@@ -266,7 +270,28 @@ public class Engine {
 	
 	
 	
-	public void renderThis(GameObject... args) {
+	public BufferedImage renderThis(int width, int height, GameObject... args) {
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+		ArrayList<Polygon> listOfPolys = new ArrayList<Polygon>();
+		ArrayList<Color> listOfColors = new ArrayList<Color>();
+		Polygon[] temp;
+		for(int i= 0; i<args.length; i++) {
+			if(args[i].flag == 0) {
+				temp = convertWorldToScreenNew(args[i].getBounds(), width, height);
+				for(Polygon foo:temp)
+					listOfPolys.add(foo);
+				listOfColors.add)
+			}
+		}
+		Graphics2D sceen;
+		sceen = image.createGraphics();
+		for(Polygon poly:listOfPolys){
+			sceen.setColor(args);
+			
+			sceen.drawPolygon(poly);
+		}
+		
+		return image;
 		
 	}
 	
