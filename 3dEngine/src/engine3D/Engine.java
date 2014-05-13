@@ -281,7 +281,7 @@ public class Engine {
 	}
 	
 	
-	public ExtendedPolygon[] debuggingRendering(core.Bounds3D that, int width, int height)
+	public ExtendedPolygon[] debuggingRendering(GameObject that, int width, int height)
 	{
 		int[] x = {1,2,3};
 		Polygon fals = new Polygon(x, x, 3);
