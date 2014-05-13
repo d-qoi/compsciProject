@@ -61,7 +61,19 @@ public class GameObject implements Comparable<GameObject>{
 		return 0;
 	}
 	
-	public void setTexture(){
-		
+	public void setTexture() {
+		texture = new CubeTexture();
+	}
+	public void setTexture(Color color) {
+		texture = new CubeTexture(color);
+	}
+	public void setTexture1(Color top, Color side) {
+		texture = new CubeTexture(top, side);
+	}
+	
+	public void setTexture2(Color top, Color bottom, Color left, Color right,
+			Color forward, Color backward) {
+		texture = new CubeTexture(top, bottom, left, right,
+				 forward, backward);
 	}
 }
