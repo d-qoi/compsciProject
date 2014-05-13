@@ -1,6 +1,7 @@
 package engine3D;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Polygon;
 
 public class ExtendedPolygon extends Polygon {
@@ -14,6 +15,10 @@ public class ExtendedPolygon extends Polygon {
 		this.color = color;
 	}
 	
-	
+	public void draw(Graphics graphics) {
+		graphics.setColor(color);
+		//TODO make sure this works
+		graphics.drawPolygon(this);
+	}
 
 }
