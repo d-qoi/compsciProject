@@ -8,7 +8,7 @@ import ui.Overlay;
 
 public class UIObject extends GameObject {
 	
-	Overlay overlay;
+	public Overlay overlay;
 	
 	public UIObject() {
 		super();

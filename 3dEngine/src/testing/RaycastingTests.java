@@ -14,16 +14,17 @@ public class RaycastingTests {
 		engine.useCamera(cam);
 		engine.camera.setRotation(0);
 		
-		Bounds3D box = new Bounds3D(160, 300, 0, 50, 50, 50);
+		Bounds3D box = new Bounds3D(140, 300, 0, 50, 50, 50);
 		System.out.println(engine.renderCheckWorld(box));
 		System.out.println(engine.ray.rays.length + " " + engine.ray.rays[0].length);
-		for(int i = 0; i<engine.ray.rays.length; i++)
-		{
-			for(int j = 0; j<engine.ray.rays[i].length; j++)
-			{
-				
-			}
-		}
+	
+		System.out.println(engine.renderCheckStatic(box));
+		
+		int startAng = engine.camera.getRealRotation() - engine.horizontalFOV/2;
+		int stopAng = engine.camera.getRealRotation() + engine.horizontalFOV/2;
+		System.out.printf("%d, %d\n", startAng, stopAng);
+		for(int ang = startAng/engine.FOVAngleStep; ang < stopAng/engine.FOVAngleStep; ang++) {
+			for(int depth = 0; depth<engine.viewDistance/engine.FOVBoxDepth; depth++) {
 	}
 
 }

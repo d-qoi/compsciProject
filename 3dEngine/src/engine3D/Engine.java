@@ -12,10 +12,10 @@ import core.GameObject;
 
 public class Engine {
 	
-	private static int FOVAngleStep = 5;
-	private static int FOVBoxDepth = 10;
-	private int viewDistance;
-	private int characterHeight;
+	public static int FOVAngleStep = 5;
+	public static int FOVBoxDepth = 10;
+	public int viewDistance;
+	public int characterHeight;
 	private double scalingX;
 	private double scalingY;
 	public int verticalFOV;
@@ -98,8 +98,8 @@ public class Engine {
 	
 	public boolean renderCheckWorld(Bounds3D obj)	{
 		//TODO get this working, needs to check if FOVbox intersects the world box.
-		int modifiedAngle = (camera.getRotation() - horizontalFOV/2) - (camera.getRotation() - horizontalFOV/2)%FOVAngleStep;
-
+		int modifiedAngle = (camera.getRotation() - horizontalFOV/2) - (camera.getRotation() + horizontalFOV/2)%FOVAngleStep;
+		//System.out.printf("%d, %d",modifiedAngle,modifiedAngle+horizontalFOV);
 		for(int deg = modifiedAngle; deg < modifiedAngle + horizontalFOV + FOVAngleStep; deg += FOVAngleStep)
 		{
 			int degMod = ((deg < 0)?360+deg : deg)/FOVAngleStep;
@@ -110,6 +110,21 @@ public class Engine {
 				if(obj.pointIsInsideXY(ray.rays[degMod][depth][0], ray.rays[degMod][depth][1])) {
 					return true;
 				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean renderCheckStatic(Bounds3D obj) {
+		int startAng = camera.getRealRotation() - horizontalFOV/2;
+		int stopAng = camera.getRealRotation() + horizontalFOV/2;
+		System.out.printf("%d, %d\n", startAng, stopAng);
+		for(int ang = startAng/FOVAngleStep; ang < stopAng/FOVAngleStep; ang++) {
+			for(int depth = 0; depth<viewDistance/FOVBoxDepth; depth++) {
+				System.out.printf("%d, %d :: %d, %d :: %d, %d\n", ang, depth, ang*FOVAngleStep, depth*FOVBoxDepth, ray.rays[ang][depth][0], ray.rays[ang][depth][1]);
+				//if(obj.pointIsInsideXY(ray.rays[ang][depth][0], ray.rays[ang][depth][1]))
+					return true;
 			}
 		}
 		
@@ -210,7 +225,7 @@ public class Engine {
 			tempX[i] = (int)faceX[i][0];
 			tempY[i] = (int)faceX[i][1];
 		}
-		poly[2] = new ExtendedPolygon(tempX,tempY,4,xFaceColor);
+		poly[1] = new ExtendedPolygon(tempX,tempY,4,xFaceColor);
 		
 		//Yface polygon creation
 		tempX = new int[4];
@@ -220,7 +235,7 @@ public class Engine {
 			tempX[i] = (int)faceY[i][0];
 			tempY[i] = (int)faceY[i][1];
 		}
-		poly[1] = new ExtendedPolygon(tempX,tempY,4,yFaceColor);
+		poly[2] = new ExtendedPolygon(tempX,tempY,4,yFaceColor);
 		
 		//Zface polygon creation
 		tempX = new int[4];
@@ -287,16 +302,24 @@ public class Engine {
 		calculateScaling(width, height);
 		
 		for(int i = 0; i<these.size(); i++) {
+			System.out.println(renderCheckStatic(these.get(i).body));
+			if(these.get(i).body == null)
+				continue;
 			if(these.get(i).flag == 0) {
 				if(renderCheckWorld(these.get(i).getBounds())) {
 					polys = convertWorldToScreenNew(these.get(i), width, height);
 				}
+				else
+					System.out.println("false");
+				for(ExtendedPolygon temp:polys)
+					temp.draw(graphics);
 			}
-			for(ExtendedPolygon temp:polys)
-				temp.draw(graphics);
+			
 		}
 		
 		
+		//graphics.setColor(Color.RED);
+		//graphics.fillRect(10, 10, 50, 50);
 		
 		return image;
 		

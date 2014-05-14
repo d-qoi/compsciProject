@@ -9,20 +9,20 @@ public class Camera {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.rotation = rotation;
+		setRotation(rotation);
 	}
 
 	public Camera(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.rotation = 0;
+		setRotation(0);
 	}
 	public Camera(int z) {
 		this.x = 0;
 		this.y = 0;
 		this.z = z;
-		this.rotation = 0;
+		setRotation(0);
 	}
 
 	public int getX() {
@@ -55,11 +55,15 @@ public class Camera {
 	}
 
 	public int getRotation() {
+		return rotation + 45;
+	}
+	
+	public int getRealRotation() {
 		return rotation;
 	}
 
 	public void setRotation(int rotation) {
-		this.rotation = rotation%360;
+		this.rotation = (rotation-45)%360;
 	}
 	
 	public int distanceToXY(double x, double y) {
