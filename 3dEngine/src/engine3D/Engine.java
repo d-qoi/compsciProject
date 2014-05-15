@@ -123,7 +123,7 @@ public class Engine {
 		//System.out.printf("%d, %d\n", startAng, stopAng);
 		for(int ang = startAng/FOVAngleStep - 1; ang < stopAng/FOVAngleStep; ang++) {
 			for(int depth = 0; depth<viewDistance/FOVBoxDepth; depth++) {
-				int modAngle = (ang<0)?ray.rays.length+ang : (ang>maxModAngle)? ang-ray.rays.length : ang;
+				int modAngle = (ang<0)?ray.rays.length+ang : (ang>ray.rays.length)? ang-ray.rays.length : ang;
 				if(obj.pointIsInsideXY(ray.rays[modAngle][depth][0], ray.rays[modAngle][depth][1])) {
 				
 					//System.out.printf("%d, %d :: %d, %d :: %d, %d\n", ang, depth, ang*FOVAngleStep, depth*FOVBoxDepth, ray.rays[ang][depth][0], ray.rays[ang][depth][1]);
@@ -324,7 +324,7 @@ public class Engine {
 		}
 		
 		
-		//graphics.setColor(Color.RED);
+		graphics.setColor(Color.RED);
 		//graphics.fillRect(10, 10, 50, 50);
 		
 		return image;
