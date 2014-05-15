@@ -119,10 +119,10 @@ public class Engine {
 	public boolean renderCheckStatic(Bounds3D obj) {
 		int startAng = camera.getRealRotation() - horizontalFOV/2;
 		int stopAng = camera.getRealRotation() + horizontalFOV/2;
-		System.out.printf("%d, %d :: %d, %d\n", startAng, stopAng, camera.getRotation(), camera.getRealRotation());
+		System.out.printf("%d, %d :: %d, %d :: %d/72\n", startAng, stopAng, camera.getRotation(), camera.getRealRotation(),((startAng/FOVAngleStep<0)?ray.rays.length+startAng/FOVAngleStep : (startAng/FOVAngleStep>ray.rays.length-1)? startAng/FOVAngleStep-ray.rays.length : startAng/FOVAngleStep));
 		for(int ang = startAng/FOVAngleStep - 3; ang < stopAng/FOVAngleStep + 1; ang++) {
-			for(int depth = 0; depth<viewDistance/FOVBoxDepth; depth++) {
-				int modAngle = (ang<0)?ray.rays.length+ang : (ang>ray.rays.length)? ang-ray.rays.length : ang;
+			for(int depth = 0; depth<ray.rays[0].length; depth++) {
+				int modAngle = (ang<0)?ray.rays.length+ang : (ang>ray.rays.length-1)? ang-ray.rays.length : ang;
 				if(obj.pointIsInsideXY(ray.rays[modAngle][depth][0], ray.rays[modAngle][depth][1])) {
 				
 					//System.out.printf("%d, %d :: %d, %d :: %d, %d\n", ang, depth, ang*FOVAngleStep, depth*FOVBoxDepth, ray.rays[ang][depth][0], ray.rays[ang][depth][1]);
@@ -268,7 +268,7 @@ public class Engine {
 		//coord[1] += (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
 		
 		int distance = camera.distanceToXY(coord[0], coord[1]);
-		double rot = Math.toRadians(camera.getRotation());
+		double rot = Math.toRadians(camera.getRealRotation());
 		double deltaX = camera.getDeltaX(coord[0]);
 		double deltaY = camera.getDeltaY(coord[1]);
 		
@@ -306,15 +306,18 @@ public class Engine {
 		calculateScaling(width, height);
 		
 		for(int i = 0; i<these.size(); i++) {
-			//System.out.println(renderCheckStatic(these.get(i).body));
+			System.out.println(renderCheckStatic(these.get(i).body));
 			if(these.get(i).body == null)
 				continue;
 			if(these.get(i).flag == 0) {
 				if(renderCheckStatic(these.get(i).getBounds())) {
 					polys = convertWorldToScreenNew(these.get(i), width, height);
+					//System.exit(1);
 				}
-				else
+				else {
 					System.out.print("");
+					
+				}
 				if(polys != null)
 					for(ExtendedPolygon temp:polys)
 						temp.draw(graphics);

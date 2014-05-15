@@ -31,24 +31,28 @@ public class RenderTest4 {
 		game.setRenderPanel(new RenderPanel() {
 			long lastRender = 0, lastSec = 0;
 			int tickCount = 0, tickSec = 0, renderSec = 0, currTick = 0,
-					currRender = 0;
+					currRender = 0, totaltick = 0;
 
 			public void onTick() {
 				tickCount++;
 				tickSec++;
+				totaltick++;
 				
-				double time = new Date().getTime();
-				time = Math.toRadians(time * 0.1);
+				
+				//double time = new Date().getTime();
+				System.out.println(totaltick);
+				double time = Math.toRadians(3);
 				double x,y;
 				x = cube.body.x * Math.cos(time) - cube.body.y * Math.sin(time);
-				y = cube.body.y * Math.cos(time) - cube.body.x * Math.sin(time);
+				y = cube.body.y * Math.cos(time) + cube.body.x * Math.sin(time);
 				cube.body.x=(int)Math.round(x);
 				cube.body.y=(int)Math.round(y);
+				System.out.println(x + " " + y);
 			}
 
 			public void onPostPaint(Graphics2D g) {
 				renderSec++;
-				long time = new Date().getTime();
+				long time = (long)Math.toRadians(3);//onew Date().getTime();
 				if (lastSec + 1000 < time) {
 					lastSec = time;
 					currTick = tickSec;
@@ -62,7 +66,7 @@ public class RenderTest4 {
 				g.drawString("Ticks: " + tickCount, 10, 45);
 				g.drawString("FPS: " + currRender, 10, 65);
 				g.drawString("TPS: " + currTick, 10, 85);
-				g.drawString("ROT: " + (Math.round(time * 0.1) % 360), 10, 105);
+				g.drawString("ROT: " + (Math.round(Math.toDegrees(time)) % 360), 10, 105);
 				tickCount = 0;
 				lastRender = time;
 			}
