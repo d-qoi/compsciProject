@@ -121,9 +121,9 @@ public class Engine {
 		int stopAng = camera.getRealRotation() + horizontalFOV/2;
 		int maxModAngle = horizontalFOV/FOVAngleStep;
 		//System.out.printf("%d, %d\n", startAng, stopAng);
-		for(int ang = startAng/FOVAngleStep - 1; ang < stopAng/FOVAngleStep + 1; ang++) {
+		for(int ang = startAng/FOVAngleStep - 1; ang < stopAng/FOVAngleStep; ang++) {
 			for(int depth = 0; depth<viewDistance/FOVBoxDepth; depth++) {
-				int modAngle = (ang<0)?maxModAngle-ang : (ang>maxModAngle)? ang-maxModAngle : ang;
+				int modAngle = (ang<0)?ray.rays.length+ang : (ang>maxModAngle)? ang-ray.rays.length : ang;
 				if(obj.pointIsInsideXY(ray.rays[modAngle][depth][0], ray.rays[modAngle][depth][1])) {
 				
 					//System.out.printf("%d, %d :: %d, %d :: %d, %d\n", ang, depth, ang*FOVAngleStep, depth*FOVBoxDepth, ray.rays[ang][depth][0], ray.rays[ang][depth][1]);
