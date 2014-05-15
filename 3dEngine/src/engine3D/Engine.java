@@ -119,9 +119,8 @@ public class Engine {
 	public boolean renderCheckStatic(Bounds3D obj) {
 		int startAng = camera.getRealRotation() - horizontalFOV/2;
 		int stopAng = camera.getRealRotation() + horizontalFOV/2;
-		int maxModAngle = horizontalFOV/FOVAngleStep;
 		//System.out.printf("%d, %d\n", startAng, stopAng);
-		for(int ang = startAng/FOVAngleStep - 1; ang < stopAng/FOVAngleStep; ang++) {
+		for(int ang = startAng/FOVAngleStep - 3; ang < stopAng/FOVAngleStep + 1; ang++) {
 			for(int depth = 0; depth<viewDistance/FOVBoxDepth; depth++) {
 				int modAngle = (ang<0)?ray.rays.length+ang : (ang>ray.rays.length)? ang-ray.rays.length : ang;
 				if(obj.pointIsInsideXY(ray.rays[modAngle][depth][0], ray.rays[modAngle][depth][1])) {
@@ -307,7 +306,7 @@ public class Engine {
 		calculateScaling(width, height);
 		
 		for(int i = 0; i<these.size(); i++) {
-			System.out.println(renderCheckStatic(these.get(i).body));
+			//System.out.println(renderCheckStatic(these.get(i).body));
 			if(these.get(i).body == null)
 				continue;
 			if(these.get(i).flag == 0) {
