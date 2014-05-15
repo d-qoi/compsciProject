@@ -24,11 +24,11 @@ public class RaycastingTests {
 		System.out.println(engine.renderCheckStatic(box));
 		int startAng = engine.camera.getRealRotation() - engine.horizontalFOV/2;
 		int stopAng = engine.camera.getRealRotation() + engine.horizontalFOV/2;
-		int maxModAngle = engine.horizontalFOV/engine.FOVAngleStep;
+		//int maxModAngle = engine.horizontalFOV/engine.FOVAngleStep;
 		System.out.printf("%d, %d, %d %d :: %d\n", startAng, stopAng, startAng/engine.FOVAngleStep-1, stopAng/engine.FOVAngleStep+1,engine.horizontalFOV/engine.FOVAngleStep);
 		for(int ang = startAng/engine.FOVAngleStep - 1; ang < stopAng/engine.FOVAngleStep + 1; ang++) {
 			for(int depth = 0; depth<engine.viewDistance/engine.FOVBoxDepth; depth++) {
-				int modAngle = (ang<0)?engine.ray.rays.length+ang : (ang>maxModAngle-1)? ang-engine.ray.rays.length : ang;
+				int modAngle = (ang<0)?engine.ray.rays.length+ang : (ang>engine.ray.rays.length-1)? ang-engine.ray.rays.length : ang;
 				System.out.printf("%d, %d :: %d :: %d, %d :: %d, %d\n", ang, depth,modAngle, ang*engine.FOVAngleStep, depth*engine.FOVBoxDepth, engine.ray.rays[modAngle][depth][0], engine.ray.rays[modAngle][depth][1]);
 				
 			}

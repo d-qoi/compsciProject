@@ -73,13 +73,13 @@ public class Camera {
 		return (Math.sqrt(Math.pow(points[0] - this.x, 2) + Math.pow(points[1] - this.y, 2) + Math.pow(points[2] - this.z,2)));
 	}
 	public double getDeltaX(double x) {
-		return this.x - x;
+		return x - this.x;
 	}
 	public double getDeltaY(double y) {
-		return this.y - y;
+		return y - this.y;
 	}
 	public double getDeltaZ(double z) {
-		return this.z - z;
+		return z -this.z;
 	}
 	
 	public Location3D getLocation() {

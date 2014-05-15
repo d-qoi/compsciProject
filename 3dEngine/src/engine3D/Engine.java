@@ -119,7 +119,7 @@ public class Engine {
 	public boolean renderCheckStatic(Bounds3D obj) {
 		int startAng = camera.getRealRotation() - horizontalFOV/2;
 		int stopAng = camera.getRealRotation() + horizontalFOV/2;
-		//System.out.printf("%d, %d\n", startAng, stopAng);
+		System.out.printf("%d, %d :: %d, %d\n", startAng, stopAng, camera.getRotation(), camera.getRealRotation());
 		for(int ang = startAng/FOVAngleStep - 3; ang < stopAng/FOVAngleStep + 1; ang++) {
 			for(int depth = 0; depth<viewDistance/FOVBoxDepth; depth++) {
 				int modAngle = (ang<0)?ray.rays.length+ang : (ang>ray.rays.length)? ang-ray.rays.length : ang;
@@ -229,7 +229,7 @@ public class Engine {
 			tempX[i] = (int)faceX[i][0];
 			tempY[i] = (int)faceX[i][1];
 		}
-		poly[1] = new ExtendedPolygon(tempX,tempY,4,xFaceColor);
+		poly[2] = new ExtendedPolygon(tempX,tempY,4,xFaceColor);
 		
 		//Yface polygon creation
 		tempX = new int[4];
@@ -239,7 +239,7 @@ public class Engine {
 			tempX[i] = (int)faceY[i][0];
 			tempY[i] = (int)faceY[i][1];
 		}
-		poly[2] = new ExtendedPolygon(tempX,tempY,4,yFaceColor);
+		poly[1] = new ExtendedPolygon(tempX,tempY,4,yFaceColor);
 		
 		//Zface polygon creation
 		tempX = new int[4];

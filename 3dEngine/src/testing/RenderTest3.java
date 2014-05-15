@@ -62,9 +62,9 @@ public class RenderTest3 {
 		game.gameTick.setThreadDelay(50);
 		game.setEngine(new Engine());
 
-		game.getEngine().useCamera(new Camera(50, 50, 5, -45));
+		game.getEngine().useCamera(new Camera(0, 0, 5, 0));
 
-		game.renderPanel.add(new StaticObject(new Bounds3D(200, 200, 0, 50, 50, 50)));
+		game.renderPanel.add(new StaticObject(new Bounds3D(0, 200, 0, 50, 50, 50)));
 		//game.renderPanel.add(new StaticObject(new Bounds3D(0, 0, 5, 4, 4, 4)));
 		//game.renderPanel.add(new StaticObject(new Bounds3D(0, 0, 10, 4, 4, 4)));
 
