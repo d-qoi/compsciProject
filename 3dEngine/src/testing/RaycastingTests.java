@@ -6,6 +6,7 @@ import engine3D.Engine;
 
 public class RaycastingTests {
 
+	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Engine engine = new Engine();
@@ -22,9 +23,15 @@ public class RaycastingTests {
 		
 		int startAng = engine.camera.getRealRotation() - engine.horizontalFOV/2;
 		int stopAng = engine.camera.getRealRotation() + engine.horizontalFOV/2;
+		int maxModAngle = engine.horizontalFOV/engine.FOVAngleStep;
 		System.out.printf("%d, %d\n", startAng, stopAng);
-		for(int ang = startAng/engine.FOVAngleStep; ang < stopAng/engine.FOVAngleStep; ang++) {
+		for(int ang = startAng/engine.FOVAngleStep - 1; ang < stopAng/engine.FOVAngleStep + 1; ang++) {
 			for(int depth = 0; depth<engine.viewDistance/engine.FOVBoxDepth; depth++) {
+				int modAngle = (ang<0)?maxModAngle-ang : (ang>maxModAngle)? ang-maxModAngle : ang;
+				//System.out.printf("%d, %d :: %d :: %d, %d :: %d, %d\n", ang, depth,modAngle, ang*engine.FOVAngleStep, depth*engine.FOVBoxDepth, engine.ray.rays[modAngle][depth][0], engine.ray.rays[modAngle][depth][1]);
+				
+			}
+		}
 	}
 
 }
