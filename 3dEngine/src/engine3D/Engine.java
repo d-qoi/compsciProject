@@ -1,6 +1,7 @@
 package engine3D;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.RenderingHints;
@@ -335,14 +336,14 @@ public class Engine {
 		
 	}
 	
-	public BufferedImage drawThese2(int width, int height, ArrayList<GameObject> these) {
+	public void drawThese2(int width, int height, ArrayList<GameObject> these, Graphics canvas) {
 
 		calculateScaling(width, height);
 		
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		//BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		
-		Graphics2D graphics = image.createGraphics();
-		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//Graphics2D graphics = image.createGraphics();
+		//graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		ExtendedPolygon[] polys = null;
 		
@@ -363,16 +364,15 @@ public class Engine {
 				}
 				if(polys != null)
 					for(ExtendedPolygon temp:polys)
-						temp.draw(graphics);
+						temp.draw(canvas);
 			}
 			
 		}
 		
 		
-		graphics.setColor(Color.RED);
+		//graphics.setColor(Color.RED);
 		//graphics.fillRect(10, 10, 50, 50);
 		
-		return image;
 		
 	}
 	
