@@ -295,6 +295,8 @@ public class Engine {
 	
 	
 	public BufferedImage drawThese(int width, int height, ArrayList<GameObject> these) {
+
+		calculateScaling(width, height);
 		
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		
@@ -333,7 +335,46 @@ public class Engine {
 		
 	}
 	
-	
+	public BufferedImage drawThese2(int width, int height, ArrayList<GameObject> these) {
+
+		calculateScaling(width, height);
+		
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics2D graphics = image.createGraphics();
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		ExtendedPolygon[] polys = null;
+		
+		calculateScaling(width, height);
+		
+		for(int i = 0; i<these.size(); i++) {
+			System.out.println(renderCheckStatic(these.get(i).body));
+			if(these.get(i).body == null)
+				continue;
+			if(these.get(i).flag == 0) {
+				if(renderCheckStatic(these.get(i).getBounds())) {
+					polys = convertWorldToScreenNew(these.get(i), width, height);
+					//System.exit(1);
+				}
+				else {
+					System.out.print("");
+					
+				}
+				if(polys != null)
+					for(ExtendedPolygon temp:polys)
+						temp.draw(graphics);
+			}
+			
+		}
+		
+		
+		graphics.setColor(Color.RED);
+		//graphics.fillRect(10, 10, 50, 50);
+		
+		return image;
+		
+	}
 	
 	public ExtendedPolygon[] debuggingRendering(GameObject that, int width, int height)
 	{
