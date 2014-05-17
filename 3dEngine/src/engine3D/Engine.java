@@ -124,15 +124,14 @@ public class Engine {
 		double objAngle = Math.atan2(deltaY, deltaX);
 		objAngle = (objAngle<0) ? 360+objAngle : objAngle;
 		
+		int delta = Math.abs(camera.getRealRotation() - (int)objAngle);
+		
+		if(delta < horizontalFOV)
+			return true;
 		
 		return false;
 	}
 	
-	private boolean renderCheckEntity()	{
-		//TODO see if the entity intersects the FOVbox.
-		
-		return false;
-	}
 	
 	private ExtendedPolygon[] convertWorldToScreenNew(GameObject that, int width, int height)
 	{
@@ -301,11 +300,11 @@ public class Engine {
 		calculateScaling(width, height);
 		
 		for(int i = 0; i<these.size(); i++) {
-			System.out.println(renderCheckStatic(these.get(i).body));
+			System.out.println(renderCheckWorld(these.get(i).body));
 			if(these.get(i).body == null)
 				continue;
 			if(these.get(i).flag == 0) {
-				if(renderCheckStatic(these.get(i).getBounds())) {
+				if(renderCheckWorld(these.get(i).getBounds())) {
 					polys = convertWorldToScreenNew(these.get(i), width, height);
 					//System.exit(1);
 				}
@@ -342,23 +341,33 @@ public class Engine {
 		calculateScaling(width, height);
 		
 		for(int i = 0; i<these.size(); i++) {
-			System.out.println(renderCheckStatic(these.get(i).body));
+			//System.out.println(renderCheckWorld(these.get(i).body));
 			if(these.get(i).body == null)
 				continue;
 			if(these.get(i).flag == 0) {
-				if(renderCheckStatic(these.get(i).getBounds())) {
+				if(renderCheckWorld(these.get(i).getBounds())) {
 					polys = convertWorldToScreenNew(these.get(i), width, height);
 					//System.exit(1);
 				}
 				else {
-					System.out.print("");
+					polys = null;
 					
 				}
 				if(polys != null)
 					for(ExtendedPolygon temp:polys)
 						temp.draw(canvas);
 			}
-			
+			else if(these.get(i).flag == 1) {
+				if(renderCheckDynamic(these.get(i).getBounds())) {
+					polys = convertWorldToScreenNew(these.get(i), width, height);
+				}
+				else {
+					polys = null;
+				}
+				if(polys != null)
+					for(ExtendedPolygon temp:polys)
+						temp.draw(canvas);
+			}
 		}
 		
 		
