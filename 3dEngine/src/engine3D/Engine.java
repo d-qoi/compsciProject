@@ -108,7 +108,7 @@ public class Engine {
 			{
 				//debugging code
 				//System.out.printf("%d %d %d %d %d\n",deg,degMod, depth, ray.rays[degMod][depth][0], ray.rays[degMod][depth][1]);
-				if(obj.pointIsInsideXY(ray.rays[degMod][depth][0], ray.rays[degMod][depth][1])) {
+				if(obj.pointIsInsideXY((int)ray.rays[degMod][depth][0], (int)ray.rays[degMod][depth][1])) {
 					return true;
 				}
 			}
@@ -117,21 +117,13 @@ public class Engine {
 		return false;
 	}
 	
-	public boolean renderCheckStatic(Bounds3D obj) {
-		int startAng = camera.getRealRotation() - horizontalFOV/2;
-		int stopAng = camera.getRealRotation() + horizontalFOV/2;
-		System.out.printf("%d, %d :: %d, %d :: %d/72\n", startAng, stopAng, camera.getRotation(), camera.getRealRotation(),((startAng/FOVAngleStep<0)?ray.rays.length+startAng/FOVAngleStep : (startAng/FOVAngleStep>ray.rays.length-1)? startAng/FOVAngleStep-ray.rays.length : startAng/FOVAngleStep));
-		for(int ang = startAng/FOVAngleStep - 3; ang < stopAng/FOVAngleStep + 1; ang++) {
-			for(int depth = 0; depth<ray.rays[0].length; depth++) {
-				int modAngle = (ang<0)?ray.rays.length+ang : (ang>ray.rays.length-1)? ang-ray.rays.length : ang;
-				if(obj.pointIsInsideXY(ray.rays[modAngle][depth][0], ray.rays[modAngle][depth][1])) {
-				
-					//System.out.printf("%d, %d :: %d, %d :: %d, %d\n", ang, depth, ang*FOVAngleStep, depth*FOVBoxDepth, ray.rays[ang][depth][0], ray.rays[ang][depth][1]);
-					//if(obj.pointIsInsideXY(ray.rays[ang][depth][0], ray.rays[ang][depth][1]))
-					return true;
-				}
-			}
-		}
+	public boolean renderCheckDynamic(Bounds3D obj) {
+		//TODO make better
+		double deltaX = camera.getDeltaX(obj.x);
+		double deltaY = camera.getDeltaY(obj.y);
+		double objAngle = Math.atan2(deltaY, deltaX);
+		objAngle = (objAngle<0) ? 360+objAngle : objAngle;
+		
 		
 		return false;
 	}

@@ -1,32 +1,32 @@
 package engine3D;
 
 public class Rays {
-	public int[][][] rays;
+	public double[][][] rays;
 	private int viewDistance, distanceSteps, angle, angleSteps;
 	
 	public Rays(int viewDistance, int distanceSteps, int angle, int angleSteps)
 	{
 		this.viewDistance = viewDistance;
-		this.setDistanceSteps(distanceSteps);
-		this.setAngle(angle);
-		this.setAngleSteps(angleSteps);
+		this.distanceSteps = distanceSteps;
+		this.angle = angle;
+		this.angleSteps = angleSteps;
 		
 		generateRays(viewDistance, distanceSteps, angle, angleSteps);
 	}
 		
 	private void generateRays(int viewDistance, int distanceSteps, int angle, int angleSteps)
 	{
-		rays = new int[angle/angleSteps][viewDistance/distanceSteps][2];
-		for(int ang = 1; ang<angle/angleSteps + 1; ang++)
+		rays = new double[angle/angleSteps][viewDistance/distanceSteps][2];
+		for(int ang = 0; ang<angle/angleSteps; ang++)
 		{
 			for(int dist = 1; dist<viewDistance/distanceSteps + 1; dist++)
 			{
 				int tempAng = ang*angleSteps;
 				int tempDist = dist*distanceSteps;
-				int x = (int)(tempDist*(Math.cos(Math.toRadians(tempAng))));
-				int y = (int)(tempDist*(Math.sin(Math.toRadians(tempAng))));
-				rays[ang-1][dist-1][0] = x;
-				rays[ang-1][dist-1][1] = y;
+				double x = (tempDist*(Math.cos(Math.toRadians(tempAng))));
+				double y = (tempDist*(Math.sin(Math.toRadians(tempAng))));
+				rays[ang][dist-1][0] = x;
+				rays[ang][dist-1][1] = y;
 				//System.out.println(x + " " + y + " " + tempAng + " " + tempDist);
 			}
 		}
