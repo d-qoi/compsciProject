@@ -20,6 +20,10 @@ public class StaticObject extends GameObject {
 		this.body = poly;
 		this.flag = 0;
 	}
+	public StaticObject(Bounds3D poly, int flag) {
+		this.body = poly;
+		this.flag = flag;
+	}
 
 	public void calculate(Engine engine) {
 		

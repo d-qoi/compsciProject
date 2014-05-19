@@ -101,9 +101,18 @@ public class Engine {
 		//TODO get this working, needs to check if FOVbox intersects the world box.
 		int modifiedAngle = (camera.getRotation() - horizontalFOV/2) - (camera.getRotation() + horizontalFOV/2)%FOVAngleStep;
 		//System.out.printf("%d, %d",modifiedAngle,modifiedAngle+horizontalFOV);
+		int degMod=0;
 		for(int deg = modifiedAngle; deg < modifiedAngle + horizontalFOV + FOVAngleStep; deg += FOVAngleStep)
 		{
-			int degMod = ((deg < 0)?360+deg : deg)/FOVAngleStep;
+			
+			if(deg < 0)
+			{
+				degMod = ray.rays.length+deg;
+			}
+			else if(deg > ray.rays.length)
+			{
+				degMod = deg%ray.rays.length;
+			}
 			for(int depth = 0; depth < ray.rays.length; depth++)
 			{
 				//debugging code
@@ -260,7 +269,7 @@ public class Engine {
 		//coord[1] += (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
 		
 		int distance = camera.distanceToXY(coord[0], coord[1]);
-		double rot = Math.toRadians(camera.getRealRotation());
+		double rot = Math.toRadians(camera.getRotation());
 		double deltaX = camera.getDeltaX(coord[0]);
 		double deltaY = camera.getDeltaY(coord[1]);
 		
@@ -311,6 +320,17 @@ public class Engine {
 				else {
 					System.out.print("");
 					
+				}
+				if(polys != null)
+					for(ExtendedPolygon temp:polys)
+						temp.draw(graphics);
+			}
+			else if(these.get(i).flag == 1) {
+				if(renderCheckDynamic(these.get(i).getBounds())) {
+					polys = convertWorldToScreenNew(these.get(i), width, height);
+				}
+				else {
+					polys = null;
 				}
 				if(polys != null)
 					for(ExtendedPolygon temp:polys)
