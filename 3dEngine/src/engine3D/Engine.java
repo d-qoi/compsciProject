@@ -24,6 +24,8 @@ public class Engine {
 	public Camera camera;
 	public Rays ray;
 	
+	private static final double radOf45 = Math.toRadians(45);
+	
 	//Rectangle[][] FOVBox; 
 	
 	
@@ -128,8 +130,8 @@ public class Engine {
 	
 	public boolean renderCheckStatic(Bounds3D obj) {
 		
-		int startAng = (camera.getRotation() - horizontalFOV/2)/FOVAngleStep;
-		int stopAng = (camera.getRotation() + horizontalFOV/2)/FOVAngleStep;
+		int startAng = (camera.getRealRotation() - horizontalFOV/2)/FOVAngleStep;
+		int stopAng = (camera.getRealRotation() + horizontalFOV/2)/FOVAngleStep;
 		//System.out.println(startAng + " " + stopAng + " " + camera.getRotation());
 		int degMod = 0;
 		for(int deg = startAng; deg <stopAng + 1; deg++) {
@@ -143,13 +145,13 @@ public class Engine {
 			for(int depth = 0; depth < ray.rays[degMod].length-1; depth++) {
 				//System.out.printf("%d %d, %d\n", degMod, deg, ray.rays.length);
 				if(obj.pointIsInsideXY((int)ray.rays[degMod][depth][0],(int)ray.rays[degMod][depth][1])) {
-					System.out.println("True");
+					//System.out.println("True");
 					return true;
 				}
 					
 			}
 		}
-		System.out.println("False");
+		//System.out.println("False");
 		return false;
 	}
 	
@@ -160,9 +162,8 @@ public class Engine {
 		double objAngle = Math.atan2(deltaY, deltaX);
 		objAngle = (objAngle<0) ? 360+objAngle : objAngle;
 		
-		int delta = Math.abs(camera.getRotation() - (int)objAngle);
-		
-		if(delta < horizontalFOV)
+		double delta = Math.abs(objAngle - camera.getRealRotation());
+		if(delta > horizontalFOV)
 			return true;
 		
 		return false;
@@ -322,6 +323,7 @@ public class Engine {
 	
 	
 	
+	@SuppressWarnings("unused")
 	public BufferedImage drawThese(int width, int height, ArrayList<GameObject> these) {
 
 		calculateScaling(width, height);
@@ -333,7 +335,6 @@ public class Engine {
 		
 		ExtendedPolygon[] polys = null;
 		
-		calculateScaling(width, height);
 		
 		for(int i = 0; i<these.size(); i++) {
 			//System.out.println(renderCheckWorld(these.get(i).body));

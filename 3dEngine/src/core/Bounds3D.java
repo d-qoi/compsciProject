@@ -110,8 +110,8 @@ public class Bounds3D {
 	}
 	
 	public boolean pointIsInsideXY(int x, int y) {
-		if(Math.abs(x-center[0]) < width/2) {
-			if(Math.abs(y-center[1]) < depth/2) {
+		if(Math.abs(this.x-x) < width/2) {
+			if(Math.abs(this.y-y) < depth/2) {
 				return true;
 			}
 		}

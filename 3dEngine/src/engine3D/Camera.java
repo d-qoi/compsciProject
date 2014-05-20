@@ -71,7 +71,7 @@ public class Camera {
 		this.rotation = (rotation-90);
 		if(this.rotation < 0)
 		{
-			this.rotation = 360+this.rotation;
+			this.rotation = 360 + this.rotation;
 		}
 	}
 	
@@ -82,13 +82,13 @@ public class Camera {
 		return (Math.sqrt(Math.pow(points[0] - this.x, 2) + Math.pow(points[1] - this.y, 2) + Math.pow(points[2] - this.z,2)));
 	}
 	public double getDeltaX(double x) {
-		return x - this.x;
+		return Math.abs(x - this.x);
 	}
 	public double getDeltaY(double y) {
-		return y - this.y;
+		return Math.abs(y - this.y);
 	}
 	public double getDeltaZ(double z) {
-		return z -this.z;
+		return z - this.z;
 	}
 	
 	public Location3D getLocation() {
