@@ -33,7 +33,8 @@ public class RenderTest3 {
 				tickCount++;
 				tickSec++;
 				
-				engine.camera.setRotation((engine.camera.getRotation() + 1) % 360);
+				engine.camera.setRotation((engine.camera.getRotation() + 1));
+				//if(engine.camera.getRotation())
 			}
 
 			public void onPostPaint(Graphics2D g) {
@@ -62,9 +63,9 @@ public class RenderTest3 {
 		game.gameTick.setThreadDelay(50);
 		game.setEngine(new Engine());
 
-		game.getEngine().useCamera(new Camera(50, 50, 5, 0));
+		game.getEngine().useCamera(new Camera(100,100, 50, 0));
 
-		game.renderPanel.add(new StaticObject(new Bounds3D(0, 200, 0, 10, 10, 100), 0));
+		game.renderPanel.add(new StaticObject(new Bounds3D(500, 200, 50, 100, 100, 100), 0));
 		//game.renderPanel.add(new StaticObject(new Bounds3D(0, 0, 5, 4, 4, 4)));
 		//game.renderPanel.add(new StaticObject(new Bounds3D(0, 0, 10, 4, 4, 4)));
 

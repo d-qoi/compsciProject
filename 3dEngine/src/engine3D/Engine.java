@@ -99,7 +99,7 @@ public class Engine {
 	
 	public boolean renderCheckWorld(Bounds3D obj)	{
 		//TODO get this working, needs to check if FOVbox intersects the world box.
-		int modifiedAngle = (camera.getRotation() - horizontalFOV/2) - (camera.getRotation() + horizontalFOV/2)%FOVAngleStep;
+		int modifiedAngle = (camera.getRotation() - horizontalFOV/2) - (camera.getRotation() + horizontalFOV/2)/FOVAngleStep;
 		//System.out.printf("%d, %d",modifiedAngle,modifiedAngle+horizontalFOV);
 		int degMod=0;
 		for(int deg = modifiedAngle; deg < modifiedAngle + horizontalFOV + FOVAngleStep; deg += FOVAngleStep)
@@ -126,6 +126,33 @@ public class Engine {
 		return false;
 	}
 	
+	public boolean renderCheckStatic(Bounds3D obj) {
+		
+		int startAng = (camera.getRotation() - horizontalFOV/2)/FOVAngleStep;
+		int stopAng = (camera.getRotation() + horizontalFOV/2)/FOVAngleStep;
+		//System.out.println(startAng + " " + stopAng + " " + camera.getRotation());
+		int degMod = 0;
+		for(int deg = startAng; deg <stopAng + 1; deg++) {
+			if(deg < 0) {
+				degMod = ray.rays.length + deg;
+			}
+			else if(deg > ray.rays.length - 1) {
+				degMod = deg - ray.rays.length;
+			}
+			
+			for(int depth = 0; depth < ray.rays[degMod].length-1; depth++) {
+				//System.out.printf("%d %d, %d\n", degMod, deg, ray.rays.length);
+				if(obj.pointIsInsideXY((int)ray.rays[degMod][depth][0],(int)ray.rays[degMod][depth][1])) {
+					System.out.println("True");
+					return true;
+				}
+					
+			}
+		}
+		System.out.println("False");
+		return false;
+	}
+	
 	public boolean renderCheckDynamic(Bounds3D obj) {
 		//TODO make better
 		double deltaX = camera.getDeltaX(obj.x);
@@ -133,7 +160,7 @@ public class Engine {
 		double objAngle = Math.atan2(deltaY, deltaX);
 		objAngle = (objAngle<0) ? 360+objAngle : objAngle;
 		
-		int delta = Math.abs(camera.getRealRotation() - (int)objAngle);
+		int delta = Math.abs(camera.getRotation() - (int)objAngle);
 		
 		if(delta < horizontalFOV)
 			return true;
@@ -309,16 +336,16 @@ public class Engine {
 		calculateScaling(width, height);
 		
 		for(int i = 0; i<these.size(); i++) {
-			System.out.println(renderCheckWorld(these.get(i).body));
+			//System.out.println(renderCheckWorld(these.get(i).body));
 			if(these.get(i).body == null)
 				continue;
 			if(these.get(i).flag == 0) {
-				if(renderCheckWorld(these.get(i).getBounds())) {
+				if(renderCheckStatic(these.get(i).getBounds())) {
 					polys = convertWorldToScreenNew(these.get(i), width, height);
 					//System.exit(1);
 				}
 				else {
-					System.out.print("");
+					polys = null;
 					
 				}
 				if(polys != null)

@@ -55,18 +55,23 @@ public class Camera {
 	}
 
 	public int getRotation() {
+		if(rotation + 90 > 359)
+			return rotation - 270;
 		return rotation + 90;
 	}
 	
 	public int getRealRotation() {
 		return rotation;
 	}
+	public void setRealRotation(int rot) {
+		this.rotation = rot;
+	}
 
 	public void setRotation(int rotation) {
-		this.rotation = (rotation%360)-90;
+		this.rotation = (rotation-90);
 		if(this.rotation < 0)
 		{
-			this.rotation = 360-this.rotation;
+			this.rotation = 360+this.rotation;
 		}
 	}
 	
