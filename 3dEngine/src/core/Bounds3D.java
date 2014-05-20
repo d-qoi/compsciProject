@@ -1,5 +1,6 @@
 package core;
 
+import java.awt.Polygon;
 import java.awt.Rectangle;
 
 import org.ejml.data.DenseMatrix64F;
@@ -8,6 +9,8 @@ public class Bounds3D {
 
 	public int x, y, z, width, height, depth;
 	double rotX, rotY, rotZ;
+	
+	Polygon botomFace;
 	
 	public int[] bounds;
 	public double[] center;
@@ -98,6 +101,7 @@ public class Bounds3D {
 		cornor.set(7, 0, bounds[0]);
 		cornor.set(7, 1, bounds[4]);
 		cornor.set(7, 2, bounds[5]);
+		getBottomFace();
 
 	}
 
@@ -294,6 +298,7 @@ public class Bounds3D {
 		//output.print();
 		cornor = output;
 		//calcBounds();
+		getBottomFace();
 
 	}
 	
@@ -319,6 +324,7 @@ public class Bounds3D {
 		}
 		//output.print();
 		cornor = output;
+		getBottomFace();
 	}
 
 	public void rotateY(double deg) {
@@ -342,6 +348,21 @@ public class Bounds3D {
 		}
 		//output.print();
 		cornor = output;
+		getBottomFace();
+	}
+	
+	public void getBottomFace() {
+		int[] x = new int[4];
+		int[] y = new int[4];
+		x[0] = (int)cornor.get(0,0);
+		x[1] = (int)cornor.get(1,0);
+		x[2] = (int)cornor.get(2,0);
+		x[3] = (int)cornor.get(3,0);
+		y[0] = (int)cornor.get(0,1);
+		y[1] = (int)cornor.get(1,1);
+		y[2] = (int)cornor.get(2,1);
+		y[3] = (int)cornor.get(3,1);
+		this.botomFace = new Polygon(x, y, 4);
 	}
 
 	public int getX() {

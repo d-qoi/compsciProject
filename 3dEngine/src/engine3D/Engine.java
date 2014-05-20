@@ -1,9 +1,7 @@
 package engine3D;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -87,52 +85,14 @@ public class Engine {
 		
 	private void calculateRacasting() {
 		ray = new Rays(viewDistance, FOVBoxDepth, 360, FOVAngleStep);
-		/*  // debugging code
-		for(int i = 0; i<ray.rays.length;i++)
-		{
-			for(int j = 0; j<ray.rays[i].length; j++)
-			{
-				System.out.print(ray.rays[i][j][0] + " " + ray.rays[i][j][1] + ", ");
-			}
-			System.out.println();
-		}
-		*/
 	}
 	
-	public boolean renderCheckWorld(Bounds3D obj)	{
-		//TODO get this working, needs to check if FOVbox intersects the world box.
-		int modifiedAngle = (camera.getRotation() - horizontalFOV/2) - (camera.getRotation() + horizontalFOV/2)/FOVAngleStep;
-		//System.out.printf("%d, %d",modifiedAngle,modifiedAngle+horizontalFOV);
-		int degMod=0;
-		for(int deg = modifiedAngle; deg < modifiedAngle + horizontalFOV + FOVAngleStep; deg += FOVAngleStep)
-		{
-			
-			if(deg < 0)
-			{
-				degMod = ray.rays.length+deg;
-			}
-			else if(deg > ray.rays.length)
-			{
-				degMod = deg%ray.rays.length;
-			}
-			for(int depth = 0; depth < ray.rays.length; depth++)
-			{
-				//debugging code
-				//System.out.printf("%d %d %d %d %d\n",deg,degMod, depth, ray.rays[degMod][depth][0], ray.rays[degMod][depth][1]);
-				if(obj.pointIsInsideXY((int)ray.rays[degMod][depth][0], (int)ray.rays[degMod][depth][1])) {
-					return true;
-				}
-			}
-		}
-		
-		return false;
-	}
 	
 	public boolean renderCheckStatic(Bounds3D obj) {
 		
 		int startAng = (camera.getRealRotation() - horizontalFOV/2)/FOVAngleStep;
 		int stopAng = (camera.getRealRotation() + horizontalFOV/2)/FOVAngleStep;
-		//System.out.println(startAng + " " + stopAng + " " + camera.getRotation());
+		System.out.println(startAng + " " + stopAng + " " + camera.getRotation());
 		int degMod = 0;
 		for(int deg = startAng; deg <stopAng + 1; deg++) {
 			if(deg < 0) {
@@ -144,7 +104,7 @@ public class Engine {
 			
 			for(int depth = 0; depth < ray.rays[degMod].length-1; depth++) {
 				//System.out.printf("%d %d, %d\n", degMod, deg, ray.rays.length);
-				if(obj.pointIsInsideXY((int)ray.rays[degMod][depth][0],(int)ray.rays[degMod][depth][1])) {
+				if(obj.pointIsInsideXY((int)ray.rays[degMod][depth][0] + camera.getX(),(int)ray.rays[degMod][depth][1] + camera.getY())) {
 					//System.out.println("True");
 					return true;
 				}
@@ -321,9 +281,7 @@ public class Engine {
 		return point;
 	}
 	
-	
-	
-	@SuppressWarnings("unused")
+
 	public BufferedImage drawThese(int width, int height, ArrayList<GameObject> these) {
 
 		calculateScaling(width, height);
@@ -375,55 +333,7 @@ public class Engine {
 		
 	}
 	
-	public void drawThese2(int width, int height, ArrayList<GameObject> these, Graphics canvas) {
-
-		calculateScaling(width, height);
-		
-		//BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		
-		//Graphics2D graphics = image.createGraphics();
-		//graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
-		ExtendedPolygon[] polys = null;
-		
-		calculateScaling(width, height);
-		
-		for(int i = 0; i<these.size(); i++) {
-			//System.out.println(renderCheckWorld(these.get(i).body));
-			if(these.get(i).body == null)
-				continue;
-			if(these.get(i).flag == 0) {
-				if(renderCheckWorld(these.get(i).getBounds())) {
-					polys = convertWorldToScreenNew(these.get(i), width, height);
-					//System.exit(1);
-				}
-				else {
-					polys = null;
-					
-				}
-				if(polys != null)
-					for(ExtendedPolygon temp:polys)
-						temp.draw(canvas);
-			}
-			else if(these.get(i).flag == 1) {
-				if(renderCheckDynamic(these.get(i).getBounds())) {
-					polys = convertWorldToScreenNew(these.get(i), width, height);
-				}
-				else {
-					polys = null;
-				}
-				if(polys != null)
-					for(ExtendedPolygon temp:polys)
-						temp.draw(canvas);
-			}
-		}
-		
-		
-		//graphics.setColor(Color.RED);
-		//graphics.fillRect(10, 10, 50, 50);
-		
-		
-	}
+	/*
 	
 	public ExtendedPolygon[] debuggingRendering(GameObject that, int width, int height)
 	{
@@ -440,4 +350,5 @@ public class Engine {
 		return convertWorldToScreenNew(that, width, height);
 		//return fal2;
 	}
+	*/
 }
