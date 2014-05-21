@@ -140,7 +140,7 @@ public class Engine {
 		return false;
 	}
 
-	private ExtendedPolygon[] convertWorldToScreenNew(GameObject that,
+	private ExtendedPolygon[] convertWorldToScreen2(GameObject that,
 			int width, int height) {
 		ExtendedPolygon[] poly = new ExtendedPolygon[3];
 		double[][][] faces = that.getBounds().getFaces();
@@ -453,7 +453,7 @@ public class Engine {
 				continue;
 			if (these.get(i).flag == 0) {
 				if (renderCheckStatic(these.get(i).getBounds())) {
-					polys = convertWorldToScreenNew(these.get(i), width, height);
+					polys = convertWorldToScreen3(these.get(i), width, height);
 					// System.exit(1);
 				} else {
 					polys = null;
@@ -464,7 +464,7 @@ public class Engine {
 						temp.draw(graphics);
 			} else if (these.get(i).flag == 1) {
 				if (renderCheckDynamic(these.get(i).getBounds())) {
-					polys = convertWorldToScreenNew(these.get(i), width, height);
+					polys = convertWorldToScreen3(these.get(i), width, height);
 				} else {
 					polys = null;
 				}
