@@ -113,13 +113,8 @@ public class Bounds3D {
 		return this.cornor;
 	}
 	
-	public boolean pointIsInsideXY(int x, int y) {
-		if(Math.abs(this.x-x) < width/2) {
-			if(Math.abs(this.y-y) < depth/2) {
-				return true;
-			}
-		}
-		return false;
+	public boolean pointIsInsideXY(double x, double y) {
+		return botomFace.contains(x, y);
 	}
 
 	public double[][][] getFaces() {

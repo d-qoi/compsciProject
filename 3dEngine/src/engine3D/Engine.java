@@ -101,10 +101,13 @@ public class Engine {
 			else if(deg > ray.rays.length - 1) {
 				degMod = deg - ray.rays.length;
 			}
+			else {
+				degMod = deg;
+			}
 			
 			for(int depth = 0; depth < ray.rays[degMod].length-1; depth++) {
 				//System.out.printf("%d %d, %d\n", degMod, deg, ray.rays.length);
-				if(obj.pointIsInsideXY((int)ray.rays[degMod][depth][0] + camera.getX(),(int)ray.rays[degMod][depth][1] + camera.getY())) {
+				if(obj.pointIsInsideXY(ray.rays[degMod][depth][0] + camera.getX(), ray.rays[degMod][depth][1] + camera.getY())) {
 					//System.out.println("True");
 					return true;
 				}
@@ -257,7 +260,7 @@ public class Engine {
 		//coord[1] += (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
 		
 		int distance = camera.distanceToXY(coord[0], coord[1]);
-		double rot = Math.toRadians(camera.getRotation());
+		double rot = Math.toRadians(camera.getRealRotation());
 		double deltaX = camera.getDeltaX(coord[0]);
 		double deltaY = camera.getDeltaY(coord[1]);
 		
