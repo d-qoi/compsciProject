@@ -22,6 +22,10 @@ public class RenderPanel extends JPanel {
 	public ArrayList<GameObject> objects;
 	
 	public Engine engine;
+	
+	public GameTick tick;
+	
+	public GameListener listener;
 
 	public RenderPanel() {
 		super();
