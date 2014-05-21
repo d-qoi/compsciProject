@@ -116,9 +116,9 @@ public class CopyOfRenderTest2 {
 				engine.camera.setRotation(rotate + 90);
 				
 				//System.out.println(engine.camera.getRotation());
-				polygons = CopyOfRenderTest2.engine.debuggingRendering(box,
-						CopyOfRenderTest2.panel.getWidth(),
-						CopyOfRenderTest2.panel.getHeight());
+				//polygons = CopyOfRenderTest2.engine.debuggingRendering(box,
+				//		CopyOfRenderTest2.panel.getWidth(),
+				//		CopyOfRenderTest2.panel.getHeight());
 			}
 
 			public void draw(Graphics2D r) {

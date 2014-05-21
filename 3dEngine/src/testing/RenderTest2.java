@@ -86,9 +86,9 @@ public class RenderTest2 {
 				// engine.camera.setX(pos + 50);
 				// engine.camera.setY(pos);
 				// System.out.println(engine.camera.getRotation());
-				polygons = RenderTest2.engine.debuggingRendering(box,
-						RenderTest2.panel.getWidth(),
-						RenderTest2.panel.getHeight());
+				//polygons = RenderTest2.engine.debuggingRendering(box,
+				//		RenderTest2.panel.getWidth(),
+				//		RenderTest2.panel.getHeight());
 			}
 
 			public void draw(Graphics2D r) {
