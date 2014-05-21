@@ -44,12 +44,14 @@ public class GameWindow extends JFrame{
 	public void setGameTick(GameTick tick) {
 		gameTick = tick;
 		tick.panel = renderPanel;
+		renderPanel.tick = tick;
 		tick.window = this;
 		gameThread = new Thread(gameTick);
 	}
 	
 	public void setGameListener(GameListener listener) {
 		this.listener = listener;
+		renderPanel.listener = listener;
 		
 		this.addKeyListener(listener);
 		this.addMouseListener(listener);
