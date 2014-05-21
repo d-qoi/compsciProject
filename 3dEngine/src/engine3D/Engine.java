@@ -189,7 +189,7 @@ public class Engine {
 		{
 			//System.out.printf("FaceX point %d ");
 			//double[] tempPoint = pointToScreenNew(faceX[i], width, height);
-			double[] tempPoint = pointToScreen2(faceX[i], width, height);
+			double[] tempPoint = pointToScreen3(faceX[i], width, height);
 			faceX[i] = tempPoint;
 			
 		}
@@ -198,14 +198,14 @@ public class Engine {
 		{
 			//System.out.printf("FaceX point %d ");
 			//double[] tempPoint = pointToScreenNew(faceY[i], width, height);
-			double[] tempPoint = pointToScreen2(faceY[i], width, height);
+			double[] tempPoint = pointToScreen3(faceY[i], width, height);
 			faceY[i] = tempPoint;
 			
 		}
 		for(int i = 0; i<faceZ.length; i++)
 		{
 			//System.out.printf("FaceX point %d ");
-			double[] tempPoint = pointToScreen2(faceZ[i], width, height);
+			double[] tempPoint = pointToScreen3(faceZ[i], width, height);
 			faceZ[i] = tempPoint;
 			
 		}
@@ -284,6 +284,41 @@ public class Engine {
 		return point;
 	}
 	
+	private double[] pointToScreen3(double[] coord, int width, int height) {
+		double[] point = new double[2];
+		int CenterX = width/2;
+		int CenterY = height/2;
+		
+		//TODO mess with positive and negatives here because they are weird.
+		//TODO make sure scaling is correct
+		
+		//coord[0] += (int)(coord[0] * Math.cos(Math.toRadians(camera.getRotation())));
+		//coord[1] += (int)(coord[1] * Math.sin(Math.toRadians(camera.getRotation())));
+		
+		int distance = camera.distanceToXY(coord[0], coord[1]);
+		double rot = Math.toRadians(camera.getRealRotation());
+		double deltaX = camera.getDeltaX(coord[0]);
+		double deltaY = camera.getDeltaY(coord[1]);
+		
+		point[0] = CenterX;
+		
+		//TODO mess with haphazard rotation.
+		
+		double slopeX = (double)deltaX/distance;
+		point[0] += ((slopeX)*viewDistance) * scalingX; 
+		
+		slopeX = (double)deltaY/distance;
+		point[0] += ((slopeX)*viewDistance) * scalingX;
+		
+		
+		point[1] = CenterY;
+		
+		//TODO finish this
+		double slopeZ = (double)camera.getDeltaZ(coord[2])/distance;
+		point[1] += (slopeZ*viewDistance) * scalingY;
+		
+		return point;
+	}
 
 	public BufferedImage drawThese(int width, int height, ArrayList<GameObject> these) {
 

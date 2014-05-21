@@ -65,11 +65,11 @@ public class RenderTest3 {
 		game.engine.setVerticalFOV(30);
 
 		game.getEngine().useCamera(new Camera(250,250, 50, 0));
-		StaticObject temp = new StaticObject(new Bounds3D(500, 500, 50, 100, 100, 10), 0);
+		StaticObject temp = new StaticObject(new Bounds3D(100, 100, 50, 100, 100, 10), 0);
 		temp.setTexture(Color.CYAN);
 
 		game.renderPanel.add(temp);
-		game.renderPanel.add(new StaticObject(new Bounds3D(100, 100, 50, 100, 100, 10), 0));
+		game.renderPanel.add(new StaticObject(new Bounds3D(250, 100, 50, 100, 100, 10), 0));
 		//game.renderPanel.add(new StaticObject(new Bounds3D(0, 0, 5, 4, 4, 4)));
 		//game.renderPanel.add(new StaticObject(new Bounds3D(0, 0, 10, 4, 4, 4)));
 
