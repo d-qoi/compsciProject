@@ -105,7 +105,7 @@ public class Engine {
 			if (deg < 0) {
 				degMod = ray.rays.length + deg;
 			} else if (deg > ray.rays.length - 1) {
-				degMod = deg - ray.rays.length;
+				degMod = deg % ray.rays.length;
 			} else {
 				degMod = deg;
 			}
