@@ -18,7 +18,7 @@ public class ExtendedPolygon extends Polygon {
 	public void draw(Graphics graphics) {
 		graphics.setColor(color);
 		//TODO make sure this works
-		graphics.fillPolygon(this);
+		graphics.drawPolygon(this);
 	}
 
 }
